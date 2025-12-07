@@ -1,0 +1,80 @@
+/* #root {
+} */
+
+.page {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+/* @media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+} */
+
+.header {
+  font-size: 48px;
+  font-weight: 400;
+  /* font-family: var(--font-display); */
+  padding: 0px 16px;
+  font-family: "Rum Raisin", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  width: 100%;
+  padding: 32px 16px;
+  max-width: 1024px;
+  align-items: flex-start;
+  justify-content: space-around;
+  background-color: var(--foreground);
+}
+
+.card {
+  border-radius: 16px;
+  border: 2px solid black;
+  display: inline-block;
+  overflow: hidden;
+  width: 320px;
+  min-width: 320px;
+
+  .card-header {
+    background-color: #6c96e3;
+    font-family: var(--font-display);
+    font-size: 48px;
+    padding: 0px 16px;
+  }
+
+  .card-body {
+    padding: 16px;
+
+    p {
+      padding-bottom: 16px;
+    }
+
+    button {
+      background-color: #6c96e3;
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 8px;
+    }
+  }
+
+  &.inactive {
+    border-color: darkgray;
+    color: darkgray;
+
+    .card-header {
+      background-color: lightgray;
+    }
+
+    button {
+      background-color: white;
+      cursor: default;
+    }
+  }
+}

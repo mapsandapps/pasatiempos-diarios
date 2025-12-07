@@ -1,0 +1,47 @@
+.game-container {
+  background-color: #deeaff;
+  color: black;
+  height: 480px;
+
+  .game {
+    max-width: 320px;
+    margin: 0 auto;
+
+    .word {
+      cursor: pointer;
+      width: 100%;
+      /* &:last-of-type {
+        padding-bottom: 80px;
+      } */
+
+      &.active {
+        background-color: orange;
+
+        .empty-syllable:first-of-type {
+          /* FIXME: not working */
+          background-color: white;
+        }
+      }
+    }
+
+    .syllable {
+      display: inline-block;
+      background-color: #1d4ea8;
+      color: white;
+      margin: 4px 4px;
+      padding: 6px;
+      min-width: 30px;
+      min-height: 30px;
+      text-align: center;
+
+      &.empty-syllable {
+        background-color: #6c96e3;
+      }
+    }
+  }
+
+  .error {
+    background-color: crimson;
+    padding: 16px;
+  }
+}
