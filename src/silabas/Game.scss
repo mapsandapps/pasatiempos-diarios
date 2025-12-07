@@ -4,12 +4,15 @@
   height: 480px;
 
   .game {
-    max-width: 320px;
+    max-width: 480px;
     margin: 0 auto;
 
     .word {
       cursor: pointer;
       width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 4px 0px 8px;
       /* &:last-of-type {
         padding-bottom: 80px;
       } */
