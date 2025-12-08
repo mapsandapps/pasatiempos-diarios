@@ -9,7 +9,9 @@ function App() {
 
   return (
     <>
-      <div className="header">Pasatiempos Diarios</div>
+      <a href="/">
+        <div className="header">Pasatiempos Diarios</div>
+      </a>
       {/* <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

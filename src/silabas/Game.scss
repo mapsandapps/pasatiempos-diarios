@@ -6,24 +6,36 @@
   .game {
     max-width: 480px;
     margin: 0 auto;
+    padding-top: 24px;
+    position: relative;
 
     .word {
       cursor: pointer;
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 4px 4px 0px 8px;
-      // &:last-of-type {
-      //   padding-bottom: 80px;
-      // }
+      padding: 0px 4px 0px 8px;
 
       &.active {
         background-color: orange;
+      }
+
+      .syllable {
+        // only syllables by the definitions, not those in the bank
+        margin: 4px 2px;
+        padding: 6px 8px;
+        &:first-child {
+          border-radius: 8px 0 0 8px;
+        }
+        &:last-child {
+          border-radius: 0 8px 8px 0;
+        }
       }
     }
 
     .definition {
       font-size: 24px;
+      line-height: 48px;
       font-family: "Rum Raisin", sans-serif;
     }
 
@@ -46,11 +58,42 @@
         }
       }
     }
+
+    .bank {
+      margin-top: 24px;
+
+      .syllable {
+        cursor: pointer;
+      }
+    }
+
+    .complete {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      text-align: right;
+      font-size: 88px;
+      font-family: "Rum Raisin", sans-serif;
+      padding: 0px 8px;
+
+      div {
+        width: 100%;
+        text-align: center;
+      }
+
+      button {
+        text-align: right;
+        font-size: 24px;
+        background-color: transparent;
+      }
+    }
   }
 
-  .bank {
-    .syllable {
-      cursor: pointer;
+  &.game-over {
+    div {
+      cursor: default !important;
     }
   }
 }

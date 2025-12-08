@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Game.scss";
 import { cloneDeep, fill, sampleSize } from "lodash";
 import type { Definition, Puzzle } from "../types";
@@ -51,14 +51,12 @@ const findFirstEmptySyllable = (
 ) => {
   const activeWord = inProgressPuzzle.words[activeWordIndex];
 
-  console.log(
-    "first",
-    activeWord.syllables.findIndex((syllable) => syllable === "")
-  );
   return activeWord.syllables.findIndex((syllable) => syllable === "");
 };
 
 export default function Game(props: GameProps) {
+  const [hasWon, setHasWon] = useState(false);
+  const [showWinScreen, setShowWinScreen] = useState(false);
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [activeSyllableIndex, setActiveSyllableIndex] = useState(0);
   const solution = getSolution(props.puzzle);
@@ -66,25 +64,36 @@ export default function Game(props: GameProps) {
     initProgress(solution)
   );
 
-  // // on first render:
-  // useEffect(() => {
-  //   setInProgressPuzzle()
-  // }, [])
+  // check for win condition
+  useEffect(() => {
+    let hasLost = false;
+    if (inProgressPuzzle.syllables.length < 1) {
+      solution.forEach((word, wordIndex) => {
+        word.syllables.forEach((syllable, syllableIndex) => {
+          if (
+            syllable !==
+            inProgressPuzzle.words[wordIndex].syllables[syllableIndex]
+          ) {
+            hasLost = true;
+            return;
+          }
+        });
+      });
 
-  // useEffect(() => {
-  //   setActiveSyllableIndex(
-  //     findFirstEmptySyllable(activeWordIndex, inProgressPuzzle)
-  //   );
-  // }, [activeWordIndex, inProgressPuzzle.words[activeWordIndex]]);
+      if (!hasLost) {
+        setHasWon(true);
+        setShowWinScreen(true);
+      }
+    }
+  }, [inProgressPuzzle.syllables]);
 
-  // if syllable index is included, set to that; otherwise set to the first empty syllable in the word
+  // if syllable index is provided, set to that; otherwise set to the first empty syllable in the word
   const setActiveSyllable = (
     activeWordIndex: number,
     puzzleState: Puzzle,
     syllableIndex?: number
   ) => {
-    if (syllableIndex) {
-      console.log("yes", syllableIndex);
+    if (syllableIndex && syllableIndex >= 0) {
       setActiveSyllableIndex(syllableIndex);
     } else {
       setActiveSyllableIndex(
@@ -127,16 +136,21 @@ export default function Game(props: GameProps) {
 
     activeWord.syllables[syllableIndex] = "";
     setInProgressPuzzle(puzzle);
+    // FIXME: this isn't working?
     setActiveSyllable(wordIndex, puzzle, syllableIndex);
   };
 
   const onClickWord = (i: number) => {
-    console.log("onClickWord", i);
+    if (hasWon) return;
+
     setActiveWordIndex(i);
+    setActiveSyllable(i, inProgressPuzzle);
     // useEffect will set the activeSyllableIndex
   };
 
   const onClickBank = (syllable: string, bankIndex: number) => {
+    if (hasWon) return;
+
     if (activeSyllableIndex < 0) {
       console.warn("word was full");
       return;
@@ -146,7 +160,7 @@ export default function Game(props: GameProps) {
   };
 
   const onClickSyllable = (wordIndex: number, syllableIndex: number) => {
-    console.log("onClickSyllable", wordIndex, syllableIndex);
+    if (hasWon) return;
 
     setActiveSyllableIndex(syllableIndex);
 
@@ -157,10 +171,20 @@ export default function Game(props: GameProps) {
     }
   };
 
+  const closeWinScreen = () => {
+    setShowWinScreen(false);
+  };
+
   return (
-    <div className="game-container">
+    <div className={`game-container ${hasWon ? "game-over" : ""}`}>
       {/* {todayWeekday}, {today.toLocaleDateString()} */}
       <div className="game">
+        {showWinScreen && (
+          <div className="complete">
+            <button onClick={closeWinScreen}>✖</button>
+            <div>You won!</div>
+          </div>
+        )}
         {inProgressPuzzle.words.map((word, i) => (
           <div
             className={`word ${i === activeWordIndex ? "active" : ""}`}
