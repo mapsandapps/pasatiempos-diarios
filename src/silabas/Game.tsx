@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Game.scss";
-import { fill, sampleSize } from "lodash";
+import { cloneDeep, fill, last, sampleSize } from "lodash";
 import type { Definition, Puzzle } from "../types";
 
 interface GameProps {
@@ -45,8 +45,18 @@ const initProgress = (solution: Definition[]): Puzzle => {
   return inProgressPuzzle;
 };
 
+const findFirstEmptySyllable = (
+  activeWordIndex: number,
+  inProgressPuzzle: Puzzle
+) => {
+  const activeWord = inProgressPuzzle.words[activeWordIndex];
+
+  return activeWord.syllables.findIndex((syllable) => syllable === "");
+};
+
 export default function Game(props: GameProps) {
   const [activeWordIndex, setActiveWordIndex] = useState(0);
+  const [activeSyllableIndex, setActiveSyllableIndex] = useState(0);
   const solution = getSolution(props.puzzle);
   const [inProgressPuzzle, setInProgressPuzzle] = useState(
     initProgress(solution)
@@ -57,8 +67,68 @@ export default function Game(props: GameProps) {
   //   setInProgressPuzzle()
   // }, [])
 
+  useEffect(() => {
+    setActiveSyllableIndex(
+      findFirstEmptySyllable(activeWordIndex, inProgressPuzzle)
+    );
+  }, [activeWordIndex, inProgressPuzzle.words[activeWordIndex]]);
+
+  const setSyllable = (
+    wordIndex: number,
+    syllableIndex: number,
+    bankIndex: number,
+    syllable: string
+  ) => {
+    const puzzle = cloneDeep(inProgressPuzzle);
+
+    const activeWord = puzzle.words[wordIndex];
+    activeWord.syllables[syllableIndex] = syllable;
+
+    puzzle.syllables.splice(bankIndex, 1);
+    setInProgressPuzzle(puzzle);
+  };
+
+  const unsetSyllable = (wordIndex: number, syllableIndex: number) => {
+    const puzzle = cloneDeep(inProgressPuzzle);
+
+    const activeWord = puzzle.words[wordIndex];
+    const activeSyllable = activeWord.syllables[syllableIndex];
+
+    puzzle.syllables.push(activeSyllable);
+
+    activeWord.syllables[syllableIndex] = "";
+    setInProgressPuzzle(puzzle);
+  };
+
   const onClickWord = (i: number) => {
     setActiveWordIndex(i);
+    // useEffect will set the activeSyllableIndex
+  };
+
+  const onClickBank = (syllable: string, bankIndex: number) => {
+    if (activeSyllableIndex < 0) {
+      console.warn("word was full");
+      return;
+    }
+
+    setSyllable(activeWordIndex, activeSyllableIndex, bankIndex, syllable);
+  };
+
+  const onClickSyllable = (
+    wordIndex: number,
+    syllableIndex: number,
+    e: any
+  ) => {
+    // don't trigger onClickWord if the clicked word is already active
+    if (wordIndex === activeWordIndex) e.stopPropagation();
+
+    const activeWord = inProgressPuzzle.words[activeWordIndex];
+    if (activeWord.syllables[syllableIndex] !== "") {
+      // remove the syllable just clicked
+      unsetSyllable(wordIndex, syllableIndex);
+    }
+
+    setActiveSyllableIndex(syllableIndex);
   };
 
   return (
@@ -73,12 +143,15 @@ export default function Game(props: GameProps) {
           >
             <div className="definition">{word.definition}</div>
             <div>
-              {word.syllables.map((syllable, i) => (
+              {word.syllables.map((syllable, j) => (
                 <div
-                  className={`${
-                    syllable === "" ? "empty-syllable" : ""
+                  className={`${syllable === "" ? "empty-syllable" : ""} ${
+                    activeWordIndex === i && activeSyllableIndex === j
+                      ? "active-syllable"
+                      : ""
                   } syllable`}
-                  key={i}
+                  onClick={(e) => onClickSyllable(i, j, e)}
+                  key={j}
                 >
                   {syllable}
                 </div>
@@ -86,9 +159,13 @@ export default function Game(props: GameProps) {
             </div>
           </div>
         ))}
-        <div>
+        <div className="bank">
           {inProgressPuzzle.syllables.map((syllable, i) => (
-            <div className="syllable" key={i}>
+            <div
+              className="syllable"
+              onClick={() => onClickBank(syllable, i)}
+              key={i}
+            >
               {syllable}
             </div>
           ))}

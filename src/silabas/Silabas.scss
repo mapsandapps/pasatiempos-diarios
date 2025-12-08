@@ -17,6 +17,11 @@
   }
 }
 
+.error {
+  background-color: crimson;
+  padding: 16px;
+}
+
 @media (max-width: 1024px) {
   #silabas {
     grid-template-columns: 1fr;
