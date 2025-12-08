@@ -1,0 +1,55 @@
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  width: 100%;
+  padding: 32px 16px;
+  max-width: 1024px;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.card {
+  border-radius: 16px;
+  border: 2px solid black;
+  display: inline-block;
+  overflow: hidden;
+  width: 320px;
+  min-width: 320px;
+
+  .card-header {
+    background-color: var(--blue-350);
+    font-size: 40px;
+    padding: 0px 16px;
+  }
+
+  .card-body {
+    padding: 16px;
+
+    p {
+      padding-bottom: 16px;
+    }
+
+    button {
+      background-color: var(--blue-350);
+      border-radius: 8px;
+      color: black;
+      cursor: pointer;
+      padding: 8px;
+    }
+  }
+
+  &.inactive {
+    border-color: darkgray;
+    color: darkgray;
+
+    .card-header {
+      background-color: lightgray;
+    }
+
+    button {
+      background-color: white;
+      cursor: default;
+    }
+  }
+}

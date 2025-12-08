@@ -1,13 +1,13 @@
 .game-container {
-  background-color: #deeaff;
+  background-color: var(--blue-100);
   color: black;
   height: 480px;
+  position: relative;
 
   .game {
     max-width: 480px;
     margin: 0 auto;
     padding-top: 24px;
-    position: relative;
 
     .word {
       cursor: pointer;
@@ -17,7 +17,7 @@
       padding: 0px 4px 0px 8px;
 
       &.active {
-        background-color: orange;
+        background-color: var(--orange-350);
       }
 
       .syllable {
@@ -34,6 +34,7 @@
     }
 
     .definition {
+      color: var(--blue-900);
       font-size: 24px;
       line-height: 48px;
       font-family: "Rum Raisin", sans-serif;
@@ -41,7 +42,7 @@
 
     .syllable {
       display: inline-block;
-      background-color: #1d4ea8;
+      background-color: var(--blue-550);
       color: white;
       margin: 4px 4px;
       padding: 6px;
@@ -51,7 +52,7 @@
       vertical-align: top;
 
       &.empty-syllable {
-        background-color: #6c96e3;
+        background-color: var(--blue-350);
 
         &.active-syllable {
           background-color: white;
@@ -66,28 +67,27 @@
         cursor: pointer;
       }
     }
+  }
 
-    .complete {
-      position: absolute;
+  .complete {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    text-align: right;
+    font-size: 88px;
+    font-family: "Rum Raisin", sans-serif;
+
+    div {
       width: 100%;
-      height: 100%;
-      background-color: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    button {
       text-align: right;
-      font-size: 88px;
-      font-family: "Rum Raisin", sans-serif;
-      padding: 0px 8px;
-
-      div {
-        width: 100%;
-        text-align: center;
-      }
-
-      button {
-        text-align: right;
-        font-size: 24px;
-        background-color: transparent;
-      }
+      font-size: 24px;
+      background-color: transparent;
     }
   }
 

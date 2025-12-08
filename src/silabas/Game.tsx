@@ -178,13 +178,13 @@ export default function Game(props: GameProps) {
   return (
     <div className={`game-container ${hasWon ? "game-over" : ""}`}>
       {/* {todayWeekday}, {today.toLocaleDateString()} */}
+      {showWinScreen && (
+        <div className="complete">
+          <button onClick={closeWinScreen}>✖</button>
+          <div>You won!</div>
+        </div>
+      )}
       <div className="game">
-        {showWinScreen && (
-          <div className="complete">
-            <button onClick={closeWinScreen}>✖</button>
-            <div>You won!</div>
-          </div>
-        )}
         {inProgressPuzzle.words.map((word, i) => (
           <div
             className={`word ${i === activeWordIndex ? "active" : ""}`}
