@@ -1,17 +1,16 @@
-// import { useState } from "react";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
 import "./App.css";
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 
 function App() {
   // const [count, setCount] = useState(0);
 
   return (
     <>
-      <a href="/">
+      <Link to="/">
         <div className="header">Pasatiempos Diarios</div>
-      </a>
+      </Link>
       {/* <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

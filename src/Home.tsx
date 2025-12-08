@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import "./App.css";
 
 export default function Home() {
@@ -10,18 +11,16 @@ export default function Home() {
             Form Spanish words from their syllables and English definitions
             {/* Construct words based on syllables and definitions */}
           </p>
-          <a href="./silabas">
+          <Link to="/silabas">
             <button>Play today's puzzle</button>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="card inactive">
         <div className="card-header">Hidden Object</div>
         <div className="card-body">
           <p className="description">Find images that match Spanish words</p>
-          <a href="./silabas" aria-disabled>
-            <button disabled>Coming soon</button>
-          </a>
+          <button disabled>Coming soon</button>
         </div>
       </div>
       <div className="card inactive">
