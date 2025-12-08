@@ -1,17 +1,17 @@
 .game-container {
   background-color: var(--blue-100);
   color: black;
-  height: 480px;
   position: relative;
 
   .game {
-    max-width: 480px;
     margin: 0 auto;
-    padding-top: 24px;
+    max-width: 468px;
+    padding: 24px 0px;
 
     .word {
       cursor: pointer;
-      width: 100%;
+      width: calc(100% - 12px);
+      max-width: 100%;
       display: flex;
       justify-content: space-between;
       padding: 0px 4px 0px 8px;
