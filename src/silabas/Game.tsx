@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Game.scss";
-import { cloneDeep, fill, last, sampleSize } from "lodash";
+import { cloneDeep, fill, sampleSize } from "lodash";
 import type { Definition, Puzzle } from "../types";
 
 interface GameProps {
@@ -51,6 +51,10 @@ const findFirstEmptySyllable = (
 ) => {
   const activeWord = inProgressPuzzle.words[activeWordIndex];
 
+  console.log(
+    "first",
+    activeWord.syllables.findIndex((syllable) => syllable === "")
+  );
   return activeWord.syllables.findIndex((syllable) => syllable === "");
 };
 
@@ -67,11 +71,27 @@ export default function Game(props: GameProps) {
   //   setInProgressPuzzle()
   // }, [])
 
-  useEffect(() => {
-    setActiveSyllableIndex(
-      findFirstEmptySyllable(activeWordIndex, inProgressPuzzle)
-    );
-  }, [activeWordIndex, inProgressPuzzle.words[activeWordIndex]]);
+  // useEffect(() => {
+  //   setActiveSyllableIndex(
+  //     findFirstEmptySyllable(activeWordIndex, inProgressPuzzle)
+  //   );
+  // }, [activeWordIndex, inProgressPuzzle.words[activeWordIndex]]);
+
+  // if syllable index is included, set to that; otherwise set to the first empty syllable in the word
+  const setActiveSyllable = (
+    activeWordIndex: number,
+    puzzleState: Puzzle,
+    syllableIndex?: number
+  ) => {
+    if (syllableIndex) {
+      console.log("yes", syllableIndex);
+      setActiveSyllableIndex(syllableIndex);
+    } else {
+      setActiveSyllableIndex(
+        findFirstEmptySyllable(activeWordIndex, puzzleState)
+      );
+    }
+  };
 
   const setSyllable = (
     wordIndex: number,
@@ -79,13 +99,22 @@ export default function Game(props: GameProps) {
     bankIndex: number,
     syllable: string
   ) => {
+    if (syllableIndex < 0) {
+      console.warn("no active tile to place syllable");
+      return;
+    }
+
     const puzzle = cloneDeep(inProgressPuzzle);
 
     const activeWord = puzzle.words[wordIndex];
-    activeWord.syllables[syllableIndex] = syllable;
-
-    puzzle.syllables.splice(bankIndex, 1);
-    setInProgressPuzzle(puzzle);
+    if (activeWord.syllables[syllableIndex] !== "") {
+      console.error("tried to set syllable where there already was one");
+    } else {
+      activeWord.syllables[syllableIndex] = syllable;
+      puzzle.syllables.splice(bankIndex, 1);
+      setInProgressPuzzle(puzzle);
+      setActiveSyllable(wordIndex, puzzle);
+    }
   };
 
   const unsetSyllable = (wordIndex: number, syllableIndex: number) => {
@@ -98,9 +127,11 @@ export default function Game(props: GameProps) {
 
     activeWord.syllables[syllableIndex] = "";
     setInProgressPuzzle(puzzle);
+    setActiveSyllable(wordIndex, puzzle, syllableIndex);
   };
 
   const onClickWord = (i: number) => {
+    console.log("onClickWord", i);
     setActiveWordIndex(i);
     // useEffect will set the activeSyllableIndex
   };
@@ -114,21 +145,16 @@ export default function Game(props: GameProps) {
     setSyllable(activeWordIndex, activeSyllableIndex, bankIndex, syllable);
   };
 
-  const onClickSyllable = (
-    wordIndex: number,
-    syllableIndex: number,
-    e: any
-  ) => {
-    // don't trigger onClickWord if the clicked word is already active
-    if (wordIndex === activeWordIndex) e.stopPropagation();
+  const onClickSyllable = (wordIndex: number, syllableIndex: number) => {
+    console.log("onClickSyllable", wordIndex, syllableIndex);
+
+    setActiveSyllableIndex(syllableIndex);
 
     const activeWord = inProgressPuzzle.words[activeWordIndex];
     if (activeWord.syllables[syllableIndex] !== "") {
       // remove the syllable just clicked
       unsetSyllable(wordIndex, syllableIndex);
     }
-
-    setActiveSyllableIndex(syllableIndex);
   };
 
   return (
@@ -150,7 +176,7 @@ export default function Game(props: GameProps) {
                       ? "active-syllable"
                       : ""
                   } syllable`}
-                  onClick={(e) => onClickSyllable(i, j, e)}
+                  onClick={() => onClickSyllable(i, j)}
                   key={j}
                 >
                   {syllable}

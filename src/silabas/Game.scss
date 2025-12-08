@@ -22,6 +22,11 @@
       }
     }
 
+    .definition {
+      font-size: 24px;
+      font-family: "Rum Raisin", sans-serif;
+    }
+
     .syllable {
       display: inline-block;
       background-color: #1d4ea8;
@@ -31,6 +36,7 @@
       min-width: 30px;
       min-height: 30px;
       text-align: center;
+      vertical-align: top;
 
       &.empty-syllable {
         background-color: #6c96e3;
