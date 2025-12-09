@@ -139,6 +139,10 @@ export default function Game(props: GameProps) {
     const activeWord = puzzle.words[wordIndex];
     const activeSyllable = activeWord.syllables[syllableIndex];
 
+    if (!activeSyllable) {
+      console.error("tried to unset empty syllable");
+    }
+
     puzzle.syllables.push(activeSyllable);
 
     activeWord.syllables[syllableIndex] = "";
@@ -172,9 +176,10 @@ export default function Game(props: GameProps) {
     if (hasWon) return;
     if (isWordCorrect(wordIndex)) return;
 
+    setActiveWordIndex(wordIndex);
     setActiveSyllableIndex(syllableIndex);
 
-    const activeWord = inProgressPuzzle.words[activeWordIndex];
+    const activeWord = inProgressPuzzle.words[wordIndex];
     if (activeWord.syllables[syllableIndex] !== "") {
       // remove the syllable just clicked
       unsetSyllable(wordIndex, syllableIndex);

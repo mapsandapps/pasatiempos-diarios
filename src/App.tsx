@@ -4,8 +4,6 @@ import "./App.css";
 import { Link, Outlet } from "react-router";
 
 function App() {
-  // const [count, setCount] = useState(0);
-
   return (
     <>
       <Link to="/">
