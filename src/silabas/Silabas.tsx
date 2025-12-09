@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
+import { isDateInLocalStorage } from "../utils/localstorage";
 import Game from "./Game";
 import { puzzles } from "./puzzles";
 import "./Silabas.scss";
 
 export default function Silabas() {
+  const [hasBeenSolved, setHasBeenSolved] = useState(false);
+
   const date = new Date().toLocaleDateString(undefined, {
     weekday: "long",
     month: "long",
@@ -17,6 +21,13 @@ export default function Silabas() {
     return puzzleWeekday === todayWeekday;
   });
 
+  // onInit
+  useEffect(() => {
+    if (todayPuzzle) {
+      setHasBeenSolved(isDateInLocalStorage("silabas", todayPuzzle.date));
+    }
+  }, []);
+
   return (
     <div id="silabas">
       <div className="about">
@@ -24,11 +35,14 @@ export default function Silabas() {
         <div>
           Form Spanish words from their syllables and English definitions
         </div>
-        <div className="date">{date}</div>
+        <div className="date">
+          {date}
+          {hasBeenSolved && " ✅"}
+        </div>
       </div>
       <div>
         {todayPuzzle ? (
-          <Game puzzle={todayPuzzle.puzzle} />
+          <Game puzzle={todayPuzzle.puzzle} puzzleDate={todayPuzzle.date} />
         ) : (
           <div className="error">An error has occurred</div>
         )}

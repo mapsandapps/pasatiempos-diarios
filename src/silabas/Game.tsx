@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import "./Game.scss";
 import { cloneDeep, fill, sampleSize } from "lodash";
 import type { Definition, Puzzle } from "../types";
+import { addDateToLocalStorage } from "../utils/localstorage";
 
 interface GameProps {
   puzzle: string[];
+  puzzleDate: string;
 }
 
 const getSolution = (puzzle: string[]): Definition[] => {
@@ -64,6 +66,12 @@ export default function Game(props: GameProps) {
     initProgress(solution)
   );
 
+  const win = () => {
+    setHasWon(true);
+    setShowWinScreen(true);
+    addDateToLocalStorage("silabas", props.puzzleDate);
+  };
+
   // check for win condition
   useEffect(() => {
     let hasLost = false;
@@ -81,8 +89,7 @@ export default function Game(props: GameProps) {
       });
 
       if (!hasLost) {
-        setHasWon(true);
-        setShowWinScreen(true);
+        win();
       }
     }
   }, [inProgressPuzzle.syllables]);
