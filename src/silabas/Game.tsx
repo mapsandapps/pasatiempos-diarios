@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Game.scss";
-import { cloneDeep, fill, sampleSize } from "lodash";
+import { cloneDeep, fill, isEqual, sampleSize } from "lodash";
 import type { Definition, Puzzle } from "../types";
 import { addDateToLocalStorage } from "../utils/localstorage";
 
@@ -151,6 +151,8 @@ export default function Game(props: GameProps) {
     if (hasWon) return;
 
     setActiveWordIndex(i);
+
+    if (isWordCorrect(i)) return;
     setActiveSyllable(i, inProgressPuzzle);
     // useEffect will set the activeSyllableIndex
   };
@@ -168,6 +170,7 @@ export default function Game(props: GameProps) {
 
   const onClickSyllable = (wordIndex: number, syllableIndex: number) => {
     if (hasWon) return;
+    if (isWordCorrect(wordIndex)) return;
 
     setActiveSyllableIndex(syllableIndex);
 
@@ -182,6 +185,10 @@ export default function Game(props: GameProps) {
     setShowWinScreen(false);
   };
 
+  const isWordCorrect = (i: number): boolean => {
+    return isEqual(inProgressPuzzle.words[i]?.syllables, solution[i].syllables);
+  };
+
   return (
     <div className={`game-container ${hasWon ? "game-over" : ""}`}>
       {/* {todayWeekday}, {today.toLocaleDateString()} */}
@@ -194,7 +201,9 @@ export default function Game(props: GameProps) {
       <div className="game">
         {inProgressPuzzle.words.map((word, i) => (
           <div
-            className={`word ${i === activeWordIndex ? "active" : ""}`}
+            className={`word ${i === activeWordIndex ? "active" : ""} ${
+              isWordCorrect(i) ? "correct" : ""
+            }`}
             key={i}
             onClick={() => onClickWord(i)}
           >

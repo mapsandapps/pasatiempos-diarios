@@ -55,6 +55,7 @@
   /* --orange-800: #4F1E01; */
   /* --orange-900: #3A1501; */
   /* --orange-950: #1E0A00; */
+  --green-350: hsl(120, 80%, 41%);
 
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;

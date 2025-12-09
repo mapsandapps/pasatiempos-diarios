@@ -20,6 +20,15 @@
         background-color: var(--orange-350);
       }
 
+      &.correct {
+        .syllable {
+          // syllables in a correct word
+          background-color: var(--green-350);
+          font-weight: 600;
+          cursor: default;
+        }
+      }
+
       .syllable {
         // only syllables by the definitions, not those in the bank
         margin: 4px 2px;
@@ -44,6 +53,7 @@
       display: inline-block;
       background-color: var(--blue-550);
       color: white;
+      line-height: 30px;
       margin: 4px 4px;
       padding: 6px;
       min-width: 30px;
