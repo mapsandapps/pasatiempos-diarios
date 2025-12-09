@@ -172,7 +172,13 @@ export default function Game(props: GameProps) {
     setSyllable(activeWordIndex, activeSyllableIndex, bankIndex, syllable);
   };
 
-  const onClickSyllable = (wordIndex: number, syllableIndex: number) => {
+  const onClickSyllable = (
+    wordIndex: number,
+    syllableIndex: number,
+    e: any
+  ) => {
+    e.stopPropagation();
+
     if (hasWon) return;
     if (isWordCorrect(wordIndex)) return;
 
@@ -221,7 +227,7 @@ export default function Game(props: GameProps) {
                       ? "active-syllable"
                       : ""
                   } syllable`}
-                  onClick={() => onClickSyllable(i, j)}
+                  onClick={(e) => onClickSyllable(i, j, e)}
                   key={j}
                 >
                   {syllable}
