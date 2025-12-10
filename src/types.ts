@@ -5,8 +5,8 @@ export interface Definition {
 
 export interface RawPuzzle {
   date: string;
-  rangeStart: string;
-  rangeEnd: string;
+  rangeStart?: string;
+  rangeEnd?: string;
   puzzle: string[];
 }
 
