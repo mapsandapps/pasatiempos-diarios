@@ -6,6 +6,7 @@ export interface IconData {
 export interface Icon {
   x: number;
   y: number;
+  rotation: number;
   filename: string;
 }
 

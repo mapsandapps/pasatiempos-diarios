@@ -121,6 +121,7 @@ export default function Game(props: GameProps) {
                 style={{
                   left: `${icon.x}px`,
                   top: `${icon.y}px`,
+                  transform: `rotate(${icon.rotation}deg)`,
                 }}
               ></img>
             );

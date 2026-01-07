@@ -34,6 +34,7 @@ const generatePuzzle = (
             : icon.spanishWords[0],
         x: random(minX, maxX),
         y: random(minY, maxY),
+        rotation: random(-75, 75),
         hasBeenFound: false,
       });
     } else {
@@ -41,6 +42,7 @@ const generatePuzzle = (
         filename: icon.filename,
         x: random(minX, maxX),
         y: random(minY, maxY),
+        rotation: random(-75, 75),
       });
     }
   });
