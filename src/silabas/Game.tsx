@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Game.scss";
 import { cloneDeep, fill, isEqual, sampleSize } from "lodash";
-import type { Definition, Puzzle } from "../types";
+import type { Definition, Puzzle } from "./types";
 import { addDateToLocalStorage } from "../utils/localstorage";
 
 interface GameProps {

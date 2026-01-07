@@ -39,6 +39,16 @@
     }
   }
 
+  &.objeto-oculto {
+    .card-header {
+      background-color: var(--purple-350);
+    }
+
+    button {
+      background-color: var(--purple-350);
+    }
+  }
+
   &.inactive {
     border-color: darkgray;
     color: darkgray;

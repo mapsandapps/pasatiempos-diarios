@@ -3,7 +3,7 @@ import { isDateInLocalStorage } from "../utils/localstorage";
 import Game from "./Game";
 import { puzzles } from "./puzzles";
 import "./Silabas.scss";
-import type { RawPuzzle } from "../types";
+import type { RawPuzzle } from "./types";
 
 export default function Silabas() {
   const [hasBeenSolved, setHasBeenSolved] = useState(false);

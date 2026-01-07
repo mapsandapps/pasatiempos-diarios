@@ -16,11 +16,13 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="card inactive">
-        <div className="card-header">Hidden Object</div>
+      <div className="card objeto-oculto">
+        <div className="card-header">Objeto Oculto</div>
         <div className="card-body">
           <p className="description">Find images that match Spanish words</p>
-          <button disabled>Coming soon</button>
+          <Link to="/objeto-oculto">
+            <button>Play now</button>
+          </Link>
         </div>
       </div>
       <div className="card inactive">
