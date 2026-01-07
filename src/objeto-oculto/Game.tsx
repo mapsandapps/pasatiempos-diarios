@@ -95,13 +95,14 @@ export default function Game(props: GameProps) {
             return (
               <img
                 key={`${icon.filename}`}
-                src={`/${inProgressPuzzle.iconDir}/${icon.filename}`}
+                src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
                 className="game-icon"
                 width={`${iconSize}px`}
                 height={`${iconSize}px`}
                 style={{
                   left: `${icon.x}px`,
                   top: `${icon.y}px`,
+                  transform: `rotate(${icon.rotation}deg)`,
                 }}
               ></img>
             );
@@ -112,7 +113,7 @@ export default function Game(props: GameProps) {
             return (
               <img
                 key={`${icon.filename}`}
-                src={`/${inProgressPuzzle.iconDir}/${icon.filename}`}
+                src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
                 className="game-icon"
                 width={`${iconSize}px`}
                 height={`${iconSize}px`}
