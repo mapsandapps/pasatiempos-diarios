@@ -6,7 +6,7 @@ import { addDateToLocalStorage } from "../utils/localstorage";
 
 interface GameProps {
   puzzle: string[];
-  puzzleDate: string;
+  todayString: string;
 }
 
 const getSolution = (puzzle: string[]): Definition[] => {
@@ -69,7 +69,7 @@ export default function Game(props: GameProps) {
   const win = () => {
     setHasWon(true);
     setShowWinScreen(true);
-    addDateToLocalStorage("silabas", props.puzzleDate);
+    addDateToLocalStorage("silabas", props.todayString);
   };
 
   // check for win condition
@@ -201,7 +201,7 @@ export default function Game(props: GameProps) {
   };
 
   return (
-    <div className={`game-container ${hasWon ? "game-over" : ""}`}>
+    <div className={`silabas-game ${hasWon ? "game-over" : ""}`}>
       {/* {todayWeekday}, {today.toLocaleDateString()} */}
       {showWinScreen && (
         <div className="complete">

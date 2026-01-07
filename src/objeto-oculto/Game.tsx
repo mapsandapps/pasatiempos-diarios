@@ -81,7 +81,7 @@ export default function Game(props: GameProps) {
   }, [inProgressPuzzle]);
 
   return (
-    <div className={`game-container ${hasWon ? "game-over" : ""}`}>
+    <div className={`objeto-oculto-game ${hasWon ? "game-over" : ""}`}>
       {showWinScreen ? (
         <div className="complete">
           <div className="complete-header">You won!</div>

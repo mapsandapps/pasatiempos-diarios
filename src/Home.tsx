@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import "./Home.scss";
+import { isTodayInLocalStorage } from "./utils/localstorage";
 
 export default function Home() {
   return (
@@ -12,7 +13,10 @@ export default function Home() {
             {/* Construct words based on syllables and definitions */}
           </p>
           <Link to="/silabas">
-            <button>Play today's puzzle</button>
+            <button>
+              Play today's puzzle{isTodayInLocalStorage("silabas") && " again"}
+            </button>
+            {isTodayInLocalStorage("silabas") && " ✅"}
           </Link>
         </div>
       </div>
@@ -21,7 +25,11 @@ export default function Home() {
         <div className="card-body">
           <p className="description">Find images that match Spanish words</p>
           <Link to="/objeto-oculto">
-            <button>Play now</button>
+            <button>
+              Play today's puzzle
+              {isTodayInLocalStorage("objeto-oculto") && " again"}
+            </button>
+            {isTodayInLocalStorage("objeto-oculto") && " ✅"}
           </Link>
         </div>
       </div>

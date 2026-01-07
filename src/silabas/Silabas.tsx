@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { isDateInLocalStorage } from "../utils/localstorage";
 import Game from "./Game";
 import { puzzles } from "./puzzles";
 import "./Silabas.scss";
 import type { RawPuzzle } from "./types";
+import { getTodayString } from "../utils/dates";
+import { isTodayInLocalStorage } from "../utils/localstorage";
 
 export default function Silabas() {
-  const [hasBeenSolved, setHasBeenSolved] = useState(false);
   const [puzzle, setPuzzle] = useState<RawPuzzle>();
+  const todayString = getTodayString();
 
   const date = new Date().toLocaleDateString(undefined, {
     weekday: "long",
@@ -17,16 +18,13 @@ export default function Silabas() {
 
   // onInit
   useEffect(() => {
-    const today = new Date();
-    const todayDayOfMonth = today.getDate();
+    const todayDayOfMonth = Number(todayString.slice(-2));
     const todayPuzzle = puzzles.find((puzzle) => {
       const puzzleDayOfMonth = Number(puzzle.date.slice(-2));
       return puzzleDayOfMonth === todayDayOfMonth;
     });
 
-    if (todayPuzzle) {
-      setHasBeenSolved(isDateInLocalStorage("silabas", todayPuzzle.date));
-    } else {
+    if (!todayPuzzle) {
       console.error("no puzzle found");
     }
 
@@ -42,12 +40,12 @@ export default function Silabas() {
         </div>
         <div className="date">
           {date}
-          {hasBeenSolved && " ✅"}
+          {isTodayInLocalStorage("silabas") && " ✅"}
         </div>
       </div>
       <div>
         {puzzle ? (
-          <Game puzzle={puzzle.puzzle} puzzleDate={puzzle.date} />
+          <Game puzzle={puzzle.puzzle} todayString={todayString} />
         ) : (
           <div className="error">An error has occurred</div>
         )}

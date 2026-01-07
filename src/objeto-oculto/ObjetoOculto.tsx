@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { isDateInLocalStorage } from "../utils/localstorage";
+import { isTodayInLocalStorage } from "../utils/localstorage";
 import Game from "./Game";
 import { random, sample, sampleSize } from "lodash";
 import "./ObjetoOculto.scss";
 import type { Icon, IconSet, IconToFind, Puzzle } from "./types";
 import { iconSets } from "./icons";
+import { getTodayString } from "../utils/dates";
 
 const generatePuzzle = (
   minX: number,
@@ -56,8 +57,7 @@ const generatePuzzle = (
 };
 
 export default function ObjetoOculto() {
-  const [hasBeenSolved, setHasBeenSolved] = useState(false);
-  const [todayString, setTodayString] = useState("");
+  const todayString = getTodayString();
   const puzzleWidth = 468;
   const puzzleHeight = 500;
   const margin = 24;
@@ -74,13 +74,6 @@ export default function ObjetoOculto() {
     day: "numeric",
   });
 
-  // onInit
-  useEffect(() => {
-    const today = new Date();
-    setTodayString(today.toISOString().split("T")[0]);
-    setHasBeenSolved(isDateInLocalStorage("objeto-oculto", todayString));
-  }, []);
-
   return (
     <div id="objeto-oculto">
       <div className="about">
@@ -88,7 +81,7 @@ export default function ObjetoOculto() {
         <div>Find images that match Spanish words</div>
         <div className="date">
           {date}
-          {hasBeenSolved && " ✅"}
+          {isTodayInLocalStorage("objeto-oculto") && " ✅"}
         </div>
       </div>
       <Game todayString={todayString} puzzle={puzzle} />
