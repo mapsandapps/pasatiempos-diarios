@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { isTodayInLocalStorage } from "../utils/localstorage";
 import Game from "./Game";
 import { random, sample, sampleSize } from "lodash";
