@@ -1,4 +1,4 @@
-import type { IconSet, Icon } from "./types";
+import type { IconSet } from "./types";
 
 export const foodIcons = [
   { filename: "apple.png", spanishWords: ["la manzana"] },

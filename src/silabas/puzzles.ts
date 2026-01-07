@@ -1,4 +1,4 @@
-import type { RawPuzzle } from "../types";
+import type { RawPuzzle } from "./types";
 
 export const puzzles: RawPuzzle[] = [
   {
