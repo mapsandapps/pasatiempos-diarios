@@ -1,79 +1,41 @@
 import { isTodayInLocalStorage } from "../utils/localstorage";
 import Game from "./Game";
-import { random, sample, sampleSize } from "lodash";
 import "./ObjetoOculto.scss";
-import type { Icon, IconSet, IconToFind, Puzzle } from "./types";
-import { iconSets } from "./icons";
 import { getTodayString } from "../utils/dates";
-
-const generatePuzzle = (
-  minX: number,
-  minY: number,
-  maxX: number,
-  maxY: number
-): Puzzle => {
-  const iconSet = sample(iconSets) as IconSet;
-  const hasArgentinianBias = true;
-  const numberToFind = random(10, 20);
-  const totalIconsShown = iconSet.icons.length; // for now, just show them all
-
-  if (!iconSet) console.error("no icon set");
-
-  const sampled = sampleSize(iconSet.icons, totalIconsShown);
-  const iconsToFind: IconToFind[] = [];
-  const otherIcons: Icon[] = [];
-
-  sampled.forEach((icon, i) => {
-    if (i < numberToFind) {
-      iconsToFind.push({
-        filename: icon.filename,
-        // if we're using the Argentinian words, pick the first word for each icon, otherwise, pick the 2nd one (if there's more than one)
-        spanishWord:
-          !hasArgentinianBias && icon.spanishWords[1]
-            ? icon.spanishWords[1]
-            : icon.spanishWords[0],
-        x: random(minX, maxX),
-        y: random(minY, maxY),
-        rotation: random(-75, 75),
-        hasBeenFound: false,
-      });
-    } else {
-      otherIcons.push({
-        filename: icon.filename,
-        x: random(minX, maxX),
-        y: random(minY, maxY),
-        rotation: random(-75, 75),
-      });
-    }
-  });
-
-  return {
-    name: iconSet.name,
-    iconDir: iconSet.iconDir,
-    iconsToFind,
-    otherIcons,
-    totalIconsShown,
-    hasArgentinianBias,
-  };
-};
+import { generatePuzzle } from "./generator";
+import { iconSets } from "./icons";
+import { useSearchParams } from "react-router";
+import { useState } from "react";
 
 export default function ObjetoOculto() {
   const todayString = getTodayString();
-  const puzzleWidth = 468;
-  const puzzleHeight = 500;
-  const margin = 24;
-  const puzzle = generatePuzzle(
-    margin,
-    margin + 20, // give space for the name of object to find
-    puzzleWidth - margin * 2,
-    puzzleHeight - margin * 2
-  );
+  const [puzzle, setPuzzle] = useState(generatePuzzle()); // TODO: later, these will come from a list of stored puzzles, so everyone has the same one
 
   const date = new Date().toLocaleDateString(undefined, {
     weekday: "long",
     month: "long",
     day: "numeric",
   });
+
+  // generator stuff:
+  const [searchParams] = useSearchParams();
+  const isInGeneratorMode = searchParams.get("generate");
+  const [selectedIconSet, setIconSet] = useState(iconSets[0]);
+  const [numberToFind, setNumberToFind] = useState(1);
+  const [numberToShow, setNumberToShow] = useState(
+    selectedIconSet.icons.length
+  );
+
+  const generate = () => {
+    // TODO: probably if a puzzle is generated this way, it shouldn't show the date & check mark on the left, and it shouldn't add to localstorage when the user finishes it
+    setPuzzle(
+      generatePuzzle({
+        iconSet: selectedIconSet,
+        numberToFind,
+        numberToShow,
+      })
+    );
+  };
 
   return (
     <div id="objeto-oculto">
@@ -84,6 +46,60 @@ export default function ObjetoOculto() {
           {date}
           {isTodayInLocalStorage("objeto-oculto") && " ✅"}
         </div>
+        {isInGeneratorMode && (
+          <>
+            <div>
+              <label htmlFor="iconSet">Icon set</label>
+              <br />
+              <select
+                name="iconSet"
+                value={selectedIconSet.name}
+                onChange={(e) =>
+                  setIconSet(
+                    iconSets.find((set) => set.name === e.target.value)!
+                  )
+                }
+              >
+                {iconSets.map((set) => (
+                  <option key={set.name} value={set.name}>
+                    {set.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="numberToFind">Number of icons to find</label>
+              <br />
+              <input
+                type="range"
+                name="numberToFind"
+                min="1"
+                max={selectedIconSet.icons.length}
+                value={numberToFind}
+                onChange={(e) => setNumberToFind(Number(e.target.value))}
+              />
+              {numberToFind}
+            </div>
+            <div>
+              <label htmlFor="numberToShow">Number of icons to display</label>
+              <br />
+              <input
+                type="range"
+                name="numberToShow"
+                min={numberToFind}
+                max={selectedIconSet.icons.length}
+                value={numberToShow}
+                onChange={(e) => setNumberToShow(Number(e.target.value))}
+              />
+              {numberToShow}
+            </div>
+            <div>
+              <button className="generate-button" onClick={() => generate()}>
+                Generate!
+              </button>
+            </div>
+          </>
+        )}
       </div>
       <Game todayString={todayString} puzzle={puzzle} />
     </div>

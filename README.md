@@ -4,6 +4,8 @@ Daily puzzle games in Spanish
 
 `npm run dev` for development
 
+Go to [http://localhost:5174/objeto-oculto?generate=true](http://localhost:5174/objeto-oculto?generate=true) to generate a new Objeto Oculto puzzle & play it.
+
 ## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

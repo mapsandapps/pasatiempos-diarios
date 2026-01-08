@@ -65,13 +65,11 @@ export default function Game(props: GameProps) {
   };
 
   useEffect(() => {
-    console.log(inProgressPuzzle);
-  }, [inProgressPuzzle]);
-
-  useEffect(() => {
     // onInit
-    console.log(props.puzzle);
-  }, []);
+    setInProgressPuzzle(props.puzzle);
+    setHasWon(false);
+    setShowWinScreen(false);
+  }, [props.puzzle]);
 
   // check for win condition
   useEffect(() => {
