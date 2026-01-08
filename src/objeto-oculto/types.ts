@@ -19,8 +19,6 @@ export interface IconSet {
   icons: IconData[];
   name: string;
   iconDir: string;
-  iconWidth: number;
-  iconHeight: number;
   source?: string;
 }
 

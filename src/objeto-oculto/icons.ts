@@ -130,21 +130,47 @@ export const animalIcons = [
   { filename: "1f99f.png", spanishWords: ["el mosquito"] },
 ];
 
+export const spanishFlagIcons = [
+  { filename: "1f1e8-1f1f4.png", spanishWords: ["Colombia"] },
+  { filename: "1f1ea-1f1f8.png", spanishWords: ["España"] },
+  { filename: "1f1fb-1f1ea.png", spanishWords: ["Venezuela"] },
+  { filename: "1f1f5-1f1ea.png", spanishWords: ["Perú"] },
+  { filename: "1f1ea-1f1e8.png", spanishWords: ["Ecuador"] },
+  { filename: "1f1ec-1f1f9.png", spanishWords: ["Guatemala"] },
+  { filename: "1f1e7-1f1f4.png", spanishWords: ["Bolivia"] },
+  { filename: "1f1e8-1f1fa.png", spanishWords: ["Cuba"] },
+  { filename: "1f1e9-1f1f4.png", spanishWords: ["Repúbica Dominicana"] },
+  { filename: "1f1ed-1f1f3.png", spanishWords: ["Honduras"] },
+  { filename: "1f1f5-1f1fe.png", spanishWords: ["Paraguay"] },
+  { filename: "1f1f8-1f1fb.png", spanishWords: ["El Salvador"] },
+  { filename: "1f1f3-1f1ee.png", spanishWords: ["Nicaragua"] },
+  { filename: "1f1e8-1f1f7.png", spanishWords: ["Costa Rica"] },
+  { filename: "1f1f5-1f1e6.png", spanishWords: ["Panamá"] },
+  { filename: "1f1ec-1f1f6.png", spanishWords: ["Guinea Ecuatorial"] },
+  { filename: "1f1f2-1f1fd.png", spanishWords: ["México"] },
+  { filename: "1f1e6-1f1f7.png", spanishWords: ["Argentina"] },
+  { filename: "1f1e8-1f1f1.png", spanishWords: ["Chile"] },
+  { filename: "1f1fa-1f1fe.png", spanishWords: ["Uruguay"] },
+  { filename: "1f1f5-1f1f7.png", spanishWords: ["Puerto Rico"] },
+];
+
 export const iconSets: IconSet[] = [
   {
     name: "Food",
     iconDir: "/food-icons",
-    iconWidth: 256,
-    iconHeight: 256,
     icons: foodIcons,
     source: "Icon Humble Bundle",
   },
   {
     name: "Animals",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
-    iconWidth: 72,
-    iconHeight: 72,
     icons: animalIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Spanish-speaking Flags",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: spanishFlagIcons,
     source: "https://github.com/twitter/twemoji",
   },
 ];
