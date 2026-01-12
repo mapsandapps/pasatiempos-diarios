@@ -3,7 +3,7 @@ import "./Game.scss";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import type { IconToFind, Puzzle } from "./types";
 import { cloneDeep, find, findLast } from "lodash";
-import { Link } from "react-router";
+import Win from "../components/Win";
 
 interface GameProps {
   todayString: string;
@@ -39,6 +39,8 @@ export default function Game(props: GameProps) {
   };
 
   const onClickArea = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (hasWon) return;
+
     if (!currentIcon) console.error("icon not found in puzzle");
 
     if (clickAreaRef.current) {
@@ -80,56 +82,48 @@ export default function Game(props: GameProps) {
 
   return (
     <div className={`objeto-oculto-game ${hasWon ? "game-over" : ""}`}>
-      {showWinScreen ? (
-        <div className="complete">
-          <div className="complete-header">You won!</div>
-          <Link to="/">
-            <button>Return to Menu</button>
-          </Link>
-        </div>
-      ) : (
-        <div id="game">
-          {inProgressPuzzle.otherIcons.map((icon) => {
-            return (
-              <img
-                key={`${icon.filename}`}
-                src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
-                className="game-icon"
-                width={`${iconSize}px`}
-                height={`${iconSize}px`}
-                style={{
-                  left: `${icon.x}px`,
-                  top: `${icon.y}px`,
-                  transform: `rotate(${icon.rotation}deg)`,
-                }}
-              ></img>
-            );
-          })}
-          {inProgressPuzzle.iconsToFind.map((icon) => {
-            if (icon.hasBeenFound) return;
+      {showWinScreen && <Win canBeHidden={false} />}
+      <div id="game">
+        {inProgressPuzzle.otherIcons.map((icon) => {
+          return (
+            <img
+              key={`${icon.filename}`}
+              src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
+              className="game-icon"
+              width={`${iconSize}px`}
+              height={`${iconSize}px`}
+              style={{
+                left: `${icon.x}px`,
+                top: `${icon.y}px`,
+                transform: `rotate(${icon.rotation}deg)`,
+              }}
+            ></img>
+          );
+        })}
+        {inProgressPuzzle.iconsToFind.map((icon) => {
+          if (icon.hasBeenFound) return;
 
-            return (
-              <img
-                key={`${icon.filename}`}
-                src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
-                className="game-icon"
-                width={`${iconSize}px`}
-                height={`${iconSize}px`}
-                data-spanishword={icon.spanishWord}
-                style={{
-                  left: `${icon.x}px`,
-                  top: `${icon.y}px`,
-                  transform: `rotate(${icon.rotation}deg)`,
-                }}
-              ></img>
-            );
-          })}
-          <div id="click-area" ref={clickAreaRef} onClick={onClickArea}></div>
-          {currentIcon && (
-            <div id="current-target">Find: {currentIcon!.spanishWord}</div>
-          )}
-        </div>
-      )}
+          return (
+            <img
+              key={`${icon.filename}`}
+              src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
+              className="game-icon"
+              width={`${iconSize}px`}
+              height={`${iconSize}px`}
+              data-spanishword={icon.spanishWord}
+              style={{
+                left: `${icon.x}px`,
+                top: `${icon.y}px`,
+                transform: `rotate(${icon.rotation}deg)`,
+              }}
+            ></img>
+          );
+        })}
+        <div id="click-area" ref={clickAreaRef} onClick={onClickArea}></div>
+        {currentIcon && (
+          <div id="current-target">Find: {currentIcon!.spanishWord}</div>
+        )}
+      </div>
     </div>
   );
 }

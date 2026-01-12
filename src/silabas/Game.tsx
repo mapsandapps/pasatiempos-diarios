@@ -3,6 +3,7 @@ import "./Game.scss";
 import { cloneDeep, fill, isEqual, sampleSize } from "lodash";
 import type { Definition, Puzzle } from "./types";
 import { addDateToLocalStorage } from "../utils/localstorage";
+import Win from "../components/Win";
 
 interface GameProps {
   puzzle: string[];
@@ -202,12 +203,8 @@ export default function Game(props: GameProps) {
 
   return (
     <div className={`silabas-game ${hasWon ? "game-over" : ""}`}>
-      {/* {todayWeekday}, {today.toLocaleDateString()} */}
       {showWinScreen && (
-        <div className="complete">
-          <button onClick={closeWinScreen}>✖</button>
-          <div>You won!</div>
-        </div>
+        <Win closeWinScreen={closeWinScreen} canBeHidden={true} />
       )}
       <div className="game">
         {inProgressPuzzle.words.map((word, i) => (

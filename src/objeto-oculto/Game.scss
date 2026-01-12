@@ -3,8 +3,7 @@
   color: black;
   position: relative;
 
-  #game,
-  .complete {
+  #game {
     margin: 0 auto;
     max-width: 468px;
     width: 468px;
@@ -33,24 +32,6 @@
     width: 100%;
     text-align: center;
     position: relative;
-  }
-
-  .complete {
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    font-size: 88px;
-    font-family: "Rum Raisin", sans-serif;
-    width: 100%;
-    text-align: center;
-
-    .complete-header {
-      margin-top: 96px;
-    }
-
-    button {
-      background-color: var(--purple-350);
-      font-size: 24px;
-    }
   }
 
   &.game-over {
