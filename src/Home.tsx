@@ -23,7 +23,7 @@ export default function Home() {
       <div className="card objeto-oculto">
         <div className="card-header">
           Objeto Oculto
-          <img className="beta" src="/beta.png" />
+          <img className="beta" src="/beta.png" alt="beta!" />
         </div>
         <div className="card-body">
           <p className="description">Find images that match Spanish words</p>

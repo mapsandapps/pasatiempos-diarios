@@ -1,10 +1,18 @@
 import { random, range, sample, sampleSize } from "lodash";
-import type { Icon, IconSet, IconToFind, Puzzle } from "./types";
+import type { Icon, IconData, IconSet, IconToFind, Puzzle } from "./types";
 import { iconSets } from "./icons";
 
 const ICON_SIZE = 48;
 const PUZZLE_WIDTH = 468;
 const PUZZLE_HEIGHT = 500;
+
+const getSpanishWord = (hasArgentinianBias: boolean, icon: IconData) => {
+  // if we're using the Argentinian words, pick the first word for each icon, otherwise, pick the 2nd one (if there's more than one)
+
+  if (hasArgentinianBias) return icon.spanishWords[0];
+  if (icon.spanishWords[1]) return icon.spanishWords[1];
+  return icon.spanishWords[0];
+};
 
 // recursive
 const findAcceptablePosition = (
@@ -111,11 +119,7 @@ export const generatePuzzle = (props: {
 
       iconsToFind.push({
         filename: icon.filename,
-        // if we're using the Argentinian words, pick the first word for each icon, otherwise, pick the 2nd one (if there's more than one)
-        spanishWord:
-          !hasArgentinianBias && icon.spanishWords[1]
-            ? icon.spanishWords[1]
-            : icon.spanishWords[0],
+        spanishWord: getSpanishWord(hasArgentinianBias, icon),
         x,
         y,
         rotation: random(-75, 75),
@@ -133,6 +137,7 @@ export const generatePuzzle = (props: {
 
       otherIcons.push({
         filename: icon.filename,
+        spanishWord: getSpanishWord(hasArgentinianBias, icon),
         x,
         y,
         rotation: random(-75, 75),

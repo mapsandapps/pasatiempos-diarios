@@ -1,21 +1,30 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./Game.scss";
 import { addDateToLocalStorage } from "../utils/localstorage";
-import type { IconToFind, Puzzle } from "./types";
+import type { Icon, IconToFind, Puzzle } from "./types";
 import { cloneDeep, find, findLast } from "lodash";
 import Win from "../components/Win";
+
+const ICON_SIZE = 48;
 
 interface GameProps {
   todayString: string;
   puzzle: Puzzle;
 }
 
+const isClickInIcon = (icon: Icon, clickX: number, clickY: number) => {
+  const isXInIcon = clickX >= icon.x && clickX <= icon.x + ICON_SIZE;
+  const isYInIcon = clickY >= icon.y && clickY <= icon.y + ICON_SIZE;
+
+  return isXInIcon && isYInIcon;
+};
+
 export default function Game(props: GameProps) {
   const [hasWon, setHasWon] = useState(false);
   const [showWinScreen, setShowWinScreen] = useState(false);
+  const [wrongIconClicked, setWrongIconClicked] = useState<Icon>();
   const [inProgressPuzzle, setInProgressPuzzle] = useState(props.puzzle);
   const clickAreaRef = useRef<HTMLDivElement>(null);
-  const ICON_SIZE = 48;
 
   // always will be the first `iconsToFind` that hasn't yet been found
   const currentIcon = useMemo(
@@ -39,22 +48,31 @@ export default function Game(props: GameProps) {
   };
 
   const onClickArea = (e: React.MouseEvent<HTMLDivElement>) => {
+    setWrongIconClicked(undefined);
+
     if (hasWon) return;
 
     if (!currentIcon) console.error("icon not found in puzzle");
 
     if (clickAreaRef.current) {
       const rect = clickAreaRef.current?.getBoundingClientRect();
-      const xClicked = e.clientX - rect.left;
-      const yClicked = e.clientY - rect.top;
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
 
-      const isXInIcon =
-        xClicked >= currentIcon!.x && xClicked <= currentIcon!.x + ICON_SIZE;
-      const isYInIcon =
-        yClicked >= currentIcon!.y && yClicked <= currentIcon!.y + ICON_SIZE;
-
-      if (isXInIcon && isYInIcon) {
+      if (isClickInIcon(currentIcon!, clickX, clickY)) {
         markCurrentIconFound();
+      } else {
+        // look thru `otherIcons` first, then `iconsToFind`. this order will insure the last match found is the correct (highest "z-index") one
+        inProgressPuzzle.otherIcons.forEach((icon) => {
+          if (isClickInIcon(icon, clickX, clickY)) {
+            setWrongIconClicked(icon);
+          }
+        });
+        inProgressPuzzle.iconsToFind.forEach((icon) => {
+          if (isClickInIcon(icon, clickX, clickY)) {
+            setWrongIconClicked(icon);
+          }
+        });
       }
     }
   };
@@ -119,6 +137,19 @@ export default function Game(props: GameProps) {
             ></img>
           );
         })}
+        {wrongIconClicked && (
+          <div
+            className="wrong-icon-name"
+            style={{
+              left: `${wrongIconClicked.x}px`,
+              top: `${wrongIconClicked.y}px`,
+              opacity: 1,
+            }}
+            onAnimationEnd={() => setWrongIconClicked(undefined)}
+          >
+            {wrongIconClicked.spanishWord}
+          </div>
+        )}
         <div id="click-area" ref={clickAreaRef} onClick={onClickArea}></div>
         {currentIcon && (
           <div id="current-target">Find: {currentIcon!.spanishWord}</div>

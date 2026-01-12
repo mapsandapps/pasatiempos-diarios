@@ -8,10 +8,10 @@ export interface Icon {
   y: number;
   rotation: number;
   filename: string;
+  spanishWord: string;
 }
 
 export interface IconToFind extends Icon {
-  spanishWord: string;
   hasBeenFound: boolean;
 }
 
