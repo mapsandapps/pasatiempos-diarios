@@ -4,7 +4,7 @@ import { isTodayInLocalStorage } from "./utils/localstorage";
 
 export default function Home() {
   return (
-    <div className="main">
+    <div className="cards">
       <div className="card">
         <div className="card-header">Sílabas</div>
         <div className="card-body">
