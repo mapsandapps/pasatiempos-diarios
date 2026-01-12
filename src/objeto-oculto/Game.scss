@@ -4,11 +4,10 @@
   position: relative;
 
   #game {
-    margin: 0 auto;
     max-width: 468px;
     width: 468px;
     min-height: 500px;
-    padding: 24px 0px;
+    margin: 24px auto;
     position: relative;
 
     .game-icon {
@@ -30,6 +29,8 @@
 
   #current-target {
     width: 100%;
+    font-family: var(--title-font);
+    font-size: 1.5rem;
     text-align: center;
     position: relative;
   }

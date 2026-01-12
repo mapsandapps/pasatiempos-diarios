@@ -15,7 +15,7 @@ export default function Game(props: GameProps) {
   const [showWinScreen, setShowWinScreen] = useState(false);
   const [inProgressPuzzle, setInProgressPuzzle] = useState(props.puzzle);
   const clickAreaRef = useRef<HTMLDivElement>(null);
-  const iconSize = 48;
+  const ICON_SIZE = 48;
 
   // always will be the first `iconsToFind` that hasn't yet been found
   const currentIcon = useMemo(
@@ -49,9 +49,9 @@ export default function Game(props: GameProps) {
       const yClicked = e.clientY - rect.top;
 
       const isXInIcon =
-        xClicked >= currentIcon!.x && xClicked <= currentIcon!.x + iconSize;
+        xClicked >= currentIcon!.x && xClicked <= currentIcon!.x + ICON_SIZE;
       const isYInIcon =
-        yClicked >= currentIcon!.y && yClicked <= currentIcon!.y + iconSize;
+        yClicked >= currentIcon!.y && yClicked <= currentIcon!.y + ICON_SIZE;
 
       if (isXInIcon && isYInIcon) {
         markCurrentIconFound();
@@ -90,8 +90,8 @@ export default function Game(props: GameProps) {
               key={`${icon.filename}`}
               src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
               className="game-icon"
-              width={`${iconSize}px`}
-              height={`${iconSize}px`}
+              width={`${ICON_SIZE}px`}
+              height={`${ICON_SIZE}px`}
               style={{
                 left: `${icon.x}px`,
                 top: `${icon.y}px`,
@@ -108,8 +108,8 @@ export default function Game(props: GameProps) {
               key={`${icon.filename}`}
               src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
               className="game-icon"
-              width={`${iconSize}px`}
-              height={`${iconSize}px`}
+              width={`${ICON_SIZE}px`}
+              height={`${ICON_SIZE}px`}
               data-spanishword={icon.spanishWord}
               style={{
                 left: `${icon.x}px`,

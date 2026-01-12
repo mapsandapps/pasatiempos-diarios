@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export default function ObjetoOculto() {
   const todayString = getTodayString();
-  const [puzzle, setPuzzle] = useState(generatePuzzle()); // TODO: later, these will come from a list of stored puzzles, so everyone has the same one
+  const [puzzle, setPuzzle] = useState(generatePuzzle({})); // TODO: later, these will come from a list of stored puzzles, so everyone has the same one
 
   const date = new Date().toLocaleDateString(undefined, {
     weekday: "long",
