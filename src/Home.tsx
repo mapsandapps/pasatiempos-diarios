@@ -21,7 +21,10 @@ export default function Home() {
         </div>
       </div>
       <div className="card objeto-oculto">
-        <div className="card-header">Objeto Oculto</div>
+        <div className="card-header">
+          Objeto Oculto
+          <img className="beta" src="/beta.png" />
+        </div>
         <div className="card-body">
           <p className="description">Find images that match Spanish words</p>
           <Link to="/objeto-oculto">
@@ -34,7 +37,10 @@ export default function Home() {
         </div>
       </div>
       <div className="card inactive">
-        <div className="card-header">Alphabet Game</div>
+        <div className="card-header">
+          Alphabet Game
+          {/* <img className="beta" src="/beta.png" /> */}
+        </div>
         <div className="card-body">
           <p className="description">Info coming soon</p>
           <button disabled>Coming soon</button>
