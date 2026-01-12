@@ -6,7 +6,7 @@
   backdrop-filter: blur(10px);
   text-align: center;
   font-size: 88px;
-  font-family: "Rum Raisin", sans-serif;
+  font-family: var(--title-font);
   z-index: 9;
 
   div {

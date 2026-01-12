@@ -19,7 +19,9 @@
 
   .card-header {
     background-color: var(--blue-350);
-    font-size: 40px;
+    font-family: var(--title-font);
+    font-size: 36px;
+    line-height: 56px;
     padding: 0px 16px;
   }
 
