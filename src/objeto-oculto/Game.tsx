@@ -6,6 +6,7 @@ import { cloneDeep, find, findLast } from "lodash";
 import Win from "../components/Win";
 
 const ICON_SIZE = 48;
+const HINT_WAIT_TIME = 15; // seconds
 
 interface GameProps {
   todayString: string;
@@ -22,9 +23,11 @@ const isClickInIcon = (icon: Icon, clickX: number, clickY: number) => {
 export default function Game(props: GameProps) {
   const [hasWon, setHasWon] = useState(false);
   const [showWinScreen, setShowWinScreen] = useState(false);
+  const [time, setTime] = useState(0);
   const [wrongIconClicked, setWrongIconClicked] = useState<Icon>();
   const [inProgressPuzzle, setInProgressPuzzle] = useState(props.puzzle);
   const clickAreaRef = useRef<HTMLDivElement>(null);
+  const stopwatchRef = useRef<any>(null);
 
   // always will be the first `iconsToFind` that hasn't yet been found
   const currentIcon = useMemo(
@@ -61,6 +64,7 @@ export default function Game(props: GameProps) {
 
       if (isClickInIcon(currentIcon!, clickX, clickY)) {
         markCurrentIconFound();
+        setTime(0);
       } else {
         // look thru `otherIcons` first, then `iconsToFind`. this order will insure the last match found is the correct (highest "z-index") one
         inProgressPuzzle.otherIcons.forEach((icon) => {
@@ -89,6 +93,16 @@ export default function Game(props: GameProps) {
     setInProgressPuzzle(props.puzzle);
     setHasWon(false);
     setShowWinScreen(false);
+
+    setTime(0);
+    stopwatchRef.current = setInterval(() => {
+      setTime((prevTime) => prevTime + 1);
+    }, 1000);
+
+    // clean up
+    return () => {
+      clearInterval(stopwatchRef.current);
+    };
   }, [props.puzzle]);
 
   // check for win condition
@@ -152,7 +166,19 @@ export default function Game(props: GameProps) {
         )}
         <div id="click-area" ref={clickAreaRef} onClick={onClickArea}></div>
         {currentIcon && (
-          <div id="current-target">Find: {currentIcon!.spanishWord}</div>
+          <div className="current-target">
+            Find: {currentIcon!.spanishWord}{" "}
+            {time > HINT_WAIT_TIME && (
+              <span>
+                {" "}
+                (
+                <img
+                  src={`${inProgressPuzzle.iconDir}/${currentIcon.filename}`}
+                />
+                )
+              </span>
+            )}
+          </div>
         )}
       </div>
     </div>
