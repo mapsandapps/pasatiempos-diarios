@@ -1,5 +1,6 @@
 .objeto-oculto-game {
-  background-color: var(--purple-100);
+  // needs to be darker than most games to contrast with white icons
+  background-color: var(--purple-300);
   color: black;
   position: relative;
 
