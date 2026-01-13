@@ -196,6 +196,12 @@ export const fantasyIcons = [
   { filename: "1f9cc.png", spanishWords: ["el trol"] },
   { filename: "1f52e.png", spanishWords: ["la bola de cristal"] },
   { filename: "1fa84.png", spanishWords: ["la varita mágica"] },
+  { filename: "1f984.png", spanishWords: ["el unicornio"] },
+  { filename: "1f409.png", spanishWords: ["el dragón"] },
+  { filename: "1f9dc.png", spanishWords: ["una persona sirena"] },
+  { filename: "2694.png", spanishWords: ["las espadas"] },
+  { filename: "1f3f9.png", spanishWords: ["arco y flecha"] },
+  { filename: "1f6e1.png", spanishWords: ["el escudo"] },
 ];
 
 export const sportsIcons = [
@@ -227,6 +233,14 @@ export const sportsIcons = [
   { filename: "1f3b3.png", spanishWords: ["los bolos"] },
   { filename: "1f3d2.png", spanishWords: ["el hockey"] },
   { filename: "1f3a3.png", spanishWords: ["la pesca"] },
+
+  // games
+  { filename: "1f3ae.png", spanishWords: ["el mando de videoconsola"] },
+  { filename: "1f579.png", spanishWords: ["el joystick"] },
+  { filename: "1f3b0.png", spanishWords: ["la máquina tragaperras"] },
+  { filename: "1f3b2.png", spanishWords: ["el dado"] },
+  { filename: "1f9e9.png", spanishWords: ["la pieza de puzle"] },
+  { filename: "1fa85.png", spanishWords: ["la piñata"] },
 ];
 
 export const colorIcons = [
@@ -299,12 +313,6 @@ export const iconSets: IconSet[] = [
     source: "https://github.com/twitter/twemoji",
   },
   {
-    name: "Spanish-speaking Flags",
-    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
-    icons: spanishFlagIcons,
-    source: "https://github.com/twitter/twemoji",
-  },
-  {
     name: "Body Parts",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: bodyPartIcons,
@@ -323,15 +331,21 @@ export const iconSets: IconSet[] = [
     source: "https://github.com/twitter/twemoji",
   },
   {
+    name: "Colors",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: colorIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
     name: "Plants",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: plantIcons,
     source: "https://github.com/twitter/twemoji",
   },
   {
-    name: "Colors",
+    name: "Spanish-speaking Flags",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
-    icons: colorIcons,
+    icons: spanishFlagIcons,
     source: "https://github.com/twitter/twemoji",
   },
 ];
