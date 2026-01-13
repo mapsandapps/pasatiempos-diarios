@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import "./Game.scss";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import type { Icon, IconToFind, Puzzle } from "./types";
-import { cloneDeep, find, findLast } from "lodash";
+import { cloneDeep, filter, find, findLast } from "lodash";
 import Win from "../components/Win";
 
 const ICON_SIZE = 48;
@@ -12,6 +12,10 @@ interface GameProps {
   todayString: string;
   puzzle: Puzzle;
 }
+
+const numberRemaining = (iconsToFind: IconToFind[]) => {
+  return filter(iconsToFind, ["hasBeenFound", false]).length;
+};
 
 const isClickInIcon = (icon: Icon, clickX: number, clickY: number) => {
   const isXInIcon = clickX >= icon.x && clickX <= icon.x + ICON_SIZE;
@@ -107,7 +111,7 @@ export default function Game(props: GameProps) {
 
   // check for win condition
   useEffect(() => {
-    if (!find(inProgressPuzzle.iconsToFind, ["hasBeenFound", false])) {
+    if (numberRemaining(inProgressPuzzle.iconsToFind) < 1) {
       win();
     }
   }, [inProgressPuzzle]);
@@ -164,7 +168,6 @@ export default function Game(props: GameProps) {
             {wrongIconClicked.spanishWord}
           </div>
         )}
-        <div id="click-area" ref={clickAreaRef} onClick={onClickArea}></div>
         {currentIcon && (
           <div className="current-target">
             Find: {currentIcon!.spanishWord}{" "}
@@ -180,6 +183,12 @@ export default function Game(props: GameProps) {
             )}
           </div>
         )}
+        {numberRemaining(inProgressPuzzle.iconsToFind) <= 5 && (
+          <div className="found-counter">
+            {`${numberRemaining(inProgressPuzzle.iconsToFind)} remaining`}
+          </div>
+        )}
+        <div id="click-area" ref={clickAreaRef} onClick={onClickArea}></div>
       </div>
     </div>
   );
