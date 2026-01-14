@@ -133,13 +133,14 @@ export default function ObjetoOculto() {
             {!isDailyPuzzle && (
               <>
                 <hr />
+                <div>Output:</div>
                 <label>
                   <input
                     type="checkbox"
                     checked={shouldShowMinified}
                     onChange={() => setShouldShowMinified(!shouldShowMinified)}
                   />
-                  Show minified puzzle
+                  Minify
                 </label>
                 <textarea
                   value={
