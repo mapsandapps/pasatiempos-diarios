@@ -2,27 +2,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import "./Game.scss";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import type { Icon, IconToFind, Puzzle } from "./types";
-import { cloneDeep, filter, find, findLast } from "lodash";
+import { cloneDeep, find, findLast } from "lodash";
 import Win from "../components/Win";
+import { ICON_SIZE, isClickInIcon, numberRemaining } from "./helpers";
 
-const ICON_SIZE = 48;
 const HINT_WAIT_TIME = 15; // seconds
 
 interface GameProps {
   todayString: string;
   puzzle: Puzzle;
 }
-
-const numberRemaining = (iconsToFind: IconToFind[]) => {
-  return filter(iconsToFind, ["hasBeenFound", false]).length;
-};
-
-const isClickInIcon = (icon: Icon, clickX: number, clickY: number) => {
-  const isXInIcon = clickX >= icon.x && clickX <= icon.x + ICON_SIZE;
-  const isYInIcon = clickY >= icon.y && clickY <= icon.y + ICON_SIZE;
-
-  return isXInIcon && isYInIcon;
-};
 
 export default function Game(props: GameProps) {
   const [hasWon, setHasWon] = useState(false);
@@ -97,6 +86,7 @@ export default function Game(props: GameProps) {
     setInProgressPuzzle(props.puzzle);
     setHasWon(false);
     setShowWinScreen(false);
+    console.log(props.puzzle);
 
     setTime(0);
     stopwatchRef.current = setInterval(() => {

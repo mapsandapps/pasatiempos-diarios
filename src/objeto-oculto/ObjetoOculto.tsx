@@ -6,6 +6,7 @@ import { generatePuzzle } from "./generator";
 import { iconSets } from "./icons";
 import { useSearchParams } from "react-router";
 import { useState } from "react";
+import { minifyPuzzle } from "./helpers";
 
 export default function ObjetoOculto() {
   const todayString = getTodayString();
@@ -25,6 +26,7 @@ export default function ObjetoOculto() {
   const [numberToShow, setNumberToShow] = useState(
     selectedIconSet.icons.length
   );
+  const [shouldShowMinified, setShouldShowMinified] = useState(true);
 
   const generate = () => {
     // TODO: probably if a puzzle is generated this way, it shouldn't show the date & check mark on the left, and it shouldn't add to localstorage when the user finishes it
@@ -98,6 +100,23 @@ export default function ObjetoOculto() {
                 Generate!
               </button>
             </div>
+            <hr />
+            <label>
+              <input
+                type="checkbox"
+                checked={shouldShowMinified}
+                onChange={() => setShouldShowMinified(!shouldShowMinified)}
+              />
+              Show minified puzzle
+            </label>
+            <textarea
+              value={
+                shouldShowMinified
+                  ? JSON.stringify(minifyPuzzle(puzzle))
+                  : JSON.stringify(puzzle)
+              }
+              readOnly
+            />
           </>
         )}
       </div>

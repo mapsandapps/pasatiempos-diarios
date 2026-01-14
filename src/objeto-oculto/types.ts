@@ -30,3 +30,22 @@ export interface Puzzle {
   totalIconsShown: number;
   hasArgentinianBias: boolean; // the first item in each spanishWords array is Argentinian, where relevant
 }
+
+export type MinimizedIcon = [
+  filename: string,
+  spanishWord: string,
+  x: number,
+  y: number,
+  rotation: number
+  // NOTE: these don't have `hasBeenFound` because this is just a format for storing puzzles, not for using while the puzzle is being completed
+  // if i end up using this for e.g. storing state of in-progress puzzles, this will need to change
+];
+
+export interface MinimizedPuzzle {
+  iconsToFind: MinimizedIcon[];
+  otherIcons: MinimizedIcon[];
+  name: string;
+  iconDir: string;
+  totalIconsShown: number;
+  hasArgentinianBias: boolean;
+}
