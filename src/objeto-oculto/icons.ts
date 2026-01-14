@@ -183,6 +183,10 @@ export const bodyPartIcons = [
   { filename: "1f441.png", spanishWords: ["el ojo"] },
   { filename: "1f445.png", spanishWords: ["la lengua"] },
   { filename: "1f444.png", spanishWords: ["la boca"] },
+  { filename: "1f9b1.png", spanishWords: ["el pelo", "el cabello"] },
+  { filename: "1f9b5.png", spanishWords: ["la pierna"] },
+  { filename: "1f4aa.png", spanishWords: ["el brazo"] },
+  { filename: "1f485.png", spanishWords: ["las uñas"] },
 ];
 
 export const fantasyIcons = [

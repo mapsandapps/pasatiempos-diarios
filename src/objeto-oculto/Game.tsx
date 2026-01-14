@@ -4,7 +4,8 @@ import { addDateToLocalStorage } from "../utils/localstorage";
 import type { Icon, IconToFind, Puzzle } from "./types";
 import { cloneDeep, find, findLast } from "lodash";
 import Win from "../components/Win";
-import { ICON_SIZE, isClickInIcon, numberRemaining } from "./helpers";
+import { isClickInIcon, numberRemaining } from "./helpers";
+import { ICON_SIZE } from "./generator";
 
 const HINT_WAIT_TIME = 15; // seconds
 
@@ -118,8 +119,8 @@ export default function Game(props: GameProps) {
         {inProgressPuzzle.otherIcons.map((icon) => {
           return (
             <img
-              key={`${icon.filename}`}
-              src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
+              key={`${icon.spanishWord}`}
+              src={icon.filePath}
               className="game-icon"
               width={`${ICON_SIZE}px`}
               height={`${ICON_SIZE}px`}
@@ -136,8 +137,8 @@ export default function Game(props: GameProps) {
 
           return (
             <img
-              key={`${icon.filename}`}
-              src={`${inProgressPuzzle.iconDir}/${icon.filename}`}
+              key={`${icon.spanishWord}`}
+              src={icon.filePath}
               className="game-icon"
               width={`${ICON_SIZE}px`}
               height={`${ICON_SIZE}px`}

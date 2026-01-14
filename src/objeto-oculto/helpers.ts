@@ -1,3 +1,4 @@
+import { ICON_SIZE } from "./generator";
 import type {
   Icon,
   IconToFind,
@@ -6,8 +7,6 @@ import type {
   Puzzle,
 } from "./types";
 import { filter } from "lodash";
-
-export const ICON_SIZE = 48;
 
 export const minifyPuzzle = (puzzle: Puzzle) => {
   const minifiedPuzzle = {

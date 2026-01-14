@@ -1,8 +1,8 @@
 import { random, range, sample, sampleSize } from "lodash";
 import type { Icon, IconData, IconSet, IconToFind, Puzzle } from "./types";
-import { iconSets } from "./icons";
+import { iconSets as allIconSets } from "./icons";
 
-const ICON_SIZE = 48;
+export const ICON_SIZE = 48;
 const PUZZLE_WIDTH = 468;
 const PUZZLE_HEIGHT = 500;
 
@@ -91,7 +91,7 @@ export const generatePuzzle = (props: {
   const maxX = PUZZLE_WIDTH - ICON_SIZE - margin;
   const maxY = PUZZLE_HEIGHT - ICON_SIZE;
 
-  const iconSet = props?.iconSet || (sample(iconSets) as IconSet);
+  const iconSet = props?.iconSet || (sample(allIconSets) as IconSet);
   const hasArgentinianBias = true;
   // numberToFind should never exceed the number of icons
   const minNumberToFind = Math.min(10, iconSet.icons.length);
@@ -118,7 +118,7 @@ export const generatePuzzle = (props: {
       );
 
       iconsToFind.push({
-        filename: icon.filename,
+        filePath: `${iconSet.iconDir}/${icon.filename}`,
         spanishWord: getSpanishWord(hasArgentinianBias, icon),
         x,
         y,
@@ -136,7 +136,7 @@ export const generatePuzzle = (props: {
       );
 
       otherIcons.push({
-        filename: icon.filename,
+        filePath: `${iconSet.iconDir}/${icon.filename}`,
         spanishWord: getSpanishWord(hasArgentinianBias, icon),
         x,
         y,
@@ -147,7 +147,6 @@ export const generatePuzzle = (props: {
 
   return {
     name: iconSet.name,
-    iconDir: iconSet.iconDir,
     iconsToFind,
     otherIcons,
     totalIconsShown,
