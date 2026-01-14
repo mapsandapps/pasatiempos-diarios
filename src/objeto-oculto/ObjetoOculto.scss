@@ -27,8 +27,16 @@
     font-size: 18px;
   }
 
+  .iconset-checkbox {
+    display: block;
+  }
+
   .generate-button {
     background-color: var(--purple-350);
+
+    &:disabled {
+      cursor: default;
+    }
   }
 
   textarea {

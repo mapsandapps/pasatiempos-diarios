@@ -2,11 +2,12 @@ import { isTodayInLocalStorage } from "../utils/localstorage";
 import Game from "./Game";
 import "./ObjetoOculto.scss";
 import { getTodayString } from "../utils/dates";
-import { generatePuzzle } from "./generator";
+import { generatePuzzle, MAX_ITEMS_TO_INCLUDE } from "./generator";
 import { iconSets } from "./icons";
 import { useSearchParams } from "react-router";
-import { useState } from "react";
-import { minifyPuzzle } from "./helpers";
+import { useEffect, useState, type ChangeEvent } from "react";
+import { combineIconSets, minifyPuzzle } from "./helpers";
+import type { IconSet } from "./types";
 
 export default function ObjetoOculto() {
   const todayString = getTodayString();
@@ -21,11 +22,10 @@ export default function ObjetoOculto() {
   // generator stuff:
   const [searchParams] = useSearchParams();
   const isInGeneratorMode = searchParams.get("generate");
-  const [selectedIconSet, setIconSet] = useState(iconSets[0]);
+  const [selectedIconSets, setSelectedIconSets] = useState<IconSet[]>([]);
+  const [numberOfIconsInSet, setNumberOfIconsInSet] = useState(0); // set below in useEffect
   const [numberToFind, setNumberToFind] = useState(1);
-  const [numberToShow, setNumberToShow] = useState(
-    selectedIconSet.icons.length
-  );
+  const [numberToShow, setNumberToShow] = useState(0); // set below in useEffect
   const [shouldShowMinified, setShouldShowMinified] = useState(true);
   const [isDailyPuzzle, setDailyPuzzle] = useState(true);
 
@@ -33,46 +33,66 @@ export default function ObjetoOculto() {
     setDailyPuzzle(false);
     setPuzzle(
       generatePuzzle({
-        iconSets: [selectedIconSet],
+        iconSets: selectedIconSets,
         numberToFind,
         numberToShow,
       })
     );
   };
 
+  const handleSetsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const itemName = e.target.name;
+    const isChecked = e.target.checked;
+
+    setSelectedIconSets((prevItems) => {
+      if (isChecked) {
+        return [
+          ...prevItems,
+          iconSets.find((set) => set.name === itemName),
+        ] as IconSet[];
+      } else {
+        return prevItems.filter((item) => item.name !== itemName);
+      }
+    });
+  };
+
+  useEffect(() => {
+    const combinedSets = combineIconSets(selectedIconSets);
+    setNumberToShow(Math.min(combinedSets.icons.length, MAX_ITEMS_TO_INCLUDE));
+    setNumberOfIconsInSet(combinedSets.icons.length);
+  }, [selectedIconSets]);
+
   return (
     <div id="objeto-oculto">
       <div className="about">
         <h1>Objeto Oculto</h1>
-        <div>Find images that match Spanish words</div>
         {isDailyPuzzle ? (
-          <div className="date">
-            {date}
-            {isTodayInLocalStorage("objeto-oculto") && " ✅"}
-          </div>
+          <>
+            <div>Find images that match Spanish words</div>
+            <div className="date">
+              {date}
+              {isTodayInLocalStorage("objeto-oculto") && " ✅"}
+            </div>
+          </>
         ) : (
           <div className="date">User-generated puzzle</div>
         )}
         {isInGeneratorMode && (
           <>
             <div>
-              <label htmlFor="iconSet">Icon set</label>
+              Icon sets:
               <br />
-              <select
-                name="iconSet"
-                value={selectedIconSet.name}
-                onChange={(e) =>
-                  setIconSet(
-                    iconSets.find((set) => set.name === e.target.value)!
-                  )
-                }
-              >
-                {iconSets.map((set) => (
-                  <option key={set.name} value={set.name}>
-                    {set.name}
-                  </option>
-                ))}
-              </select>
+              {iconSets.map((set) => (
+                <label className="iconset-checkbox" key={set.name}>
+                  <input
+                    type="checkbox"
+                    name={set.name}
+                    checked={selectedIconSets?.includes(set)}
+                    onChange={handleSetsChange}
+                  />
+                  {set.name}
+                </label>
+              ))}
             </div>
             <div>
               <label htmlFor="numberToFind">Number of icons to find</label>
@@ -81,7 +101,7 @@ export default function ObjetoOculto() {
                 type="range"
                 name="numberToFind"
                 min="1"
-                max={selectedIconSet.icons.length}
+                max={Math.min(numberOfIconsInSet, MAX_ITEMS_TO_INCLUDE)}
                 value={numberToFind}
                 onChange={(e) => setNumberToFind(Number(e.target.value))}
               />
@@ -94,14 +114,19 @@ export default function ObjetoOculto() {
                 type="range"
                 name="numberToShow"
                 min={numberToFind}
-                max={selectedIconSet.icons.length}
+                max={Math.min(numberOfIconsInSet, MAX_ITEMS_TO_INCLUDE)}
                 value={numberToShow}
                 onChange={(e) => setNumberToShow(Number(e.target.value))}
+                disabled={numberToFind === numberToShow}
               />
-              {numberToShow}
+              {numberToFind === numberToShow ? "All" : numberToShow}
             </div>
             <div>
-              <button className="generate-button" onClick={() => generate()}>
+              <button
+                className="generate-button"
+                onClick={() => generate()}
+                disabled={selectedIconSets.length < 1}
+              >
                 Generate!
               </button>
             </div>

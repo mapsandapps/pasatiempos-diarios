@@ -4,6 +4,7 @@ import { iconSets as allIconSets } from "./icons";
 import { combineIconSets, findPosition, getSpanishWord } from "./helpers";
 
 export const ICON_SIZE = 48;
+export const MAX_ITEMS_TO_INCLUDE = 80;
 const PUZZLE_WIDTH = 468;
 const PUZZLE_HEIGHT = 500;
 
@@ -26,7 +27,10 @@ export const generatePuzzle = (props: {
   const hasArgentinianBias = true;
   // numberToFind should never exceed the number of icons
   const minNumberToFind = Math.min(10, iconSet.icons.length);
-  const maxNumberToFind = Math.min(20, iconSet.icons.length);
+  const maxNumberToFind = Math.min(
+    20,
+    Math.min(iconSet.icons.length, MAX_ITEMS_TO_INCLUDE)
+  );
   const numberToFind =
     props?.numberToFind || random(minNumberToFind, maxNumberToFind);
   const totalIconsShown = props?.numberToShow || iconSet.icons.length; // for now, just show them all
