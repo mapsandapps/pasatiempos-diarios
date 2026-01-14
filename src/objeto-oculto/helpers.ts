@@ -13,14 +13,13 @@ export const minifyPuzzle = (puzzle: Puzzle) => {
     iconsToFind: [] as MinimizedIcon[],
     otherIcons: [] as MinimizedIcon[],
     name: puzzle.name,
-    iconDir: puzzle.iconDir,
     totalIconsShown: puzzle.totalIconsShown,
     hasArgentinianBias: puzzle.hasArgentinianBias,
   };
 
   puzzle.iconsToFind.forEach((icon) => {
     minifiedPuzzle.iconsToFind.push([
-      icon.filename,
+      icon.filePath,
       icon.spanishWord,
       icon.x,
       icon.y,
@@ -30,7 +29,7 @@ export const minifyPuzzle = (puzzle: Puzzle) => {
 
   puzzle.otherIcons.forEach((icon) => {
     minifiedPuzzle.otherIcons.push([
-      icon.filename,
+      icon.filePath,
       icon.spanishWord,
       icon.x,
       icon.y,
@@ -46,14 +45,13 @@ export const unminifyPuzzle = (puzzle: MinimizedPuzzle) => {
     iconsToFind: [] as IconToFind[],
     otherIcons: [] as Icon[],
     name: puzzle.name,
-    iconDir: puzzle.iconDir,
     totalIconsShown: puzzle.totalIconsShown,
     hasArgentinianBias: puzzle.hasArgentinianBias,
   };
 
   puzzle.iconsToFind.forEach((icon) => {
     unminifiedPuzzle.iconsToFind.push({
-      filename: icon[0] as string,
+      filePath: icon[0] as string,
       spanishWord: icon[1],
       x: icon[2],
       y: icon[3],

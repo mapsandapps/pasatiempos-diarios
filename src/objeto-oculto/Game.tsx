@@ -171,10 +171,7 @@ export default function Game(props: GameProps) {
               <span>
                 {" "}
                 (
-                <img
-                  src={`${inProgressPuzzle.iconDir}/${currentIcon.filename}`}
-                />
-                )
+                <img src={currentIcon.filePath} />)
               </span>
             )}
           </div>

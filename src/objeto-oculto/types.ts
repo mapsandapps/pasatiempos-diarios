@@ -7,7 +7,7 @@ export interface Icon {
   x: number;
   y: number;
   rotation: number;
-  filename: string;
+  filePath: string;
   spanishWord: string;
 }
 
@@ -26,13 +26,12 @@ export interface Puzzle {
   iconsToFind: IconToFind[];
   otherIcons: Icon[];
   name: string;
-  iconDir: string;
   totalIconsShown: number;
   hasArgentinianBias: boolean; // the first item in each spanishWords array is Argentinian, where relevant
 }
 
 export type MinimizedIcon = [
-  filename: string,
+  filePath: string,
   spanishWord: string,
   x: number,
   y: number,
@@ -45,7 +44,6 @@ export interface MinimizedPuzzle {
   iconsToFind: MinimizedIcon[];
   otherIcons: MinimizedIcon[];
   name: string;
-  iconDir: string;
   totalIconsShown: number;
   hasArgentinianBias: boolean;
 }
