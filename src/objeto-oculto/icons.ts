@@ -1,7 +1,133 @@
 import type { IconSet } from "./types";
 
-export const foodIcons = [
-  // frutas (according to https://emojipedia.org/es/comida-bebida)
+// spanish words from spanish version of emojipedia.org
+// if there are multiple words, i looked it up
+const basicFoodIcons = [
+  { filename: "1f347.png", spanishWords: ["las uvas"] },
+  { filename: "1f349.png", spanishWords: ["la sandía"] },
+  { filename: "1f34b.png", spanishWords: ["el limón"] },
+  { filename: "1f34c.png", spanishWords: ["la banana", "el plátano"] },
+  { filename: "1f34d.png", spanishWords: ["el ananá", "la piña"] },
+  { filename: "1f96d.png", spanishWords: ["el mango"] },
+  { filename: "1f34e.png", spanishWords: ["la manzana"] },
+  { filename: "1f350.png", spanishWords: ["la pera"] },
+  { filename: "1f351.png", spanishWords: ["el durazno", "el melocotón"] },
+  { filename: "1f352.png", spanishWords: ["las cerezas"] },
+  { filename: "1f353.png", spanishWords: ["la frutilla", "la fresa"] },
+  { filename: "1f95d.png", spanishWords: ["el kiwi"] },
+  { filename: "1f345.png", spanishWords: ["el tomate"] },
+  { filename: "1f346.png", spanishWords: ["la berenjena"] },
+  { filename: "1f954.png", spanishWords: ["la patata"] },
+  { filename: "1f955.png", spanishWords: ["la zanahoria"] },
+  {
+    filename: "1fad1.png",
+    spanishWords: ["el morrón verde", "el pimiento verde"],
+  },
+  { filename: "1f952.png", spanishWords: ["el pepino"] },
+  { filename: "1f966.png", spanishWords: ["el brócoli", "el brécol"] },
+  { filename: "1f9c4.png", spanishWords: ["el ajo"] },
+  { filename: "1f9c5.png", spanishWords: ["la cebolla"] },
+  { filename: "1f95c.png", spanishWords: ["el maní", "la cacahuete"] },
+  { filename: "1fad8.png", spanishWords: ["los frijoles", "las alubias"] },
+  { filename: "1f35e.png", spanishWords: ["el pan"] },
+  { filename: "1f9c0.png", spanishWords: ["el queso"] },
+  { filename: "1f357.png", spanishWords: ["el pollo"] },
+  { filename: "1f969.png", spanishWords: ["la carne"] },
+  { filename: "1f373.png", spanishWords: ["el huevo"] },
+  { filename: "1f9c8.png", spanishWords: ["la manteca", "la mantequilla"] },
+  { filename: "1f9c2.png", spanishWords: ["la sal"] },
+  { filename: "1f364.png", spanishWords: ["el langostino", "el camarón"] },
+  { filename: "1f35a.png", spanishWords: ["el arroz"] },
+  { filename: "1f36a.png", spanishWords: ["la galleta"] },
+];
+
+const moreFoodIcons = [
+  { filename: "1f348.png", spanishWords: ["el melón"] },
+  { filename: "1f34a.png", spanishWords: ["la mandarina"] },
+  { filename: "1fad0.png", spanishWords: ["los arándanos"] },
+  { filename: "1fad2.png", spanishWords: ["las aceitunas", "las olivas"] },
+  { filename: "1f965.png", spanishWords: ["el coco"] },
+  { filename: "1f951.png", spanishWords: ["la palta", "el aguacate"] },
+  {
+    filename: "1f33d.png",
+    spanishWords: ["el choclo", "el maíz", "el elote"],
+  },
+  { filename: "1f336.png", spanishWords: ["el ají", "el chile"] },
+  { filename: "1f330.png", spanishWords: ["la castaña"] },
+  { filename: "1f95e.png", spanishWords: ["los panqueques", "las tortitas"] },
+  { filename: "1f953.png", spanishWords: ["la panceta", "el beicon"] },
+  { filename: "1f354.png", spanishWords: ["la hamburguesa"] },
+  { filename: "1f355.png", spanishWords: ["la pizza"] },
+  { filename: "1f32d.png", spanishWords: ["el pancho", "el perro caliente"] },
+  { filename: "1f96a.png", spanishWords: ["el sándwich"] },
+  { filename: "1f32e.png", spanishWords: ["el taco"] },
+  { filename: "1f32f.png", spanishWords: ["el burrito"] },
+  { filename: "1fad4.png", spanishWords: ["el tamal"] },
+  { filename: "1f958.png", spanishWords: ["la paella"] },
+  { filename: "1f957.png", spanishWords: ["la ensalada"] },
+  { filename: "1f37f.png", spanishWords: ["el pochoclo", "las palomitas"] },
+  { filename: "1f35d.png", spanishWords: ["el espagueti"] },
+  { filename: "1f366.png", spanishWords: ["el helado"] },
+  { filename: "1f369.png", spanishWords: ["la dona"] },
+  { filename: "1f370.png", spanishWords: ["la torta", "el pastel"] },
+  { filename: "1f967.png", spanishWords: ["el pastel", "la tarta"] },
+  { filename: "1f36b.png", spanishWords: ["el chocolate"] },
+  { filename: "1f36c.png", spanishWords: ["el caramelo"] },
+  { filename: "1f36e.png", spanishWords: ["el flan"] },
+  { filename: "1f36f.png", spanishWords: ["la miel"] },
+  { filename: "1f95b.png", spanishWords: ["la leche"] },
+  { filename: "2615.png", spanishWords: ["el café"] },
+  { filename: "1f375.png", spanishWords: ["el té verde"] },
+  { filename: "1f377.png", spanishWords: ["el vino"] },
+  { filename: "1f378.png", spanishWords: ["el cóctel"] },
+  { filename: "1f37a.png", spanishWords: ["la cerveza"] },
+  { filename: "1f943.png", spanishWords: ["el whisky"] },
+  { filename: "1f9c3.png", spanishWords: ["el jugo", "el zumo"] },
+  { filename: "1f9c9.png", spanishWords: ["el mate"] },
+  { filename: "1f9ca.png", spanishWords: ["el hielo"] },
+];
+
+const beverageIcons = [
+  { filename: "1f95b.png", spanishWords: ["la leche"] },
+  { filename: "2615.png", spanishWords: ["el café"] },
+  { filename: "1f375.png", spanishWords: ["el té verde"] },
+  { filename: "1f377.png", spanishWords: ["el vino"] },
+  { filename: "1f378.png", spanishWords: ["el cóctel"] },
+  { filename: "1f37a.png", spanishWords: ["la cerveza"] },
+  { filename: "1f943.png", spanishWords: ["el whisky"] },
+  { filename: "1f9c3.png", spanishWords: ["el jugo", "el zumo"] },
+  { filename: "1f9c9.png", spanishWords: ["el mate"] },
+  { filename: "1f9ca.png", spanishWords: ["el hielo"] },
+];
+
+const dessertIcons = [
+  { filename: "1f366.png", spanishWords: ["el helado"] },
+  { filename: "1f369.png", spanishWords: ["la dona"] },
+  { filename: "1f36a.png", spanishWords: ["la galleta"] },
+  { filename: "1f370.png", spanishWords: ["la torta", "el pastel"] },
+  { filename: "1f967.png", spanishWords: ["el pastel", "la tarta"] },
+  { filename: "1f36b.png", spanishWords: ["el chocolate"] },
+  { filename: "1f36c.png", spanishWords: ["el caramelo"] },
+  { filename: "1f36e.png", spanishWords: ["el flan"] },
+];
+
+const preparedFoodIcons = [
+  { filename: "1f35e.png", spanishWords: ["el pan"] },
+  { filename: "1f95e.png", spanishWords: ["los panqueques", "las tortitas"] },
+  { filename: "1f354.png", spanishWords: ["la hamburguesa"] },
+  { filename: "1f355.png", spanishWords: ["la pizza"] },
+  { filename: "1f96a.png", spanishWords: ["el sándwich"] },
+  { filename: "1f32e.png", spanishWords: ["el taco"] },
+  { filename: "1f32f.png", spanishWords: ["el burrito"] },
+  { filename: "1fad4.png", spanishWords: ["el tamal"] },
+  { filename: "1f958.png", spanishWords: ["la paella"] },
+  { filename: "1f957.png", spanishWords: ["la ensalada"] },
+  { filename: "1f37f.png", spanishWords: ["el pochoclo", "las palomitas"] },
+  { filename: "1f35d.png", spanishWords: ["el espagueti"] },
+  { filename: "1f35a.png", spanishWords: ["el arroz"] },
+];
+
+const fruitIcons = [
   { filename: "1f347.png", spanishWords: ["las uvas"] },
   { filename: "1f348.png", spanishWords: ["el melón"] },
   { filename: "1f349.png", spanishWords: ["la sandía"] },
@@ -17,11 +143,10 @@ export const foodIcons = [
   { filename: "1f353.png", spanishWords: ["la frutilla", "la fresa"] },
   { filename: "1fad0.png", spanishWords: ["los arándanos"] },
   { filename: "1f95d.png", spanishWords: ["el kiwi"] },
-  { filename: "1f345.png", spanishWords: ["el tomate"] },
-  { filename: "1fad2.png", spanishWords: ["las aceitunas", "las olivas"] },
   { filename: "1f965.png", spanishWords: ["el coco"] },
+];
 
-  // verduras
+const vegetableIcons = [
   { filename: "1f951.png", spanishWords: ["la palta", "el aguacate"] },
   { filename: "1f346.png", spanishWords: ["la berenjena"] },
   { filename: "1f954.png", spanishWords: ["la patata"] },
@@ -39,109 +164,68 @@ export const foodIcons = [
   { filename: "1f966.png", spanishWords: ["el brócoli", "el brécol"] },
   { filename: "1f9c4.png", spanishWords: ["el ajo"] },
   { filename: "1f9c5.png", spanishWords: ["la cebolla"] },
-  { filename: "1f95c.png", spanishWords: ["el maní", "la cacahuete"] },
   { filename: "1fad8.png", spanishWords: ["los frijoles", "las alubias"] },
-  { filename: "1f330.png", spanishWords: ["la castaña"] },
-
-  // comidas preparadas
-  { filename: "1f35e.png", spanishWords: ["el pan"] },
-  { filename: "1f95e.png", spanishWords: ["los panqueques", "las tortitas"] },
-  { filename: "1f9c0.png", spanishWords: ["el queso"] },
-  { filename: "1f357.png", spanishWords: ["el pollo"] },
-  { filename: "1f969.png", spanishWords: ["la carne"] },
-  { filename: "1f953.png", spanishWords: ["la panceta", "el beicon"] },
-  { filename: "1f354.png", spanishWords: ["la hamburguesa"] },
-  { filename: "1f355.png", spanishWords: ["la pizza"] },
-  { filename: "1f32d.png", spanishWords: ["el pancho", "el perro caliente"] },
-  { filename: "1f96a.png", spanishWords: ["el sándwich"] },
-  { filename: "1f32e.png", spanishWords: ["el taco"] },
-  { filename: "1f32f.png", spanishWords: ["el burrito"] },
-  { filename: "1fad4.png", spanishWords: ["el tamal"] },
-  { filename: "1f373.png", spanishWords: ["el huevo"] },
-  { filename: "1f958.png", spanishWords: ["la paella"] },
-  { filename: "1f957.png", spanishWords: ["la ensalada"] },
-  { filename: "1f37f.png", spanishWords: ["el pochoclo", "las palomitas"] },
-  { filename: "1f9c8.png", spanishWords: ["la manteca", "la mantequilla"] },
-  { filename: "1f9c2.png", spanishWords: ["la sal"] },
-  { filename: "1f35d.png", spanishWords: ["el espagueti"] },
-
-  // comida asiática
-  { filename: "1f35a.png", spanishWords: ["el arroz"] },
-  { filename: "1f364.png", spanishWords: ["el langostino", "el camarón"] },
-
-  // dulces y postres
-  { filename: "1f366.png", spanishWords: ["el helado"] },
-  { filename: "1f369.png", spanishWords: ["la dona"] },
-  { filename: "1f36a.png", spanishWords: ["la galleta"] },
-  { filename: "1f370.png", spanishWords: ["la torta", "el pastel"] },
-  { filename: "1f967.png", spanishWords: ["el pastel", "la tarta"] },
-  { filename: "1f36b.png", spanishWords: ["el chocolate"] },
-  { filename: "1f36c.png", spanishWords: ["el caramelo"] },
-  { filename: "1f36e.png", spanishWords: ["el flan"] },
-  { filename: "1f36f.png", spanishWords: ["la miel"] },
-
-  // bebidas y vajilla
-  { filename: "1f95b.png", spanishWords: ["la leche"] },
-  { filename: "2615.png", spanishWords: ["el café"] },
-  { filename: "1f375.png", spanishWords: ["el té verde"] },
-  { filename: "1f377.png", spanishWords: ["el vino"] },
-  { filename: "1f378.png", spanishWords: ["el cóctel"] },
-  { filename: "1f37a.png", spanishWords: ["la cerveza"] },
-  { filename: "1f943.png", spanishWords: ["el whisky"] },
-  { filename: "1f9c3.png", spanishWords: ["el jugo", "el zumo"] },
-  { filename: "1f9c9.png", spanishWords: ["el mate"] },
-
-  // misc
-  { filename: "1f9ca.png", spanishWords: ["el hielo"] },
+  { filename: "1f345.png", spanishWords: ["el tomate"] },
+  { filename: "1fad2.png", spanishWords: ["las aceitunas", "las olivas"] },
 ];
 
-// spanish words from spanish version of emojipedia.org
-// if there are multiple words, i looked it up
-export const animalIcons = [
+const basicAnimalIcons = [
   { filename: "1f400.png", spanishWords: ["la rata"] },
   { filename: "1f401.png", spanishWords: ["el ratón"] },
-  { filename: "1f402.png", spanishWords: ["el buey"] },
-  { filename: "1f403.png", spanishWords: ["el búfalo de agua"] },
   { filename: "1f404.png", spanishWords: ["la vaca"] },
   { filename: "1f405.png", spanishWords: ["el tigre"] },
   { filename: "1f406.png", spanishWords: ["el leopardo"] },
   { filename: "1f407.png", spanishWords: ["el conejo"] },
   { filename: "1f408.png", spanishWords: ["el gato"] },
-  { filename: "1f409.png", spanishWords: ["el dragón"] },
-  { filename: "1f410.png", spanishWords: ["la cabra"] },
   { filename: "1f412.png", spanishWords: ["el mono"] },
   { filename: "1f415.png", spanishWords: ["el perro"] },
+  { filename: "1f410.png", spanishWords: ["la cabra"] },
   { filename: "1f416.png", spanishWords: ["el cerdo"] },
   { filename: "1f418.png", spanishWords: ["el elefante"] },
   { filename: "1f419.png", spanishWords: ["el pulpo"] },
   { filename: "1f422.png", spanishWords: ["la tortuga"] },
-  // probably should exclude since there are other birds
-  // { filename: "1f426.png", spanishWords: ["el pájaro"] },
   { filename: "1f427.png", spanishWords: ["el pingüino"] },
   { filename: "1f433.png", spanishWords: ["la ballena"] },
-  { filename: "1f980.png", spanishWords: ["el cangrejo"] },
-  { filename: "1f982.png", spanishWords: ["el escorpión"] },
   { filename: "1f983.png", spanishWords: ["el pavo"] },
   { filename: "1f986.png", spanishWords: ["el pato"] },
-  { filename: "1f987.png", spanishWords: ["el murciélago"] },
+  { filename: "1f982.png", spanishWords: ["el escorpión"] },
   { filename: "1f988.png", spanishWords: ["el tiburón"] },
   { filename: "1f989.png", spanishWords: ["el búho"] },
-  { filename: "1f990.png", spanishWords: ["el camarón"] },
   { filename: "1f991.png", spanishWords: ["el calamar"] },
-  { filename: "1f992.png", spanishWords: ["la jirafa"] },
-  { filename: "1f994.png", spanishWords: ["el erizo"] },
   { filename: "1f997.png", spanishWords: ["el grillo"] },
-  { filename: "1f998.png", spanishWords: ["el canguro"] },
-  { filename: "1f999.png", spanishWords: ["la llama"] },
   { filename: "1f40a.png", spanishWords: ["el cocodrilo"] },
-  { filename: "1f40c.png", spanishWords: ["el caracol"] },
   { filename: "1f40d.png", spanishWords: ["la serpiente"] },
   { filename: "1f40e.png", spanishWords: ["el caballo"] },
-  { filename: "1f40f.png", spanishWords: ["el carnero"] },
   { filename: "1f41c.png", spanishWords: ["la hormiga"] },
   { filename: "1f41d.png", spanishWords: ["la abeja"] },
   { filename: "1f41e.png", spanishWords: ["la mariquita"] },
   { filename: "1f41f.png", spanishWords: ["el pez"] },
+  { filename: "1f9a9.png", spanishWords: ["el flamenco"] },
+  { filename: "1f9ad.png", spanishWords: ["la foca"] },
+  { filename: "1fab0.png", spanishWords: ["la mosca"] },
+  { filename: "1f577.png", spanishWords: ["la araña"] },
+  { filename: "1fab1.png", spanishWords: ["el gusano"] },
+  { filename: "1f98b.png", spanishWords: ["la mariposa"] },
+  { filename: "1f98e.png", spanishWords: ["el lagarto"] },
+  { filename: "1f99c.png", spanishWords: ["el loro"] },
+  { filename: "1f99f.png", spanishWords: ["el mosquito"] },
+];
+
+const moreAnimalIcons = [
+  { filename: "1f402.png", spanishWords: ["el buey"] },
+  { filename: "1f403.png", spanishWords: ["el búfalo de agua"] },
+  { filename: "1f409.png", spanishWords: ["el dragón"] },
+  // probably should exclude since there are other birds
+  // { filename: "1f426.png", spanishWords: ["el pájaro"] },
+  { filename: "1f980.png", spanishWords: ["el cangrejo"] },
+  { filename: "1f987.png", spanishWords: ["el murciélago"] },
+  { filename: "1f990.png", spanishWords: ["el camarón"] },
+  { filename: "1f992.png", spanishWords: ["la jirafa"] },
+  { filename: "1f994.png", spanishWords: ["el erizo"] },
+  { filename: "1f998.png", spanishWords: ["el canguro"] },
+  { filename: "1f999.png", spanishWords: ["la llama"] },
+  { filename: "1f40c.png", spanishWords: ["el caracol"] },
+  { filename: "1f40f.png", spanishWords: ["el carnero"] },
   { filename: "1f43f.png", spanishWords: ["la ardilla listada"] },
   { filename: "1f9a1.png", spanishWords: ["el tejón"] },
   { filename: "1f9a2.png", spanishWords: ["el cisne"] },
@@ -151,26 +235,19 @@ export const animalIcons = [
     filename: "1f9a8.png",
     spanishWords: ["el zorrino", "la mofeta", "el zorrillo"],
   },
-  { filename: "1f9a9.png", spanishWords: ["el flamenco"] },
   { filename: "1f9ab.png", spanishWords: ["el castor"] },
   { filename: "1f9ac.png", spanishWords: ["el bisonte"] },
-  { filename: "1f9ad.png", spanishWords: ["la foca"] },
-  { filename: "1fab0.png", spanishWords: ["la mosca"] },
-  { filename: "1fab1.png", spanishWords: ["el gusano"] },
   { filename: "1fab3.png", spanishWords: ["la cucaracha"] },
-  { filename: "1f577.png", spanishWords: ["la araña"] },
-  { filename: "1f98b.png", spanishWords: ["la mariposa"] },
-  { filename: "1f98e.png", spanishWords: ["el lagarto"] },
   { filename: "1f99a.png", spanishWords: ["el pavo real"] },
   { filename: "1f99b.png", spanishWords: ["el hipopótamo"] },
-  { filename: "1f99c.png", spanishWords: ["el loro"] },
   // { filename: "1f99e.png", spanishWords: ["el bogavante", "la langosta"] },
-  { filename: "1f99f.png", spanishWords: ["el mosquito"] },
   { filename: "1fab8.png", spanishWords: ["el coral"] },
   { filename: "1faba.png", spanishWords: ["el nido"] },
+  { filename: "1f985.png", spanishWords: ["el águila"] },
+  { filename: "1f54a.png", spanishWords: ["la paloma"] },
 ];
 
-export const bodyPartIcons = [
+const bodyPartIcons = [
   { filename: "270b.png", spanishWords: ["la mano"] },
   { filename: "1f9b6.png", spanishWords: ["el pie"] },
   { filename: "1f442.png", spanishWords: ["la oreja"] },
@@ -189,7 +266,7 @@ export const bodyPartIcons = [
   { filename: "1f485.png", spanishWords: ["las uñas"] },
 ];
 
-export const fantasyIcons = [
+const fantasyIcons = [
   { filename: "1f9d9.png", spanishWords: ["el mago"] },
   { filename: "1f9da.png", spanishWords: ["el hada"] },
   { filename: "1f9db.png", spanishWords: ["el vampiro"] },
@@ -206,9 +283,12 @@ export const fantasyIcons = [
   { filename: "2694.png", spanishWords: ["las espadas"] },
   { filename: "1f3f9.png", spanishWords: ["arco y flecha"] },
   { filename: "1f6e1.png", spanishWords: ["el escudo"] },
+  { filename: "1f47d.png", spanishWords: ["el extraterrestre"] },
+  { filename: "1f916.png", spanishWords: ["el robot"] },
+  { filename: "1f6f8.png", spanishWords: ["el platillo volador"] },
 ];
 
-export const sportsIcons = [
+const sportsIcons = [
   { filename: "1f3c3.png", spanishWords: ["correr"] },
   { filename: "1f57a.png", spanishWords: ["bailar"] },
   { filename: "1f9d7.png", spanishWords: ["escalar"] },
@@ -247,7 +327,7 @@ export const sportsIcons = [
   { filename: "1fa85.png", spanishWords: ["la piñata"] },
 ];
 
-export const colorIcons = [
+const colorIcons = [
   { filename: "1f7e5.png", spanishWords: ["rojo"] },
   { filename: "1f7e7.png", spanishWords: ["naranja"] },
   { filename: "1f7e8.png", spanishWords: ["amarillo"] },
@@ -259,7 +339,7 @@ export const colorIcons = [
   { filename: "2b1c.png", spanishWords: ["blanco"] },
 ];
 
-export const plantIcons = [
+const plantIcons = [
   { filename: "1f33c.png", spanishWords: ["la flor"] },
   { filename: "1f339.png", spanishWords: ["la rosa"] },
   { filename: "1f33b.png", spanishWords: ["el girasol"] },
@@ -272,7 +352,66 @@ export const plantIcons = [
   { filename: "1f343.png", spanishWords: ["las hojas"] },
 ];
 
-export const spanishFlagIcons = [
+const musicIcons = [
+  { filename: "1f508.png", spanishWords: ["el altavoz"] },
+  { filename: "1f514.png", spanishWords: ["la campana"] },
+  { filename: "1f3b5.png", spanishWords: ["la nota musical"] },
+  { filename: "1f3a4.png", spanishWords: ["el micrófono"] },
+  { filename: "1f3a7.png", spanishWords: ["los auriculares"] },
+  { filename: "1f4fb.png", spanishWords: ["el radio"] },
+  { filename: "1f3b7.png", spanishWords: ["el saxofón"] },
+  { filename: "1f3ba.png", spanishWords: ["la trompeta"] },
+  { filename: "1fa97.png", spanishWords: ["el acordeón"] },
+  { filename: "1f3b9.png", spanishWords: ["el piano"] },
+  { filename: "1f3bb.png", spanishWords: ["el violín"] },
+  { filename: "1fa95.png", spanishWords: ["el banjo"] },
+  { filename: "1f941.png", spanishWords: ["el tambor"] },
+];
+
+const schoolAndWorkIcons = [
+  { filename: "1f4d6.png", spanishWords: ["el libro"] },
+  { filename: "1f4d3.png", spanishWords: ["el cuaderno"] },
+  { filename: "1f4c3.png", spanishWords: ["la página"] },
+  { filename: "1f4f0.png", spanishWords: ["el periódico"] },
+  { filename: "1f3f7.png", spanishWords: ["la etiqueta"] },
+  { filename: "1fa99.png", spanishWords: ["la moneda"] },
+  { filename: "1f4b7.png", spanishWords: ["el billete"] },
+  { filename: "1f4b3.png", spanishWords: ["la tarjeta de crédito"] },
+  { filename: "1f9fe.png", spanishWords: ["el ticket", "el recibo"] },
+  { filename: "2709.png", spanishWords: ["el sobre"] },
+  { filename: "1f4e7.png", spanishWords: ["el correo electrónico"] },
+  { filename: "1f4e6.png", spanishWords: ["el paquete"] },
+  { filename: "1f4eb.png", spanishWords: ["el buzón"] },
+  { filename: "270f.png", spanishWords: ["el lápiz"] },
+  { filename: "1f58a.png", spanishWords: ["el bolígrafo"] },
+  { filename: "1f4bc.png", spanishWords: ["el maletín"] },
+  { filename: "1f4c1.png", spanishWords: ["la carpeta"] },
+  { filename: "1f4c5.png", spanishWords: ["el calendario"] },
+  { filename: "1f4ca.png", spanishWords: ["el gráfico"] },
+  { filename: "1f4cb.png", spanishWords: ["el portapapeles"] },
+  { filename: "1f4ce.png", spanishWords: ["el clip"] },
+  { filename: "1f4cf.png", spanishWords: ["la regla"] },
+  { filename: "2702.png", spanishWords: ["las tijeras"] },
+  { filename: "1f5c4.png", spanishWords: ["el archivador"] },
+  { filename: "1f5d1.png", spanishWords: ["la papelera"] },
+  { filename: "1f512.png", spanishWords: ["la cerradura"] },
+  { filename: "1f511.png", spanishWords: ["la llave"] },
+  { filename: "1f9d1-200d-1f393.png", spanishWords: ["estudiante"] },
+  { filename: "1f9d1-200d-1f3eb.png", spanishWords: ["docente"] },
+  { filename: "1f3eb.png", spanishWords: ["la escuela"] },
+  { filename: "1f392.png", spanishWords: ["la mochila"] },
+  { filename: "1f5a5.png", spanishWords: ["la computadora"] },
+  { filename: "1f50c.png", spanishWords: ["el enchufe"] },
+  { filename: "1f5a8.png", spanishWords: ["la impresora"] },
+  { filename: "2328.png", spanishWords: ["el teclado"] },
+  { filename: "1f5b1.png", spanishWords: ["el mouse"] },
+  { filename: "1f4bf.png", spanishWords: ["el disco"] },
+  { filename: "231a.png", spanishWords: ["el reloj"] },
+  { filename: "23f1.png", spanishWords: ["el cronómetro"] },
+  { filename: "23f2.png", spanishWords: ["el temporizador"] },
+];
+
+const spanishFlagIcons = [
   { filename: "1f1e8-1f1f4.png", spanishWords: ["Colombia"] },
   { filename: "1f1ea-1f1f8.png", spanishWords: ["España"] },
   { filename: "1f1fb-1f1ea.png", spanishWords: ["Venezuela"] },
@@ -305,15 +444,57 @@ export const iconSets: IconSet[] = [
   //   source: "Icon Humble Bundle",
   // },
   {
-    name: "Food",
+    name: "Basic Foods",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
-    icons: foodIcons,
+    icons: basicFoodIcons,
     source: "https://github.com/twitter/twemoji",
   },
   {
-    name: "Animals",
+    name: "More Foods",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
-    icons: animalIcons,
+    icons: moreFoodIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Fruits",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: fruitIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Vegetables",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: vegetableIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Prepared Foods",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: preparedFoodIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Beverages",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: beverageIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Desserts",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: dessertIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Basic Animals",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: basicAnimalIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "More Animals",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: moreAnimalIcons,
     source: "https://github.com/twitter/twemoji",
   },
   {
@@ -344,6 +525,18 @@ export const iconSets: IconSet[] = [
     name: "Plants",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: plantIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Music",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: musicIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "School and Work",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: schoolAndWorkIcons,
     source: "https://github.com/twitter/twemoji",
   },
   {
