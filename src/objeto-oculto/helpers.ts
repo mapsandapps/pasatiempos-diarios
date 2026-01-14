@@ -1,12 +1,15 @@
 import { ICON_SIZE } from "./generator";
 import type {
+  CombinedIconSet,
   Icon,
+  IconDataWithPath,
+  IconSet,
   IconToFind,
   MinimizedIcon,
   MinimizedPuzzle,
   Puzzle,
 } from "./types";
-import { filter } from "lodash";
+import { filter, includes, range, sample, some } from "lodash";
 
 export const minifyPuzzle = (puzzle: Puzzle) => {
   const minifiedPuzzle = {
@@ -72,4 +75,135 @@ export const isClickInIcon = (icon: Icon, clickX: number, clickY: number) => {
   const isYInIcon = clickY >= icon.y && clickY <= icon.y + ICON_SIZE;
 
   return isXInIcon && isYInIcon;
+};
+
+export const hasNameInCommon = (a: string[], b: string[]): boolean => {
+  return some(a, (item) => includes(b, item));
+};
+
+export const hasFilePathBeenUsed = (
+  filePath: string,
+  icons: IconDataWithPath[]
+) => {
+  const usedFilePaths = icons.map((icon) => icon.filePath);
+
+  return includes(usedFilePaths, filePath);
+};
+
+export const combineIconSets = (iconSets: IconSet[]): CombinedIconSet => {
+  // Source - https://stackoverflow.com/questions/16251822/array-to-comma-separated-string-and-for-last-tag-use-the-and-instead-of-comma
+  // Posted by cipher, modified by community. See post 'Timeline' for change history
+  // Retrieved 2026-01-14, License - CC BY-SA 3.0
+  const name = iconSets
+    .map((set) => set.name)
+    .join(", ")
+    .replace(/,(?!.*,)/gim, " and");
+
+  const iconSet: CombinedIconSet = {
+    name,
+    icons: [],
+  };
+  const usedSpanishWords: string[] = [];
+
+  iconSets.forEach((set) => {
+    set.icons.forEach((icon) => {
+      const filePath = `${set.iconDir}/${icon.filename}`;
+
+      // if this icon has the same spanish translation as another icon
+      // or if the icon has the same filePath as another icon
+      // don't include it
+      if (
+        hasNameInCommon(icon.spanishWords, usedSpanishWords) ||
+        hasFilePathBeenUsed(filePath, iconSet.icons)
+      ) {
+        // no-op
+      } else {
+        iconSet.icons.push({
+          spanishWords: icon.spanishWords,
+          filePath,
+        });
+      }
+    });
+  });
+
+  console.log({ iconSets, iconSet });
+
+  return iconSet;
+};
+
+export const getSpanishWord = (
+  hasArgentinianBias: boolean,
+  icon: IconDataWithPath
+) => {
+  // if we're using the Argentinian words, pick the first word for each icon, otherwise, pick the 2nd one (if there's more than one)
+
+  if (hasArgentinianBias) return icon.spanishWords[0];
+  if (icon.spanishWords[1]) return icon.spanishWords[1];
+  return icon.spanishWords[0];
+};
+
+// recursive
+export const findAcceptablePosition = (
+  icons: Icon[],
+  minX: number,
+  maxX: number,
+  minY: number,
+  maxY: number,
+  attempts: number = 0
+): { x: number; y: number } => {
+  if (attempts > 5) {
+    console.warn("lots of recursion happening...");
+  }
+  if (attempts > 25) {
+    console.error("too much recursion!");
+    return { x: minX, y: minY };
+  }
+  const BUFFER = ICON_SIZE / 2; // the amount of overlap to avoid
+  const GRID_SPACING = 8;
+
+  const xOptions = range(minX, maxX + 1, GRID_SPACING);
+  const yOptions = range(minY, maxY + 1, GRID_SPACING);
+
+  if (xOptions.length < 1 || yOptions.length < 1) {
+    console.error("no options for position");
+    return { x: 0, y: 0 };
+  }
+
+  const potentialX = sample(xOptions) as number;
+  const potentialY = sample(yOptions) as number;
+
+  let isPositionGood = true;
+
+  icons.forEach((icon) => {
+    if (
+      Math.abs(icon.x - potentialX) < BUFFER &&
+      Math.abs(icon.y - potentialY) < BUFFER
+    ) {
+      isPositionGood = false;
+    }
+  });
+
+  if (isPositionGood) {
+    return { x: potentialX, y: potentialY };
+  } else {
+    return findAcceptablePosition(icons, minX, maxX, minY, maxY, attempts + 1);
+  }
+};
+
+export const findPosition = (
+  iconsToFind: IconToFind[],
+  otherIcons: Icon[],
+  minX: number,
+  maxX: number,
+  minY: number,
+  maxY: number
+) => {
+  const allIcons = [...iconsToFind, ...otherIcons];
+
+  const { x, y } = findAcceptablePosition(allIcons, minX, maxX, minY, maxY);
+
+  return {
+    x,
+    y,
+  };
 };

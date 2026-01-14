@@ -22,6 +22,16 @@ export interface IconSet {
   source?: string;
 }
 
+export interface IconDataWithPath {
+  filePath: string;
+  spanishWords: string[];
+}
+
+export interface CombinedIconSet {
+  icons: IconDataWithPath[];
+  name: string;
+}
+
 export interface Puzzle {
   iconsToFind: IconToFind[];
   otherIcons: Icon[];

@@ -33,7 +33,7 @@ export default function ObjetoOculto() {
     setDailyPuzzle(false);
     setPuzzle(
       generatePuzzle({
-        iconSet: selectedIconSet,
+        iconSets: [selectedIconSet],
         numberToFind,
         numberToShow,
       })
