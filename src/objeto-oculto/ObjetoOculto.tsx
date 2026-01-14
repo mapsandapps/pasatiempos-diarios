@@ -27,9 +27,10 @@ export default function ObjetoOculto() {
     selectedIconSet.icons.length
   );
   const [shouldShowMinified, setShouldShowMinified] = useState(true);
+  const [isDailyPuzzle, setDailyPuzzle] = useState(true);
 
   const generate = () => {
-    // TODO: probably if a puzzle is generated this way, it shouldn't show the date & check mark on the left, and it shouldn't add to localstorage when the user finishes it
+    setDailyPuzzle(false);
     setPuzzle(
       generatePuzzle({
         iconSet: selectedIconSet,
@@ -44,10 +45,14 @@ export default function ObjetoOculto() {
       <div className="about">
         <h1>Objeto Oculto</h1>
         <div>Find images that match Spanish words</div>
-        <div className="date">
-          {date}
-          {isTodayInLocalStorage("objeto-oculto") && " ✅"}
-        </div>
+        {isDailyPuzzle ? (
+          <div className="date">
+            {date}
+            {isTodayInLocalStorage("objeto-oculto") && " ✅"}
+          </div>
+        ) : (
+          <div className="date">User-generated puzzle</div>
+        )}
         {isInGeneratorMode && (
           <>
             <div>
@@ -100,27 +105,35 @@ export default function ObjetoOculto() {
                 Generate!
               </button>
             </div>
-            <hr />
-            <label>
-              <input
-                type="checkbox"
-                checked={shouldShowMinified}
-                onChange={() => setShouldShowMinified(!shouldShowMinified)}
-              />
-              Show minified puzzle
-            </label>
-            <textarea
-              value={
-                shouldShowMinified
-                  ? JSON.stringify(minifyPuzzle(puzzle))
-                  : JSON.stringify(puzzle)
-              }
-              readOnly
-            />
+            {!isDailyPuzzle && (
+              <>
+                <hr />
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={shouldShowMinified}
+                    onChange={() => setShouldShowMinified(!shouldShowMinified)}
+                  />
+                  Show minified puzzle
+                </label>
+                <textarea
+                  value={
+                    shouldShowMinified
+                      ? JSON.stringify(minifyPuzzle(puzzle))
+                      : JSON.stringify(puzzle)
+                  }
+                  readOnly
+                />
+              </>
+            )}
           </>
         )}
       </div>
-      <Game todayString={todayString} puzzle={puzzle} />
+      <Game
+        todayString={todayString}
+        puzzle={puzzle}
+        isDailyPuzzle={isDailyPuzzle}
+      />
     </div>
   );
 }
