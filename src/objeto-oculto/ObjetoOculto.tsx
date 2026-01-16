@@ -1,17 +1,23 @@
 import { isTodayInLocalStorage } from "../utils/localstorage";
 import Game from "./Game";
 import "./ObjetoOculto.scss";
-import { getTodayString } from "../utils/dates";
-import { generatePuzzle, MAX_ITEMS_TO_INCLUDE } from "./generator";
+import { puzzles } from "./puzzles.ts";
+import { getPuzzleForDate, getTodayString } from "../utils/dates";
+import {
+  generatePuzzle,
+  MAX_DEFAULT_ITEMS_TO_FIND,
+  MAX_ITEMS_TO_INCLUDE,
+} from "./generator";
 import { iconSets } from "./icons";
 import { useSearchParams } from "react-router";
 import { useEffect, useState, type ChangeEvent } from "react";
-import { combineIconSets, minifyPuzzle } from "./helpers";
-import type { IconSet } from "./types";
+import { combineIconSets, minifyPuzzle, unminifyPuzzle } from "./helpers";
+import type { IconSet, MinifiedPuzzle, Puzzle } from "./types";
+import { PuzzleDateSpecificity } from "../types";
 
 export default function ObjetoOculto() {
   const todayString = getTodayString();
-  const [puzzle, setPuzzle] = useState(generatePuzzle({})); // TODO: later, these will come from a list of stored puzzles, so everyone has the same one
+  const [puzzle, setPuzzle] = useState<Puzzle>();
 
   const date = new Date().toLocaleDateString(undefined, {
     weekday: "long",
@@ -56,9 +62,23 @@ export default function ObjetoOculto() {
     });
   };
 
+  // onInit
+  useEffect(() => {
+    const puzzle = getPuzzleForDate(
+      todayString,
+      puzzles,
+      PuzzleDateSpecificity.MatchDayOfMonth
+    ) as MinifiedPuzzle;
+
+    setPuzzle(unminifyPuzzle(puzzle));
+  }, []);
+
   useEffect(() => {
     const combinedSets = combineIconSets(selectedIconSets);
     setNumberToShow(Math.min(combinedSets.icons.length, MAX_ITEMS_TO_INCLUDE));
+    setNumberToFind(
+      Math.min(combinedSets.icons.length, MAX_DEFAULT_ITEMS_TO_FIND)
+    );
     setNumberOfIconsInSet(combinedSets.icons.length);
   }, [selectedIconSets]);
 
@@ -142,24 +162,28 @@ export default function ObjetoOculto() {
                   />
                   Minify
                 </label>
-                <textarea
-                  value={
-                    shouldShowMinified
-                      ? JSON.stringify(minifyPuzzle(puzzle))
-                      : JSON.stringify(puzzle)
-                  }
-                  readOnly
-                />
+                {puzzle && (
+                  <textarea
+                    value={
+                      shouldShowMinified
+                        ? JSON.stringify(minifyPuzzle(puzzle))
+                        : JSON.stringify(puzzle)
+                    }
+                    readOnly
+                  />
+                )}
               </>
             )}
           </>
         )}
       </div>
-      <Game
-        todayString={todayString}
-        puzzle={puzzle}
-        isDailyPuzzle={isDailyPuzzle}
-      />
+      {puzzle && (
+        <Game
+          todayString={todayString}
+          puzzle={puzzle}
+          isDailyPuzzle={isDailyPuzzle}
+        />
+      )}
     </div>
   );
 }

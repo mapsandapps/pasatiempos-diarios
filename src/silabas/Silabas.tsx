@@ -3,8 +3,9 @@ import Game from "./Game";
 import { puzzles } from "./puzzles";
 import "./Silabas.scss";
 import type { RawPuzzle } from "./types";
-import { getTodayString } from "../utils/dates";
+import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import { isTodayInLocalStorage } from "../utils/localstorage";
+import { PuzzleDateSpecificity } from "../types";
 
 export default function Silabas() {
   const [puzzle, setPuzzle] = useState<RawPuzzle>();
@@ -18,17 +19,13 @@ export default function Silabas() {
 
   // onInit
   useEffect(() => {
-    const todayDayOfMonth = Number(todayString.slice(-2));
-    const todayPuzzle = puzzles.find((puzzle) => {
-      const puzzleDayOfMonth = Number(puzzle.date.slice(-2));
-      return puzzleDayOfMonth === todayDayOfMonth;
-    });
-
-    if (!todayPuzzle) {
-      console.error("no puzzle found");
-    }
-
-    setPuzzle(todayPuzzle);
+    setPuzzle(
+      getPuzzleForDate(
+        todayString,
+        puzzles,
+        PuzzleDateSpecificity.MatchDayOfMonth
+      ) as RawPuzzle
+    );
   }, []);
 
   return (

@@ -4,6 +4,7 @@ import { iconSets as allIconSets } from "./icons";
 import { combineIconSets, findPosition, getSpanishWord } from "./helpers";
 
 export const ICON_SIZE = 48;
+export const MAX_DEFAULT_ITEMS_TO_FIND = 30;
 export const MAX_ITEMS_TO_INCLUDE = 80;
 const PUZZLE_WIDTH = 468;
 const PUZZLE_HEIGHT = 500;
@@ -81,6 +82,7 @@ export const generatePuzzle = (props: {
   });
 
   return {
+    date: "",
     name: iconSet.name,
     iconsToFind,
     otherIcons,

@@ -1,3 +1,5 @@
+import type { GenericPuzzle } from "../types";
+
 export interface IconData {
   filename: string;
   spanishWords: string[];
@@ -32,7 +34,7 @@ export interface CombinedIconSet {
   name: string;
 }
 
-export interface Puzzle {
+export interface Puzzle extends GenericPuzzle {
   iconsToFind: IconToFind[];
   otherIcons: Icon[];
   name: string;
@@ -40,7 +42,7 @@ export interface Puzzle {
   hasArgentinianBias: boolean; // the first item in each spanishWords array is Argentinian, where relevant
 }
 
-export type MinimizedIcon = [
+export type MinifiedIcon = [
   filePath: string,
   spanishWord: string,
   x: number,
@@ -50,9 +52,9 @@ export type MinimizedIcon = [
   // if i end up using this for e.g. storing state of in-progress puzzles, this will need to change
 ];
 
-export interface MinimizedPuzzle {
-  iconsToFind: MinimizedIcon[];
-  otherIcons: MinimizedIcon[];
+export interface MinifiedPuzzle extends GenericPuzzle {
+  iconsToFind: MinifiedIcon[];
+  otherIcons: MinifiedIcon[];
   name: string;
   totalIconsShown: number;
   hasArgentinianBias: boolean;

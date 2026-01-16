@@ -21,10 +21,7 @@ export default function Home() {
         </div>
       </div>
       <div className="card objeto-oculto">
-        <div className="card-header">
-          Objeto Oculto
-          <img className="beta" src="/beta.png" alt="beta!" />
-        </div>
+        <div className="card-header">Objeto Oculto</div>
         <div className="card-body">
           <p className="description">Find images that match Spanish words</p>
           <Link to="/objeto-oculto">

@@ -5,17 +5,18 @@ import type {
   IconDataWithPath,
   IconSet,
   IconToFind,
-  MinimizedIcon,
-  MinimizedPuzzle,
+  MinifiedIcon,
+  MinifiedPuzzle,
   Puzzle,
 } from "./types";
 import { filter, includes, range, sample, some } from "lodash";
 
 export const minifyPuzzle = (puzzle: Puzzle) => {
-  const minifiedPuzzle = {
-    iconsToFind: [] as MinimizedIcon[],
-    otherIcons: [] as MinimizedIcon[],
+  const minifiedPuzzle: MinifiedPuzzle = {
+    date: puzzle.date,
     name: puzzle.name,
+    iconsToFind: [] as MinifiedIcon[],
+    otherIcons: [] as MinifiedIcon[],
     totalIconsShown: puzzle.totalIconsShown,
     hasArgentinianBias: puzzle.hasArgentinianBias,
   };
@@ -43,11 +44,12 @@ export const minifyPuzzle = (puzzle: Puzzle) => {
   return minifiedPuzzle;
 };
 
-export const unminifyPuzzle = (puzzle: MinimizedPuzzle) => {
-  const unminifiedPuzzle = {
+export const unminifyPuzzle = (puzzle: MinifiedPuzzle) => {
+  const unminifiedPuzzle: Puzzle = {
+    date: puzzle.date,
+    name: puzzle.name,
     iconsToFind: [] as IconToFind[],
     otherIcons: [] as Icon[],
-    name: puzzle.name,
     totalIconsShown: puzzle.totalIconsShown,
     hasArgentinianBias: puzzle.hasArgentinianBias,
   };
