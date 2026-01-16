@@ -1,4 +1,4 @@
-.cards {
+.home-cards {
   display: flex;
   flex-wrap: wrap;
   width: calc(100% - 32px);
@@ -6,65 +6,82 @@
   align-items: flex-start;
   justify-content: center;
   gap: 32px;
+
+  .card {
+    border-radius: 36px;
+    border: 8px solid black;
+    overflow: hidden;
+    width: 320px;
+    min-width: 320px;
+
+    .card-header {
+      background-color: var(--blue-350);
+      font-family: var(--title-font);
+      font-size: 36px;
+      line-height: 56px;
+      padding: 0px 16px;
+
+      .beta {
+        width: 48px;
+        margin-left: 8px;
+      }
+    }
+
+    .card-body {
+      padding: 16px;
+
+      p {
+        padding-bottom: 16px;
+      }
+
+      button {
+        background-color: var(--blue-350);
+        border-radius: 8px;
+        color: black;
+        cursor: pointer;
+        padding: 8px;
+      }
+    }
+
+    &.objeto-oculto {
+      .card-header {
+        background-color: var(--purple-350);
+      }
+
+      button {
+        background-color: var(--purple-350);
+      }
+    }
+
+    &.inactive {
+      border-color: darkgray;
+      color: darkgray;
+
+      .card-header {
+        background-color: lightgray;
+      }
+
+      button {
+        background-color: white;
+        cursor: default;
+      }
+    }
+  }
 }
 
-.card {
-  border-radius: 36px;
-  border: 8px solid black;
-  overflow: hidden;
-  width: 320px;
-  min-width: 320px;
+.home-footer {
+  margin: 128px 16px 32px;
+  text-align: center;
+}
 
-  .card-header {
-    background-color: var(--blue-350);
+.home-credits {
+  h1 {
     font-family: var(--title-font);
-    font-size: 36px;
-    line-height: 56px;
-    padding: 0px 16px;
-
-    .beta {
-      width: 48px;
-      margin-left: 8px;
-    }
+    font-size: 40px;
+    margin-top: 80px;
   }
-
-  .card-body {
-    padding: 16px;
-
-    p {
-      padding-bottom: 16px;
-    }
-
-    button {
-      background-color: var(--blue-350);
-      border-radius: 8px;
-      color: black;
-      cursor: pointer;
-      padding: 8px;
-    }
-  }
-
-  &.objeto-oculto {
-    .card-header {
-      background-color: var(--purple-350);
-    }
-
-    button {
-      background-color: var(--purple-350);
-    }
-  }
-
-  &.inactive {
-    border-color: darkgray;
-    color: darkgray;
-
-    .card-header {
-      background-color: lightgray;
-    }
-
-    button {
-      background-color: white;
-      cursor: default;
-    }
+  img {
+    width: 80px;
+    vertical-align: middle;
   }
 }
