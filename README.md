@@ -6,6 +6,8 @@ Daily puzzle games in Spanish
 
 Go to [http://localhost:5174/objeto-oculto?generate=true](http://localhost:5174/objeto-oculto?generate=true) to generate a new Objeto Oculto puzzle & play it.
 
+You can go to a specific date via query param, e.g. [http://localhost:5174/objeto-oculto?date=2026-09-23](http://localhost:5174/objeto-oculto?date=2026-09-23)
+
 ## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

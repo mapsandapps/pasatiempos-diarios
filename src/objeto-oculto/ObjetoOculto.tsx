@@ -17,6 +17,11 @@ import { PuzzleDateSpecificity } from "../types";
 
 export default function ObjetoOculto() {
   const todayString = getTodayString();
+  const [searchParams] = useSearchParams();
+  const queryParamDate = searchParams.get("date");
+  const [isDailyPuzzle, setDailyPuzzle] = useState(
+    queryParamDate && queryParamDate !== todayString ? false : true
+  );
   const [puzzle, setPuzzle] = useState<Puzzle>();
 
   const date = new Date().toLocaleDateString(undefined, {
@@ -26,14 +31,12 @@ export default function ObjetoOculto() {
   });
 
   // generator stuff:
-  const [searchParams] = useSearchParams();
   const isInGeneratorMode = searchParams.get("generate");
   const [selectedIconSets, setSelectedIconSets] = useState<IconSet[]>([]);
   const [numberOfIconsInSet, setNumberOfIconsInSet] = useState(0); // set below in useEffect
   const [numberToFind, setNumberToFind] = useState(1);
   const [numberToShow, setNumberToShow] = useState(0); // set below in useEffect
   const [shouldShowMinified, setShouldShowMinified] = useState(true);
-  const [isDailyPuzzle, setDailyPuzzle] = useState(true);
 
   const generate = () => {
     setDailyPuzzle(false);
@@ -65,7 +68,7 @@ export default function ObjetoOculto() {
   // onInit
   useEffect(() => {
     const puzzle = getPuzzleForDate(
-      todayString,
+      queryParamDate || todayString,
       puzzles,
       PuzzleDateSpecificity.MatchDayOfMonth
     ) as MinifiedPuzzle;
@@ -86,7 +89,7 @@ export default function ObjetoOculto() {
     <div id="objeto-oculto">
       <div className="about">
         <h1>Objeto Oculto</h1>
-        {isDailyPuzzle ? (
+        {isDailyPuzzle && (
           <>
             <div>Find images that match Spanish words</div>
             <div className="date">
@@ -94,8 +97,19 @@ export default function ObjetoOculto() {
               {isTodayInLocalStorage("objeto-oculto") && " ✅"}
             </div>
           </>
-        ) : (
+        )}
+        {!isDailyPuzzle && !queryParamDate && (
           <div className="date">User-generated puzzle</div>
+        )}
+        {!isDailyPuzzle && queryParamDate && (
+          <>
+            <div>Find images that match Spanish words</div>
+            <div className="date">
+              Archive puzzle:
+              <br />
+              {queryParamDate}
+            </div>
+          </>
         )}
         {isInGeneratorMode && (
           <>

@@ -23,9 +23,9 @@ export const getPuzzleForDate = (
     }
     return todayPuzzle;
   } else if (specificity === PuzzleDateSpecificity.MatchDayOfYear) {
-    const todayDayOfYear = Number(todayString.slice(-5));
+    const todayDayOfYear = todayString.slice(-5);
     const todayPuzzle = puzzles.find((puzzle) => {
-      const puzzleDayOfYear = Number(puzzle.date.slice(-5));
+      const puzzleDayOfYear = puzzle.date.slice(-5);
       return puzzleDayOfYear === todayDayOfYear;
     });
 
@@ -37,10 +37,8 @@ export const getPuzzleForDate = (
   }
 
   // if specificity === PuzzleDateSpecificity.MatchDate
-  const todayDay = Number(todayString);
   const todayPuzzle = puzzles.find((puzzle) => {
-    const puzzleDay = Number(puzzle.date);
-    return puzzleDay === todayDay;
+    return puzzle.date === todayString;
   });
 
   if (!todayPuzzle) {
