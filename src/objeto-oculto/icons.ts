@@ -94,6 +94,7 @@ const beverageIcons = [
   { filename: "1f9c3.png", spanishWords: ["el jugo", "el zumo"] },
   { filename: "1f9c9.png", spanishWords: ["el mate"] },
   { filename: "1f9ca.png", spanishWords: ["el hielo"] },
+  { filename: "1f379.png", spanishWords: ["la bebida tropical"] },
 ];
 
 const dessertIcons = [
@@ -450,6 +451,121 @@ const vehicleIcons = [
   { filename: "1fa82.png", spanishWords: ["el paracaídas"] },
 ];
 
+const springAndFallIcons = [
+  // spring:
+  { filename: "1f338.png", spanishWords: ["la flor"] },
+  { filename: "1f331.png", spanishWords: ["la planta joven"] },
+  { filename: "1f41d.png", spanishWords: ["la abeja"] },
+  { filename: "1f308.png", spanishWords: ["el arcoíris"] },
+  { filename: "1f430.png", spanishWords: ["el conejo"] },
+  { filename: "1f423.png", spanishWords: ["el pollito"] },
+  { filename: "1f438.png", spanishWords: ["la rana"] },
+  { filename: "1faba.png", spanishWords: ["el nido"] },
+  // fall:
+  { filename: "1f342.png", spanishWords: ["las hojas seca"] },
+  { filename: "1f330.png", spanishWords: ["la castaña"] },
+  { filename: "1f383.png", spanishWords: ["la calabaza"] },
+  { filename: "2601.png", spanishWords: ["la nube"] },
+  { filename: "1f32c.png", spanishWords: ["el viento"] },
+  { filename: "1f43f.png", spanishWords: ["la ardilla listada"] },
+  { filename: "1f967.png", spanishWords: ["la tarta"] },
+  { filename: "2615.png", spanishWords: ["el café"] },
+  { filename: "1fa81.png", spanishWords: ["el barrilete", "la cometa"] },
+];
+
+const summerIcons = [
+  { filename: "2600.png", spanishWords: ["el sol"] },
+  { filename: "1f3d6.png", spanishWords: ["la playa"] },
+  { filename: "1f30a.png", spanishWords: ["la ola"] },
+  { filename: "1f349.png", spanishWords: ["la sandía"] },
+  { filename: "1f366.png", spanishWords: ["el helado"] },
+  // prettier-ignore
+  { filename: "1f576.png", spanishWords: ["los anteojos de sol", "las gafas de sol"] },
+  { filename: "1f975.png", spanishWords: ["la cara con calor"] },
+  { filename: "1f459.png", spanishWords: ["la bikini"] },
+  { filename: "1f3c4.png", spanishWords: ["surfear"] },
+  { filename: "1f3ca.png", spanishWords: ["nadar"] },
+  { filename: "1f33b.png", spanishWords: ["el girasol"] },
+  { filename: "1f379.png", spanishWords: ["la bebida tropical"] },
+  { filename: "1fa74.png", spanishWords: ["las ojotas", "las chanclas"] },
+];
+
+const winterIcons = [
+  { filename: "2744.png", spanishWords: ["el copo de nieve"] },
+  { filename: "2603.png", spanishWords: ["el muñeco de nieve"] },
+  { filename: "1f9e3.png", spanishWords: ["la bufanda"] },
+  { filename: "1f9e4.png", spanishWords: ["los guantes"] },
+  { filename: "1f976.png", spanishWords: ["la cara con frío"] },
+  { filename: "1f525.png", spanishWords: ["el fuego"] },
+  { filename: "26f7.png", spanishWords: ["esquiar"] },
+  { filename: "1f3c2.png", spanishWords: ["el snowboard"] },
+  { filename: "1f9ca.png", spanishWords: ["el hielo"] },
+  { filename: "26f8.png", spanishWords: ["el patín de hielo"] },
+  { filename: "1f6f7.png", spanishWords: ["el trineo"] },
+  { filename: "1f9e5.png", spanishWords: ["el abrigo"] },
+  { filename: "1f462.png", spanishWords: ["las botas"] },
+];
+
+const seasonsIcons = [
+  { filename: "1f338.png", spanishWords: ["la flor"] },
+  { filename: "1f331.png", spanishWords: ["la planta joven"] },
+  { filename: "1f41d.png", spanishWords: ["la abeja"] },
+  { filename: "1f308.png", spanishWords: ["el arcoíris"] },
+  { filename: "2600.png", spanishWords: ["el sol"] },
+  { filename: "1f3d6.png", spanishWords: ["la playa"] },
+  { filename: "1f30a.png", spanishWords: ["la ola"] },
+  { filename: "1f349.png", spanishWords: ["la sandía"] },
+  { filename: "1f366.png", spanishWords: ["el helado"] },
+  // prettier-ignore
+  { filename: "1f576.png", spanishWords: ["los anteojos de sol", "las gafas de sol"] },
+  { filename: "1f342.png", spanishWords: ["las hojas seca"] },
+  { filename: "1f330.png", spanishWords: ["la castaña"] },
+  { filename: "1f383.png", spanishWords: ["la calabaza"] },
+  { filename: "2601.png", spanishWords: ["la nube"] },
+  { filename: "1f32c.png", spanishWords: ["el viento"] },
+  { filename: "2744.png", spanishWords: ["el copo de nieve"] },
+  { filename: "2603.png", spanishWords: ["el muñeco de nieve"] },
+  { filename: "1f9e3.png", spanishWords: ["la bufanda"] },
+  { filename: "1f9e4.png", spanishWords: ["los guantes"] },
+  { filename: "1f976.png", spanishWords: ["la cara con frío"] },
+  { filename: "1f525.png", spanishWords: ["el fuego"] },
+  { filename: "26f7.png", spanishWords: ["esquiar"] },
+  { filename: "1f3c2.png", spanishWords: ["el snowboard"] },
+  { filename: "1f9ca.png", spanishWords: ["el hielo"] },
+  { filename: "26f8.png", spanishWords: ["el patín de hielo"] },
+  { filename: "1f6f7.png", spanishWords: ["el trineo"] },
+  { filename: "1f9e5.png", spanishWords: ["el abrigo"] },
+  { filename: "1f462.png", spanishWords: ["las botas"] },
+  { filename: "1f975.png", spanishWords: ["la cara con calor"] },
+  { filename: "1f459.png", spanishWords: ["la bikini"] },
+  { filename: "1f3c4.png", spanishWords: ["surfear"] },
+  { filename: "1f3ca.png", spanishWords: ["nadar"] },
+  { filename: "1f33b.png", spanishWords: ["el girasol"] },
+  { filename: "1f379.png", spanishWords: ["la bebida tropical"] },
+  { filename: "1f321.png", spanishWords: ["el termómetro"] },
+  { filename: "1fa74.png", spanishWords: ["las ojotas", "las chanclas"] },
+  { filename: "1f430.png", spanishWords: ["el conejo"] },
+  { filename: "1f423.png", spanishWords: ["el pollito"] },
+  { filename: "1f438.png", spanishWords: ["la rana"] },
+  { filename: "1f43f.png", spanishWords: ["la ardilla listada"] },
+  { filename: "1f967.png", spanishWords: ["la tarta"] },
+  { filename: "2615.png", spanishWords: ["el café"] },
+  { filename: "1fa81.png", spanishWords: ["el barrilete", "la cometa"] },
+];
+
+const weatherIcons = [
+  { filename: "1f308.png", spanishWords: ["el arcoíris"] },
+  { filename: "2600.png", spanishWords: ["el sol"] },
+  { filename: "1f30a.png", spanishWords: ["la ola"] },
+  // prettier-ignore
+  { filename: "1f576.png", spanishWords: ["los anteojos de sol", "las gafas de sol"] },
+  { filename: "2601.png", spanishWords: ["la nube"] },
+  { filename: "1f32c.png", spanishWords: ["el viento"] },
+  { filename: "1f328.png", spanishWords: ["la nieve"] },
+  { filename: "2603.png", spanishWords: ["el muñeco de nieve"] },
+  { filename: "1f32a.png", spanishWords: ["el tornado"] },
+];
+
 export const iconSets: IconSet[] = [
   // // how to use local icons instead of CDN: (make a "food-icons" dir within /public)
   // {
@@ -558,6 +674,36 @@ export const iconSets: IconSet[] = [
     name: "Vehicles",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: vehicleIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Seasons",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: seasonsIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Summer",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: summerIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Winter",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: winterIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Spring and Fall",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: springAndFallIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Weather",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: weatherIcons,
     source: "https://github.com/twitter/twemoji",
   },
   {
