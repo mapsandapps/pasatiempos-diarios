@@ -19,10 +19,8 @@ const basicFoodIcons = [
   { filename: "1f346.png", spanishWords: ["la berenjena"] },
   { filename: "1f954.png", spanishWords: ["la patata"] },
   { filename: "1f955.png", spanishWords: ["la zanahoria"] },
-  {
-    filename: "1fad1.png",
-    spanishWords: ["el morrón verde", "el pimiento verde"],
-  },
+  // prettier-ignore
+  { filename: "1fad1.png", spanishWords: ["el morrón verde", "el pimiento verde"] },
   { filename: "1f952.png", spanishWords: ["el pepino"] },
   { filename: "1f966.png", spanishWords: ["el brócoli", "el brécol"] },
   { filename: "1f9c4.png", spanishWords: ["el ajo"] },
@@ -48,10 +46,8 @@ const moreFoodIcons = [
   { filename: "1fad2.png", spanishWords: ["las aceitunas", "las olivas"] },
   { filename: "1f965.png", spanishWords: ["el coco"] },
   { filename: "1f951.png", spanishWords: ["la palta", "el aguacate"] },
-  {
-    filename: "1f33d.png",
-    spanishWords: ["el choclo", "el maíz", "el elote"],
-  },
+  // prettier-ignore
+  { filename: "1f33d.png", spanishWords: ["el choclo", "el maíz", "el elote"] },
   { filename: "1f336.png", spanishWords: ["el ají", "el chile"] },
   { filename: "1f330.png", spanishWords: ["la castaña"] },
   { filename: "1f95e.png", spanishWords: ["los panqueques", "las tortitas"] },
@@ -151,15 +147,11 @@ const vegetableIcons = [
   { filename: "1f346.png", spanishWords: ["la berenjena"] },
   { filename: "1f954.png", spanishWords: ["la patata"] },
   { filename: "1f955.png", spanishWords: ["la zanahoria"] },
-  {
-    filename: "1f33d.png",
-    spanishWords: ["el choclo", "el maíz", "el elote"],
-  },
+  // prettier-ignore
+  { filename: "1f33d.png", spanishWords: ["el choclo", "el maíz", "el elote"] },
   { filename: "1f336.png", spanishWords: ["el ají", "el chile"] },
-  {
-    filename: "1fad1.png",
-    spanishWords: ["el morrón verde", "el pimiento verde"],
-  },
+  // prettier-ignore
+  { filename: "1fad1.png", spanishWords: ["el morrón verde", "el pimiento verde"] },
   { filename: "1f952.png", spanishWords: ["el pepino"] },
   { filename: "1f966.png", spanishWords: ["el brócoli", "el brécol"] },
   { filename: "1f9c4.png", spanishWords: ["el ajo"] },
@@ -231,10 +223,8 @@ const moreAnimalIcons = [
   { filename: "1f9a2.png", spanishWords: ["el cisne"] },
   { filename: "1f9a5.png", spanishWords: ["el perezoso"] },
   { filename: "1f9a6.png", spanishWords: ["la nutria"] },
-  {
-    filename: "1f9a8.png",
-    spanishWords: ["el zorrino", "la mofeta", "el zorrillo"],
-  },
+  // prettier-ignore
+  { filename: "1f9a8.png", spanishWords: ["el zorrino", "la mofeta", "el zorrillo"] },
   { filename: "1f9ab.png", spanishWords: ["el castor"] },
   { filename: "1f9ac.png", spanishWords: ["el bisonte"] },
   { filename: "1fab3.png", spanishWords: ["la cucaracha"] },
@@ -435,6 +425,31 @@ const spanishFlagIcons = [
   { filename: "1f1f5-1f1f7.png", spanishWords: ["Puerto Rico"] },
 ];
 
+const vehicleIcons = [
+  { filename: "1f697.png", spanishWords: ["el auto"] },
+  { filename: "1f695.png", spanishWords: ["el taxi"] },
+  { filename: "1f6fb.png", spanishWords: ["la camioneta"] },
+  { filename: "1f68c.png", spanishWords: ["el colectivo", "el autobús"] },
+  { filename: "1f691.png", spanishWords: ["la ambulancia"] },
+  { filename: "1f692.png", spanishWords: ["el camión de bomberos"] },
+  { filename: "1f69a.png", spanishWords: ["el camión"] },
+  { filename: "1f69c.png", spanishWords: ["el tractor"] },
+  { filename: "1f3cd.png", spanishWords: ["la moto"] },
+  { filename: "1f6b2.png", spanishWords: ["la bicicleta"] },
+  { filename: "1f687.png", spanishWords: ["el subte", "el metro"] },
+  { filename: "2708.png", spanishWords: ["el avión"] },
+  { filename: "1f681.png", spanishWords: ["el helicóptero"] },
+  { filename: "1f6a2.png", spanishWords: ["el barco"] },
+  { filename: "1f686.png", spanishWords: ["el tren"] },
+  { filename: "1f3ce.png", spanishWords: ["el auto de carreras"] },
+  { filename: "1f6f9.png", spanishWords: ["la patineta"] },
+  { filename: "1f6fc.png", spanishWords: ["los patines"] },
+  { filename: "1f680.png", spanishWords: ["el cohete"] },
+  { filename: "26f5.png", spanishWords: ["el velero"] },
+  { filename: "1f6f8.png", spanishWords: ["el platillo volador"] },
+  { filename: "1fa82.png", spanishWords: ["el paracaídas"] },
+];
+
 export const iconSets: IconSet[] = [
   // // how to use local icons instead of CDN: (make a "food-icons" dir within /public)
   // {
@@ -537,6 +552,12 @@ export const iconSets: IconSet[] = [
     name: "School and Work",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: schoolAndWorkIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Vehicles",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: vehicleIcons,
     source: "https://github.com/twitter/twemoji",
   },
   {
