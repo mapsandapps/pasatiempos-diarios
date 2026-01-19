@@ -69,7 +69,7 @@ export default function Game(props: GameProps) {
           }
         });
         inProgressPuzzle.iconsToFind.forEach((icon) => {
-          if (isClickInIcon(icon, clickX, clickY)) {
+          if (!icon.hasBeenFound && isClickInIcon(icon, clickX, clickY)) {
             setWrongIconClicked(icon);
           }
         });
