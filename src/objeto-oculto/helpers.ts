@@ -128,8 +128,6 @@ export const combineIconSets = (iconSets: IconSet[]): CombinedIconSet => {
     });
   });
 
-  console.log({ iconSets, iconSet });
-
   return iconSet;
 };
 
@@ -208,4 +206,24 @@ export const findPosition = (
     x,
     y,
   };
+};
+
+const englishNamesOfColors = [
+  { spanish: "rojo", english: "red" },
+  { spanish: "naranja", english: "orange" },
+  { spanish: "amarillo", english: "yellow" },
+  { spanish: "verde", english: "green" },
+  { spanish: "azul", english: "blue" },
+  { spanish: "morado", english: "purple" },
+  { spanish: "café", english: "brown" },
+  { spanish: "negro", english: "black" },
+  { spanish: "blanco", english: "white" },
+];
+
+export const getEnglishNameOfColor = (spanishWord: string): string => {
+  return (
+    englishNamesOfColors.find((obj) => {
+      return obj.spanish === spanishWord;
+    })?.english || ""
+  );
 };

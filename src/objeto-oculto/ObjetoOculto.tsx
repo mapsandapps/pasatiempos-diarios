@@ -1,4 +1,8 @@
-import { isTodayInLocalStorage } from "../utils/localstorage";
+import {
+  addSettingToLocalStorage,
+  getSettingFromLocalStorage,
+  isTodayInLocalStorage,
+} from "../utils/localstorage";
 import Game from "./Game";
 import "./ObjetoOculto.scss";
 import { puzzles } from "./puzzles.ts";
@@ -37,6 +41,14 @@ export default function ObjetoOculto() {
   const [numberToFind, setNumberToFind] = useState(1);
   const [numberToShow, setNumberToShow] = useState(0); // set below in useEffect
   const [shouldShowMinified, setShouldShowMinified] = useState(true);
+  // is the puzzle using colorblind mode? true if the user has the setting on and the puzzle involves colors
+  const [isInColorblindMode, setColorblindMode] = useState(false);
+  // does the user want colorblind mode on when relevant?
+  const [prefersColorblindMode, setPrefersColorblindMode] = useState(
+    getSettingFromLocalStorage("prefersColorblindMode") == "true"
+  );
+
+  const includesColors = puzzle?.name.toLowerCase().includes("color");
 
   const generate = () => {
     setDailyPuzzle(false);
@@ -65,6 +77,10 @@ export default function ObjetoOculto() {
     });
   };
 
+  const handleColorblindOnChange = () => {
+    setPrefersColorblindMode(!prefersColorblindMode);
+  };
+
   // onInit
   useEffect(() => {
     const puzzle = getPuzzleForDate(
@@ -77,6 +93,20 @@ export default function ObjetoOculto() {
   }, []);
 
   useEffect(() => {
+    if (includesColors) {
+      // if it's in localstorage, turn it on, otherwise, turn it off
+      if (prefersColorblindMode) {
+        setColorblindMode(true);
+      } else {
+        setColorblindMode(false);
+      }
+    } else {
+      // not relevant if the puzzle doesn't involve colors
+      setColorblindMode(false);
+    }
+  }, [includesColors, prefersColorblindMode]);
+
+  useEffect(() => {
     const combinedSets = combineIconSets(selectedIconSets);
     setNumberToShow(Math.min(combinedSets.icons.length, MAX_ITEMS_TO_INCLUDE));
     setNumberToFind(
@@ -84,6 +114,11 @@ export default function ObjetoOculto() {
     );
     setNumberOfIconsInSet(combinedSets.icons.length);
   }, [selectedIconSets]);
+
+  // save colorblind preference to localstorage whenever it changes
+  useEffect(() => {
+    addSettingToLocalStorage("prefersColorblindMode", prefersColorblindMode);
+  }, [prefersColorblindMode]);
 
   return (
     <div id="objeto-oculto">
@@ -110,6 +145,18 @@ export default function ObjetoOculto() {
               {queryParamDate}
             </div>
           </>
+        )}
+        {/* if the puzzle includes colors, add colorblindness mode option */}
+        {includesColors && (
+          <label className="colorblind-input">
+            <input
+              type="checkbox"
+              name="colorblind-mode"
+              checked={prefersColorblindMode}
+              onChange={handleColorblindOnChange}
+            />
+            Colorblindness Mode
+          </label>
         )}
         {isInGeneratorMode && (
           <>
@@ -196,6 +243,7 @@ export default function ObjetoOculto() {
           todayString={todayString}
           puzzle={puzzle}
           isDailyPuzzle={isDailyPuzzle}
+          isInColorblindMode={isInColorblindMode}
         />
       )}
     </div>

@@ -1,5 +1,16 @@
 import { getTodayString } from "./dates";
 
+export const addSettingToLocalStorage = (keyName: string, setting: any) => {
+  // prefersColorblindMode: stringified boolean
+
+  localStorage.setItem(keyName, JSON.stringify(setting));
+};
+
+// this returns the stringified object, or null
+export const getSettingFromLocalStorage = (keyName: string): string | null => {
+  return localStorage.getItem(keyName);
+};
+
 export const addDateToLocalStorage = (keyName: string, date: string) => {
   const existingData = localStorage.getItem(keyName);
 

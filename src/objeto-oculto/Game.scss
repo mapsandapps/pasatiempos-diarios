@@ -23,6 +23,16 @@
       border-radius: 4px;
       animation: waitThenFadeOut 4s forwards;
     }
+
+    // displayed when colorblind mode is in use
+    .english-word {
+      position: absolute;
+      margin-top: 8px;
+
+      &.dark-icon {
+        color: white;
+      }
+    }
   }
 
   #click-area {
