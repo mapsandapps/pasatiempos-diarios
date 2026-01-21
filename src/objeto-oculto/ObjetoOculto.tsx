@@ -155,7 +155,7 @@ export default function ObjetoOculto() {
               checked={prefersColorblindMode}
               onChange={handleColorblindOnChange}
             />
-            Colorblindness Mode
+            Colorblind Mode
           </label>
         )}
         {isInGeneratorMode && (

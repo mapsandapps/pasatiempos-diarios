@@ -20,7 +20,7 @@ export default function Emoji(props: EmojiProps) {
   if (iconType === "IconToFind" && (icon as IconToFind).hasBeenFound) return;
 
   return (
-    <React.Fragment key={`fragment-${icon.spanishWord}`}>
+    <React.Fragment>
       <img
         src={icon.filePath}
         className="game-icon"

@@ -8,8 +8,6 @@ import { isClickInIcon, numberRemaining } from "./helpers";
 import React from "react";
 import Emoji from "./Emoji";
 
-const HINT_WAIT_TIME = 15; // seconds
-
 interface GameProps {
   todayString: string;
   puzzle: Puzzle;
@@ -24,7 +22,6 @@ export default function Game(props: GameProps) {
 
   const [hasWon, setHasWon] = useState(false);
   const [showWinScreen, setShowWinScreen] = useState(false);
-  const [time, setTime] = useState(0);
   const [wrongIconClicked, setWrongIconClicked] = useState<Icon>();
   const [inProgressPuzzle, setInProgressPuzzle] = useState(puzzle);
   const clickAreaRef = useRef<HTMLDivElement>(null);
@@ -65,7 +62,6 @@ export default function Game(props: GameProps) {
 
       if (isClickInIcon(currentIcon!, clickX, clickY)) {
         markCurrentIconFound();
-        setTime(0);
       } else {
         // look thru `otherIcons` first, then `iconsToFind`. this order will insure the last match found is the correct (highest "z-index") one
         inProgressPuzzle.otherIcons.forEach((icon) => {
@@ -83,7 +79,6 @@ export default function Game(props: GameProps) {
   };
 
   const win = () => {
-    console.log("won!");
     setHasWon(true);
     setShowWinScreen(true);
 
@@ -98,11 +93,6 @@ export default function Game(props: GameProps) {
     setHasWon(false);
     setShowWinScreen(false);
 
-    setTime(0);
-    stopwatchRef.current = setInterval(() => {
-      setTime((prevTime) => prevTime + 1);
-    }, 1000);
-
     // clean up
     return () => {
       clearInterval(stopwatchRef.current);
@@ -116,11 +106,6 @@ export default function Game(props: GameProps) {
     }
   }, [inProgressPuzzle]);
 
-  // runs on re-render
-  useEffect(() => {
-    console.log(props);
-  });
-
   return (
     <div className={`objeto-oculto-game ${hasWon ? "game-over" : ""}`}>
       {showWinScreen && <Win canBeHidden={false} />}
@@ -128,6 +113,7 @@ export default function Game(props: GameProps) {
         {inProgressPuzzle.otherIcons.map((icon) => {
           return (
             <Emoji
+              key={`emoji-${icon.spanishWord}`}
               icon={icon}
               isInColorblindMode={isInColorblindMode}
               iconType="Icon"
@@ -137,6 +123,7 @@ export default function Game(props: GameProps) {
         {inProgressPuzzle.iconsToFind.map((icon) => {
           return (
             <Emoji
+              key={`emoji-${icon.spanishWord}`}
               icon={icon}
               isInColorblindMode={isInColorblindMode}
               iconType="IconToFind"
@@ -160,14 +147,14 @@ export default function Game(props: GameProps) {
         )}
         {currentIcon && (
           <div className="current-target">
-            Find: {currentIcon!.spanishWord}{" "}
-            {time > HINT_WAIT_TIME && (
-              <span>
-                {" "}
-                (
-                <img src={currentIcon.filePath} />)
-              </span>
-            )}
+            Find: {currentIcon!.spanishWord}
+            {/* setting a key here means it will re-render when the "current icon" changes and therefore will restart the css animation */}
+            {/* the hint will animate in after n seconds */}
+            <span key={currentIcon!.spanishWord} className="hint">
+              {" "}
+              (
+              <img src={currentIcon.filePath} />)
+            </span>
           </div>
         )}
         {numberRemaining(inProgressPuzzle.iconsToFind) <= 5 && (

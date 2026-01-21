@@ -1,3 +1,5 @@
+$HINT_WAIT_TIME: 10s;
+
 .objeto-oculto-game {
   // needs to be darker than most games to contrast with white icons
   background-color: var(--purple-300);
@@ -49,6 +51,11 @@
     }
   }
 
+  .hint {
+    animation: popIn $HINT_WAIT_TIME forwards;
+    opacity: 0;
+  }
+
   .found-counter {
     position: absolute;
     bottom: 0px;
@@ -73,5 +80,17 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
