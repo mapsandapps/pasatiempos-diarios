@@ -145,6 +145,8 @@ export default function Game(props: GameProps) {
         })}
         {wrongIconClicked && (
           <div
+            // setting a key here means it will re-render when the "wrong icon" changes and therefore will restart the css animation
+            key={wrongIconClicked.spanishWord}
             className="wrong-icon-name"
             style={{
               left: `${wrongIconClicked.x}px`,
