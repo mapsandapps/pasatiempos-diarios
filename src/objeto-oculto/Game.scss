@@ -11,10 +11,6 @@
     margin: 24px auto;
     position: relative;
 
-    .game-icon {
-      position: absolute;
-    }
-
     .wrong-icon-name {
       position: absolute;
       background-color: rgba(255, 255, 255, 0.2);
@@ -22,16 +18,6 @@
       padding: 2px 4px;
       border-radius: 4px;
       animation: waitThenFadeOut 4s forwards;
-    }
-
-    // displayed when colorblind mode is in use
-    .english-word {
-      position: absolute;
-      margin-top: 8px;
-
-      &.dark-icon {
-        color: white;
-      }
     }
   }
 

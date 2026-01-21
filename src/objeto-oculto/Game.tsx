@@ -4,13 +4,9 @@ import { addDateToLocalStorage } from "../utils/localstorage";
 import type { Icon, IconToFind, Puzzle } from "./types";
 import { cloneDeep, find, findLast } from "lodash";
 import Win from "../components/Win";
-import {
-  getEnglishNameOfColor,
-  isClickInIcon,
-  numberRemaining,
-} from "./helpers";
-import { ICON_SIZE } from "./generator";
+import { isClickInIcon, numberRemaining } from "./helpers";
 import React from "react";
+import Emoji from "./Emoji";
 
 const HINT_WAIT_TIME = 15; // seconds
 
@@ -131,68 +127,20 @@ export default function Game(props: GameProps) {
       <div id="game">
         {inProgressPuzzle.otherIcons.map((icon) => {
           return (
-            <React.Fragment key={`fragment-${icon.spanishWord}`}>
-              <img
-                key={`${icon.spanishWord}`}
-                src={icon.filePath}
-                className="game-icon"
-                width={`${ICON_SIZE}px`}
-                height={`${ICON_SIZE}px`}
-                style={{
-                  left: `${icon.x}px`,
-                  top: `${icon.y}px`,
-                  transform: `rotate(${icon.rotation}deg)`,
-                }}
-              ></img>
-              {isInColorblindMode && (
-                <span
-                  className={`english-word ${
-                    icon.spanishWord === "negro" ? "dark-icon" : "light-icon"
-                  }`}
-                  style={{
-                    left: `${icon.x}px`,
-                    top: `${icon.y}px`,
-                    transform: `rotate(${icon.rotation}deg)`,
-                  }}
-                >
-                  {getEnglishNameOfColor(icon.spanishWord)}
-                </span>
-              )}
-            </React.Fragment>
+            <Emoji
+              icon={icon}
+              isInColorblindMode={isInColorblindMode}
+              iconType="Icon"
+            />
           );
         })}
         {inProgressPuzzle.iconsToFind.map((icon) => {
-          if (icon.hasBeenFound) return;
-
           return (
-            <React.Fragment key={`fragment-${icon.spanishWord}`}>
-              <img
-                src={icon.filePath}
-                className="game-icon"
-                width={`${ICON_SIZE}px`}
-                height={`${ICON_SIZE}px`}
-                data-spanishword={icon.spanishWord}
-                style={{
-                  left: `${icon.x}px`,
-                  top: `${icon.y}px`,
-                  transform: `rotate(${icon.rotation}deg)`,
-                }}
-              ></img>
-              {isInColorblindMode && (
-                <span
-                  className={`english-word ${
-                    icon.spanishWord === "negro" ? "dark-icon" : "light-icon"
-                  }`}
-                  style={{
-                    left: `${icon.x}px`,
-                    top: `${icon.y}px`,
-                    transform: `rotate(${icon.rotation}deg)`,
-                  }}
-                >
-                  {getEnglishNameOfColor(icon.spanishWord)}
-                </span>
-              )}
-            </React.Fragment>
+            <Emoji
+              icon={icon}
+              isInColorblindMode={isInColorblindMode}
+              iconType="IconToFind"
+            />
           );
         })}
         {wrongIconClicked && (
