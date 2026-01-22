@@ -553,6 +553,36 @@ const seasonsIcons = [
   { filename: "1fa81.png", spanishWords: ["el barrilete", "la cometa"] },
 ];
 
+const clothingIcons = [
+  // prettier-ignore
+  { filename: "1f453.png", spanishWords: ["los anteojos", "los lentes", "las gafas"] },
+  // prettier-ignore
+  { filename: "1f576.png", spanishWords: ["los anteojos de sol", "las gafas de sol"] },
+  { filename: "1f454.png", spanishWords: ["la corbata"] },
+  { filename: "1f455.png", spanishWords: ["la camiseta"] },
+  { filename: "1f456.png", spanishWords: ["los jeans"] },
+  { filename: "1f9e3.png", spanishWords: ["la bufanda"] },
+  { filename: "1f9e4.png", spanishWords: ["los guantes"] },
+  { filename: "1f9e5.png", spanishWords: ["el abrigo"] },
+  { filename: "1f9e6.png", spanishWords: ["las media", "los calcetines"] },
+  { filename: "1f457.png", spanishWords: ["el vestido"] },
+  { filename: "1fa71.png", spanishWords: ["la malla", "el traje de baño"] },
+  { filename: "1fa72.png", spanishWords: ["la ropa interior"] },
+  // prettier-ignore
+  { filename: "1fa73.png", spanishWords: ["los shorts", "los pantalones cortos"] },
+  { filename: "1f459.png", spanishWords: ["la bikini", "el bikini"] },
+  { filename: "1f6cd.png", spanishWords: ["las bolsas de compras"] },
+  { filename: "1f45c.png", spanishWords: ["el bolso"] },
+  { filename: "1f392.png", spanishWords: ["la mochila"] },
+  { filename: "1fa74.png", spanishWords: ["la chancla"] },
+  { filename: "1f45e.png", spanishWords: ["el zapato"] },
+  { filename: "1f45f.png", spanishWords: ["la zapatilla", "los tenis"] },
+  { filename: "1f97e.png", spanishWords: ["la bota"] },
+  { filename: "1f452.png", spanishWords: ["el sombrero"] },
+  { filename: "1f48d.png", spanishWords: ["el anillo"] },
+  { filename: "1f380.png", spanishWords: ["el lazo"] },
+];
+
 const weatherIcons = [
   { filename: "1f308.png", spanishWords: ["el arcoíris"] },
   { filename: "2600.png", spanishWords: ["el sol"] },
@@ -704,6 +734,12 @@ export const iconSets: IconSet[] = [
     name: "Weather",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: weatherIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Clothing",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: clothingIcons,
     source: "https://github.com/twitter/twemoji",
   },
   {
