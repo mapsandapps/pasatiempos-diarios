@@ -3,6 +3,8 @@ import "./Generator.scss";
 import { words as wordList } from "./words";
 import { join, sample } from "lodash";
 import { getSyllables } from "../utils/syllable-parser";
+import Game from "./Game";
+import { minifyWord } from "./helpers";
 
 interface Word {
   definition: string;
@@ -14,6 +16,7 @@ interface Word {
 
 export default function Generator() {
   const [proposedWords, setProposedWords] = useState<Word[]>([]);
+  const [puzzle, setPuzzle] = useState<string[]>();
 
   const NUMBER_OF_WORDS_TO_CHOOSE_FROM = 10;
 
@@ -43,6 +46,7 @@ export default function Generator() {
   };
 
   const resetOptions = () => {
+    setPuzzle(undefined);
     setProposedWords([]);
     const wordsInPuzzle: Word[] = [];
 
@@ -59,6 +63,17 @@ export default function Generator() {
         return word.isIncluded ? word : getRandomWord();
       });
     });
+  };
+
+  const createPuzzle = () => {
+    const words = proposedWords.filter((word) => word.isIncluded);
+    const minifiedWords: string[] = [];
+    words.forEach((word) => {
+      const syllables = word.syllables ?? getSyllables(word.spanish);
+      minifiedWords.push(minifyWord(word.definition, syllables));
+    });
+
+    setPuzzle(minifiedWords);
   };
 
   // onInit
@@ -92,8 +107,9 @@ export default function Generator() {
         <div className="p">⚠️ Please select no more than 5 words</div>
       )}
       {numberOfWordsSelected === 5 && (
-        <button>Display puzzle with words</button>
+        <button onClick={createPuzzle}>Display puzzle with words</button>
       )}
+      {puzzle && <Game todayString="" puzzle={puzzle} />}
     </div>
   );
 }
