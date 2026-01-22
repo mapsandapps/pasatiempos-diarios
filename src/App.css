@@ -74,6 +74,14 @@ a {
   }
 }
 
+button {
+  background-color: var(--blue-350);
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+  padding: 8px;
+}
+
 .page {
   max-width: 1024px;
   margin: 0 auto;

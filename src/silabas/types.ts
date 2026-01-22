@@ -6,8 +6,6 @@ export interface Definition {
 }
 
 export interface RawPuzzle extends GenericPuzzle {
-  rangeStart?: string;
-  rangeEnd?: string;
   puzzle: string[];
 }
 
