@@ -42,7 +42,11 @@ export default function Silabas() {
       </div>
       <div>
         {puzzle ? (
-          <Game puzzle={puzzle.puzzle} todayString={todayString} />
+          <Game
+            puzzle={puzzle.puzzle}
+            todayString={todayString}
+            isDailyPuzzle
+          />
         ) : (
           <div className="error">An error has occurred</div>
         )}

@@ -6,6 +6,7 @@ import { RouterProvider } from "react-router/dom";
 import Credits from "./credits/Credits.tsx";
 import Silabas from "./silabas/Silabas.tsx";
 import ObjetoOculto from "./objeto-oculto/ObjetoOculto.tsx";
+import SilabasGenerator from "./silabas/Generator.tsx";
 import Home from "./Home.tsx";
 
 const router = createBrowserRouter([
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { path: "credits", Component: Credits },
       { path: "silabas", Component: Silabas },
       { path: "objeto-oculto", Component: ObjetoOculto },
+      { path: "silabas-generator", Component: SilabasGenerator },
     ],
   },
 ]);
