@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Game.scss";
 import { cloneDeep, isEqual } from "lodash";
-import type { Puzzle } from "./types";
+import type { Puzzle, Syllable } from "./types";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import Win from "../components/Win";
 import { findFirstEmptySyllable, getSolution, initProgress } from "./helpers";
@@ -17,6 +17,7 @@ export default function Game(props: GameProps) {
   const [hasWon, setHasWon] = useState(false);
   const [showWinScreen, setShowWinScreen] = useState(false);
   const [activeWordIndex, setActiveWordIndex] = useState(0);
+  /** active syllable within the active word */
   const [activeSyllableIndex, setActiveSyllableIndex] = useState(0);
   const solution = getSolution(props.puzzle);
   const [inProgressPuzzle, setInProgressPuzzle] = useState(
@@ -72,7 +73,7 @@ export default function Game(props: GameProps) {
     wordIndex: number,
     syllableIndex: number,
     bankIndex: number,
-    syllable: string
+    syllable: Syllable
   ) => {
     if (syllableIndex < 0) {
       console.warn("no active tile to place syllable");
@@ -85,8 +86,8 @@ export default function Game(props: GameProps) {
     if (activeWord.syllables[syllableIndex] !== "") {
       console.error("tried to set syllable where there already was one");
     } else {
-      activeWord.syllables[syllableIndex] = syllable;
-      puzzle.syllables.splice(bankIndex, 1);
+      activeWord.syllables[syllableIndex] = syllable.text;
+      puzzle.syllables[bankIndex].isInUse = true;
       setInProgressPuzzle(puzzle);
       setActiveSyllable(wordIndex, puzzle);
     }
@@ -102,11 +103,19 @@ export default function Game(props: GameProps) {
       console.error("tried to unset empty syllable");
     }
 
-    puzzle.syllables.push(activeSyllable);
+    const syllableInList = puzzle.syllables.find(
+      (s) => s.text === activeSyllable
+    );
+
+    if (!syllableInList) {
+      console.error("tried to unset empty syllable");
+      return;
+    }
+
+    syllableInList.isInUse = false;
 
     activeWord.syllables[syllableIndex] = "";
     setInProgressPuzzle(puzzle);
-    // FIXME: this isn't working?
     setActiveSyllable(wordIndex, puzzle, syllableIndex);
   };
 
@@ -120,8 +129,10 @@ export default function Game(props: GameProps) {
     // useEffect will set the activeSyllableIndex
   };
 
-  const onClickBank = (syllable: string, bankIndex: number) => {
+  const onClickBank = (syllable: Syllable, bankIndex: number) => {
     if (hasWon) return;
+
+    if (syllable.isInUse) return;
 
     if (activeSyllableIndex < 0) {
       console.warn("word was full");
@@ -194,11 +205,11 @@ export default function Game(props: GameProps) {
         <div className="bank">
           {inProgressPuzzle.syllables.map((syllable, i) => (
             <div
-              className="syllable"
+              className={`syllable ${syllable.isInUse ? "disabled" : ""}`}
               onClick={() => onClickBank(syllable, i)}
               key={i}
             >
-              {syllable}
+              {syllable.text}
             </div>
           ))}
         </div>

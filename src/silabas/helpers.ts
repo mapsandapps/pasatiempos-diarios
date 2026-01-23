@@ -32,7 +32,12 @@ export const initProgress = (solution: Definition[]): Puzzle => {
       definition,
       syllables: fill(Array(syllables.length), ""),
     });
-    inProgressPuzzle.syllables.push(...syllables);
+    syllables.forEach((syllable) => {
+      inProgressPuzzle.syllables.push({
+        text: syllable,
+        isInUse: false,
+      });
+    });
   });
 
   // randomize syllables
