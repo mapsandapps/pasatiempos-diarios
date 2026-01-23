@@ -83,33 +83,44 @@ export default function Generator() {
 
   return (
     <div id="silabas-generator">
-      <button onClick={resetOptions}>Reset with New Words</button>
-      <div className="p">
-        Select 5 to create a puzzle, or select fewer and reroll the rest:
-      </div>
-      {proposedWords.map((word, i) => (
-        <div key={i}>
-          <label>
-            <input
-              type="checkbox"
-              value={word.spanish}
-              checked={word.isIncluded}
-              onChange={() => handleCheckboxChange(i)}
-            />
-            {word.definition}: {word.spanish} ({join(word.syllables, "·")})
-          </label>
-        </div>
-      ))}
-      {numberOfWordsSelected > 0 && numberOfWordsSelected < 5 && (
-        <button onClick={reroll}>Reroll Unchecked</button>
+      <button onClick={resetOptions}>
+        {puzzle ? "Create New Puzzle" : "Reset With New Words"}
+      </button>
+      {!puzzle && (
+        <>
+          <div className="p">
+            Select 5 to create a puzzle, or select fewer and reroll the rest:
+          </div>
+          {proposedWords.map((word, i) => (
+            <div key={i}>
+              <label>
+                <input
+                  type="checkbox"
+                  value={word.spanish}
+                  checked={word.isIncluded}
+                  onChange={() => handleCheckboxChange(i)}
+                />
+                {word.definition}: {word.spanish} ({join(word.syllables, "·")})
+              </label>
+            </div>
+          ))}
+          {numberOfWordsSelected > 0 && numberOfWordsSelected < 5 && (
+            <button onClick={reroll}>Reroll Unchecked</button>
+          )}
+          {numberOfWordsSelected > 5 && (
+            <div className="p">⚠️ Please select no more than 5 words</div>
+          )}
+          {numberOfWordsSelected === 5 && (
+            <button onClick={createPuzzle}>Display Puzzle With Words</button>
+          )}
+        </>
       )}
-      {numberOfWordsSelected > 5 && (
-        <div className="p">⚠️ Please select no more than 5 words</div>
+      {puzzle && (
+        <>
+          <Game todayString="" puzzle={puzzle} />
+          <textarea value={JSON.stringify({ date: "", puzzle })} readOnly />
+        </>
       )}
-      {numberOfWordsSelected === 5 && (
-        <button onClick={createPuzzle}>Display puzzle with words</button>
-      )}
-      {puzzle && <Game todayString="" puzzle={puzzle} />}
     </div>
   );
 }
