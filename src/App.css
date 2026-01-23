@@ -1,61 +1,91 @@
 #root {
-  /* --purple-050: #f6f1f4; */
-  --purple-100: #ede3e9;
-  --purple-200: #e2d2dc;
-  --purple-300: #d1b8c9;
-  --purple-350: #c2a1b8;
-  /* --purple-400: #b185a4; */
-  /* --purple-450: #a67598; */
-  /* --purple-500: #9a638b; */
-  --purple-550: #86567a;
-  /* --purple-600: #744b6a; */
-  /* --purple-700: #5b3b54; */
-  /* --purple-800: #40293b; */
-  /* --purple-900: #2f1e2c; */
-  /* --purple-950: #180f17; */
-  /* --pink-050: #fcf1ef; */
-  /* --pink-100: #f9e2e0; */
-  /* --pink-200: #f6cecc; */
-  /* --pink-300: #f0aead; */
-  /* --pink-350: #eb9192; */
-  /* --pink-400: #e56b71; */
-  /* --pink-450: #e0535f; */
-  /* --pink-500: #da3145; */
-  /* --pink-550: #c2233b; */
-  /* --pink-600: #aa1e38; */
-  /* --pink-700: #861830; */
-  /* --pink-800: #601125; */
-  /* --pink-900: #480d1e; */
-  /* --pink-950: #270711; */
-  /* --blue-050: #e8f5fb; */
-  --blue-100: #d2ebf7;
-  /* --blue-200: #b6ddf1; */
-  --blue-300: #8ac7e9;
-  --blue-350: #62b3e2;
-  /* --blue-400: #2e97d8; */
-  /* --blue-450: #2586c7; */
-  /* --blue-500: #2174b0; */
-  --blue-550: #1c6298;
-  /* --blue-600: #195484; */
-  /* --blue-700: #134068; */
-  /* --blue-800: #0e2c49; */
-  --blue-900: #0a2036;
-  /* --blue-950: #05101c; */
-  /* --orange-050: #FFF8E2; */
-  /* --orange-100: #FEEDC7; */
-  /* --orange-200: #FEDBA2; */
-  /* --orange-300: #FDBA68; */
-  --orange-350: #fc922e;
-  /* --orange-400: #E97003; */
-  /* --orange-450: #D46103; */
-  /* --orange-500: #BB5303; */
-  /* --orange-550: #A24502; */
-  /* --orange-600: #8D3A02; */
-  /* --orange-700: #6F2C02; */
-  /* --orange-800: #4F1E01; */
-  /* --orange-900: #3A1501; */
-  /* --orange-950: #1E0A00; */
-  --green-350: hsl(120, 80%, 41%);
+  /* ramps from https://www.figma.com/community/plugin/1482371446196684379/color-ramp-generator */
+  /* in theory, a 400-point difference is 3:1 contrast ratio, a 500-point difference is 4.5:1, and a 600-point difference is 7:1 */
+  /* --blue-050: #E9F4FB; */
+  --blue-100: #d5e9f7;
+  /* --blue-200: #BADBF2; */
+  --blue-300: #92c5ea;
+  --blue-350: #6cb2e4;
+  /* --blue-400: #3E99DB; */
+  --blue-450: #278ad2;
+  /* --blue-500: #237AB9; */
+  --blue-550: #1e6aa1;
+  /* --blue-600: #1A5C8C; */
+  /* --blue-700: #15486E; */
+  /* --blue-800: #0F334E; */
+  --blue-900: #0b2639;
+  /* --blue-950: #06131D; */
+  /* --purple-050: #F6F1F4; */
+  --purple-100: #ede3ea;
+  --purple-200: #e2d2de;
+  --purple-300: #d1b8ca;
+  --purple-350: #c2a1b9;
+  /* --purple-400: #B185A5; */
+  /* --purple-450: #A77599; */
+  /* --purple-500: #9B638C; */
+  --purple-550: #865679;
+  /* --purple-600: #754B69; */
+  /* --purple-700: #5B3B52; */
+  /* --purple-800: #40293A; */
+  /* --purple-900: #2F1E2B; */
+  /* --purple-950: #180F16; */
+  /* NOTE: pink can be used for red, e.g. for error messages */
+  /* --pink-050: #FCEFF1; */
+  /* --pink-100: #F9E0E3; */
+  /* --pink-200: #F6CCD1; */
+  /* --pink-300: #F0AEB5; */
+  /* --pink-350: #EB919C; */
+  /* --pink-400: #E56D7B; */
+  /* --pink-450: #E05565; */
+  /* --pink-500: #DA3347; */
+  /* --pink-550: #C32336; */
+  /* --pink-600: #AB1F2F; */
+  /* --pink-700: #871825; */
+  /* --pink-800: #61111B; */
+  /* --pink-900: #490D14; */
+  /* --pink-950: #27070B; */
+  /* --orange-050: #FFEFE4; */
+  /* --orange-100: #FEE1CA; */
+  /* --orange-200: #FECDA7; */
+  /* --orange-300: #FDAD70; */
+  --orange-350: #fc8e3a;
+  /* --orange-400: #F06A04; */
+  /* --orange-450: #DA6103; */
+  /* --orange-500: #C05503; */
+  /* --orange-550: #A74A03; */
+  /* --orange-600: #914102; */
+  /* --orange-700: #723302; */
+  /* --orange-800: #512401; */
+  /* --orange-900: #3C1B01; */
+  /* --orange-950: #1F0E01; */
+  /* --green-050: #E7F5F1; */
+  /* --green-100: #D1ECE5; */
+  /* --green-200: #B4DFD4; */
+  /* --green-300: #87CCBA; */
+  --green-350: #5ebba2;
+  /* --green-400: #45A289; */
+  /* --green-450: #3E937C; */
+  /* --green-500: #37826E; */
+  /* --green-550: #30705F; */
+  /* --green-600: #296253; */
+  /* --green-700: #204D41; */
+  /* --green-800: #17362E; */
+  /* --green-900: #112822; */
+  /* --green-950: #091411; */
+  /* --gray-050: #F0F2F4; */
+  /* --gray-100: #E3E6E9; */
+  --gray-200: #d1d7db;
+  /* --gray-300: #b7c0c7; */
+  /* --gray-350: #a1acb5; */
+  /* --gray-400: #85949F; */
+  /* --gray-450: #768793; */
+  /* --gray-500: #677783; */
+  --gray-550: #596772;
+  /* --gray-600: #4e5a63; */
+  /* --gray-700: #3d464d; */
+  /* --gray-800: #2b3136; */
+  /* --gray-900: #1f2428; */
+  /* --gray-950: #101214; */
 
   --title-font: "Barriecito", system-ui;
 
