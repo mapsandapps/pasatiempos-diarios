@@ -28,12 +28,6 @@ export default function ObjetoOculto() {
   );
   const [puzzle, setPuzzle] = useState<Puzzle>();
 
-  const date = new Date().toLocaleDateString(undefined, {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-
   // generator stuff:
   const isInGeneratorMode = searchParams.get("generate");
   const [selectedIconSets, setSelectedIconSets] = useState<IconSet[]>([]);
@@ -126,7 +120,7 @@ export default function ObjetoOculto() {
         <h1>Objeto Oculto</h1>
         <div>Find images that match Spanish words</div>
         <PuzzleDate
-          dailyPuzzleDate={isDailyPuzzle ? date : undefined}
+          dailyPuzzleDate={isDailyPuzzle ? todayString : undefined}
           queryParamDate={queryParamDate || undefined}
           isUserGenerated={!isDailyPuzzle && !queryParamDate}
           puzzleLocalStorageString="objeto-oculto"

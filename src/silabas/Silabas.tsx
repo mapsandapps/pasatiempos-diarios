@@ -16,12 +16,6 @@ export default function Silabas() {
   const isDailyPuzzle =
     queryParamDate && queryParamDate !== todayString ? false : true;
 
-  const date = new Date().toLocaleDateString(undefined, {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-
   // onInit
   useEffect(() => {
     setPuzzle(
@@ -41,7 +35,7 @@ export default function Silabas() {
           Form Spanish words from their syllables and English definitions
         </div>
         <PuzzleDate
-          dailyPuzzleDate={isDailyPuzzle ? date : undefined}
+          dailyPuzzleDate={isDailyPuzzle ? todayString : undefined}
           queryParamDate={queryParamDate || undefined}
           puzzleLocalStorageString="silabas"
         />
