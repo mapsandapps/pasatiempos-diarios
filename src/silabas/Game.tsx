@@ -35,7 +35,9 @@ export default function Game(props: GameProps) {
   // check for win condition
   useEffect(() => {
     let hasLost = false;
-    if (inProgressPuzzle.syllables.length < 1) {
+
+    // only check if all syllables have been used
+    if (!inProgressPuzzle.syllables.find((syllable) => !syllable.isInUse)) {
       solution.forEach((word, wordIndex) => {
         word.syllables.forEach((syllable, syllableIndex) => {
           if (
