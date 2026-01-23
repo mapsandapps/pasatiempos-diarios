@@ -33,9 +33,21 @@ export const addDateToLocalStorage = (keyName: string, date: string) => {
   }
 };
 
+/** NOTE:
+ * be careful not to use this when a puzzle is displayed; instead use `isDateInLocalStorage` with the date of the puzzle
+ * this is good to use for e.g. a summary page
+ */
 export const isTodayInLocalStorage = (keyName: string): boolean => {
-  const data = localStorage.getItem(keyName);
   const date = getTodayString();
+
+  return isDateInLocalStorage(keyName, date);
+};
+
+export const isDateInLocalStorage = (
+  keyName: string,
+  date: string
+): boolean => {
+  const data = localStorage.getItem(keyName);
 
   if (!data || !date) return false;
   const parsed: string[] = JSON.parse(data);
@@ -46,19 +58,3 @@ export const isTodayInLocalStorage = (keyName: string): boolean => {
 
   return foundIndex > -1;
 };
-
-// export const isDateInLocalStorage = (
-//   keyName: string,
-//   date: string
-// ): boolean => {
-//   const data = localStorage.getItem(keyName);
-
-//   if (!data || !date) return false;
-//   const parsed: string[] = JSON.parse(data);
-
-//   var foundIndex = parsed!.findIndex((d) => {
-//     return d === date;
-//   });
-
-//   return foundIndex > -1;
-// };

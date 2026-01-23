@@ -14,6 +14,8 @@ You can go to a specific date via query param, e.g. [http://localhost:5174/objet
 
 Go to [http://localhost:5174/silabas-generator](http://localhost:5174/silabas-generator) to generate a new Sílabas puzzle.
 
+You can go to a specific date via query param, e.g. [http://localhost:5174/silabas?date=2026-01-21](http://localhost:5174/silabas?date=2026-01-21)
+
 ## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

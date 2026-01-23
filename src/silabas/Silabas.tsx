@@ -4,12 +4,17 @@ import { puzzles } from "./puzzles";
 import "./Silabas.scss";
 import type { RawPuzzle } from "./types";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
-import { isTodayInLocalStorage } from "../utils/localstorage";
 import { PuzzleDateSpecificity } from "../types";
+import { useSearchParams } from "react-router";
+import PuzzleDate from "../components/PuzzleDate";
 
 export default function Silabas() {
   const [puzzle, setPuzzle] = useState<RawPuzzle>();
   const todayString = getTodayString();
+  const [searchParams] = useSearchParams();
+  const queryParamDate = searchParams.get("date");
+  const isDailyPuzzle =
+    queryParamDate && queryParamDate !== todayString ? false : true;
 
   const date = new Date().toLocaleDateString(undefined, {
     weekday: "long",
@@ -21,7 +26,7 @@ export default function Silabas() {
   useEffect(() => {
     setPuzzle(
       getPuzzleForDate(
-        todayString,
+        queryParamDate || todayString,
         puzzles,
         PuzzleDateSpecificity.MatchDayOfMonth
       ) as RawPuzzle
@@ -35,17 +40,18 @@ export default function Silabas() {
         <div>
           Form Spanish words from their syllables and English definitions
         </div>
-        <div className="date">
-          {date}
-          {isTodayInLocalStorage("silabas") && " ✅"}
-        </div>
+        <PuzzleDate
+          dailyPuzzleDate={isDailyPuzzle ? date : undefined}
+          queryParamDate={queryParamDate || undefined}
+          puzzleLocalStorageString="silabas"
+        />
       </div>
       <div>
         {puzzle ? (
           <Game
             puzzle={puzzle.puzzle}
             todayString={todayString}
-            isDailyPuzzle
+            isDailyPuzzle={isDailyPuzzle}
           />
         ) : (
           <div className="error">An error has occurred</div>

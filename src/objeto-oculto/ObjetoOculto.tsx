@@ -1,7 +1,6 @@
 import {
   addSettingToLocalStorage,
   getSettingFromLocalStorage,
-  isTodayInLocalStorage,
 } from "../utils/localstorage";
 import Game from "./Game";
 import "./ObjetoOculto.scss";
@@ -18,6 +17,7 @@ import { useEffect, useState, type ChangeEvent } from "react";
 import { combineIconSets, minifyPuzzle, unminifyPuzzle } from "./helpers";
 import type { IconSet, MinifiedPuzzle, Puzzle } from "./types";
 import { PuzzleDateSpecificity } from "../types";
+import PuzzleDate from "../components/PuzzleDate.tsx";
 
 export default function ObjetoOculto() {
   const todayString = getTodayString();
@@ -124,28 +124,13 @@ export default function ObjetoOculto() {
     <div id="objeto-oculto">
       <div className="about">
         <h1>Objeto Oculto</h1>
-        {isDailyPuzzle && (
-          <>
-            <div>Find images that match Spanish words</div>
-            <div className="date">
-              {date}
-              {isTodayInLocalStorage("objeto-oculto") && " ✅"}
-            </div>
-          </>
-        )}
-        {!isDailyPuzzle && !queryParamDate && (
-          <div className="date">User-generated puzzle</div>
-        )}
-        {!isDailyPuzzle && queryParamDate && (
-          <>
-            <div>Find images that match Spanish words</div>
-            <div className="date">
-              Archive puzzle:
-              <br />
-              {queryParamDate}
-            </div>
-          </>
-        )}
+        <div>Find images that match Spanish words</div>
+        <PuzzleDate
+          dailyPuzzleDate={isDailyPuzzle ? date : undefined}
+          queryParamDate={queryParamDate || undefined}
+          isUserGenerated={!isDailyPuzzle && !queryParamDate}
+          puzzleLocalStorageString="objeto-oculto"
+        />
         {/* if the puzzle includes colors, add colorblindness mode option */}
         {includesColors && (
           <label className="colorblind-input">
