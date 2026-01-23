@@ -4,7 +4,7 @@ export interface RawPuzzle extends GenericPuzzle {
   puzzle: string[];
 }
 
-interface Syllable {
+export interface Syllable {
   text: string;
   isInUse: boolean;
 }
