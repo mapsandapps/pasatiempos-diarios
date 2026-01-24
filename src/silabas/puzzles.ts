@@ -43,5 +43,22 @@ export const puzzles: RawPuzzle[] = [
   {"date":"2026-01-28","puzzle":["es-pec-tá-cu-lo|Show","fres-co|Fresco","pri-mo|Cousin","es-po-so|Husband","co-mo|As"]},
   {"date":"2026-01-29","puzzle":["due-ño|Owner","bo-ti-quín|First aid kit","es-pi-na|Thorn","lle-var|To wear","co-me-dor|Dining room"]},
   {"date":"2026-01-30","puzzle":["bi-go-te|Mustache","fron-te-ra|Border","llo-ver|To rain","ga-so-li-ne-ra|Gas station","lis-to|Ready"]},
-  {"date":"2026-01-31","puzzle":["ma-yo|May","gran-ja|Farm","ma-ne-ra|Way","tra-du-cir|To translate","da-mas|Checkers"]}
+  {"date":"2026-01-31","puzzle":["ma-yo|May","gran-ja|Farm","ma-ne-ra|Way","tra-du-cir|To translate","da-mas|Checkers"]},
+  {"date":"2026-02-01","puzzle":["ai-re|Air","a-sis-tir|To attend","cu-ca-ra-cha|Cockroach","a-ve-na|Oatmeal","re-co-ger|To pick up"]},
+  {"date":"2026-02-02","puzzle":["sen-ti-mien-to|Feeling","al-ma-cén|Store","ca-sa|House","bue-no|Well","en-tre-vis-ta|Interview"]},
+  {"date":"2026-02-03","puzzle":["a-yu-da|Help","her-ma-nes|Siblings","a-diós|Goodbye","mur-cié-la-go|Bat","re-no-va-ble|Renewable"]},
+  {"date":"2026-02-04","puzzle":["á-gui-la|Eagle","cham-pú|Shampoo","ha-cia|Toward","gran-je-ro|Farmer","re-pro-bar|To fail"]},
+  {"date":"2026-02-05","puzzle":["pas-tel|Cake","per-dón|Excuse me","des-ti-no|Destination","hu-mo|Smoke","con-duc-tor|Presenter"]},
+  {"date":"2026-02-06","puzzle":["al-guien|Somebody","mez-clar|To blend","ho-ra|Hour","ve-ci-no|Neighbor","com-pa-ñe-ro|Classmate"]},
+  {"date":"2026-02-07","puzzle":["fan-tas-ma|Ghost","ar-que-ó-lo-go|Archaeologist","tex-tu-ra|Texture","par-que|Park","au-dien-cia|Audience"]},
+  {"date":"2026-02-08","puzzle":["pob-re|Poor","de-ber|To owe","pe-lí-cu-la|Movie","des-pen-sa|Pantry","ca-de-na|Chain"]},
+  {"date":"2026-02-09","puzzle":["a-bu-rri-do|Boring","ár-bol|Tree","in-jus-to|Unfair","a-le-mán|German","mi-to-lo-gía|Mythology"]},
+  {"date":"2026-02-10","puzzle":["o-ru-ga|Caterpillar","se-co|Dry","ve-lo-ci-dad|Speed","sa-bor|Taste","dal-tó-ni-co|Color-blind"]},
+  {"date":"2026-02-11","puzzle":["a-vis-pa|Wasp","so-ni-do|Sound","bo-lí-gra-fo|Pen","a-cei-te|Oil","i-den-ti-dad|Identity"]},
+  {"date":"2026-02-12","puzzle":["li-món|Lemon","la-zo|Bow","triun-fo|Triumph","es-tre-lla|Star","ma-ra-vi-llo-so|Marvelous"]},
+  {"date":"2026-02-13","puzzle":["pa-pá|Dad","ha-bi-ta-ción|Bedroom","pa-tri-mo-nio|Heritage","a-tún|Tuna","or-gu-llo-so|Proud"]},
+  {"date":"2026-02-14","puzzle":["de-te-ner|To stop","cie-go|Blind","al-qui-lar|To rent","u-ña|Nail","ro-sa|Pink"]},
+  {"date":"2026-02-15","puzzle":["en-tra-da|Entry","nie-te|Grandkid","ho-ra-rio|Schedule","be-bi-da|Drink","fa-ná-ti-co|Fanatical"]},
+  {"date":"2026-02-16","puzzle":["pi-mien-to|Pepper","sa-li-da|Start","li-bre-rí-a|Bookshop","va-rie-dad|Variety","cuan-do|When"]},
+  {"date":"2026-02-17","puzzle":["me-di-da|Measure","res-pe-to|Respect","fue-go|Fire","a-gen-da|Schedule","in-ter-me-dio|Intermediate"]}
 ];
