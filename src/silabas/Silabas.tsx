@@ -20,7 +20,6 @@ export default function Silabas() {
     setPuzzle(
       getPuzzleForDate(
         GameString.Silabas,
-        !queryParamDate,
         queryParamDate || todayString
       ) as RawPuzzle
     );

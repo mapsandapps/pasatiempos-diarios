@@ -18,7 +18,7 @@ You can go to a specific date via query param, e.g. [http://localhost:5174/silab
 
 ## Daily Games
 
-Currently, both Objeto Oscuro & Sílabas have a month's worth of puzzles. The puzzles repeat such that (e.g.) the puzzle is the same on the 10th of every month. This can be configured in the puzzles.ts file for each game.
+Currently, both Objeto Oscuro & Sílabas have at least a month's worth of puzzles. If there is no puzzle for this specific date, they will select another one based on the date, e.g. by choosing one from the same date of a different month.
 
 ## React + TypeScript + Vite
 

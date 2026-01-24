@@ -1,7 +1,5 @@
 // ignored by prettier in .prettierignore
-import { PuzzleDateSpecificity } from "../types";
 import type { RawPuzzle } from "./types";
-export const PUZZLE_DATE_SPECIFICITY = PuzzleDateSpecificity.MatchDayOfMonth; // the puzzle will be the same on the same day of each month
 
 export const puzzles: RawPuzzle[] = [
   { date: "2025-12-08", puzzle: ["es-pec-tá-cu-lo|Show", "os-cu-ri-dad|Darkness", "mer-ca-do|Market", "ro-sa|Pink", "te-so-ro|Treasure" ] },

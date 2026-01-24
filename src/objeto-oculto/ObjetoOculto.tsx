@@ -78,7 +78,6 @@ export default function ObjetoOculto() {
   useEffect(() => {
     const puzzle = getPuzzleForDate(
       GameString.ObjetoOculto,
-      !isInGeneratorMode && !isDailyPuzzle,
       queryParamDate || todayString
     ) as MinifiedPuzzle;
 
