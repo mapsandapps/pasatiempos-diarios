@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import Game from "./Game";
-import { puzzles } from "./puzzles";
 import "./Silabas.scss";
 import type { RawPuzzle } from "./types";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
-import { GameString, PuzzleDateSpecificity } from "../types";
+import { GameString } from "../types";
 import { useSearchParams } from "react-router";
 import PuzzleDate from "../components/PuzzleDate";
 

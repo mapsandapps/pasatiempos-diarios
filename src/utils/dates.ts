@@ -53,18 +53,18 @@ export const getPuzzleForDate = (
       return gameData.puzzles[0];
     }
     return todayPuzzle;
-  } else if (specificity === PuzzleDateSpecificity.MatchDayOfYear) {
-    const todayDayOfYear = dateString.slice(-5);
-    const todayPuzzle = gameData.puzzles.find((puzzle) => {
-      const puzzleDayOfYear = puzzle.date.slice(-5);
-      return puzzleDayOfYear === todayDayOfYear;
-    });
+    // } else if (specificity === PuzzleDateSpecificity.MatchDayOfYear) {
+    //   const todayDayOfYear = dateString.slice(-5);
+    //   const todayPuzzle = gameData.puzzles.find((puzzle) => {
+    //     const puzzleDayOfYear = puzzle.date.slice(-5);
+    //     return puzzleDayOfYear === todayDayOfYear;
+    //   });
 
-    if (!todayPuzzle) {
-      console.error("no puzzle found");
-      return gameData.puzzles[0];
-    }
-    return todayPuzzle;
+    //   if (!todayPuzzle) {
+    //     console.error("no puzzle found");
+    //     return gameData.puzzles[0];
+    //   }
+    //   return todayPuzzle;
   }
 
   // if specificity === PuzzleDateSpecificity.MatchDate

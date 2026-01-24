@@ -4,7 +4,6 @@ import {
 } from "../utils/localstorage";
 import Game from "./Game";
 import "./ObjetoOculto.scss";
-import { puzzles } from "./puzzles.ts";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import {
   generatePuzzle,
