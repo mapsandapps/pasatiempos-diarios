@@ -4,7 +4,7 @@ import { puzzles } from "./puzzles";
 import "./Silabas.scss";
 import type { RawPuzzle } from "./types";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
-import { PuzzleDateSpecificity } from "../types";
+import { GameString, PuzzleDateSpecificity } from "../types";
 import { useSearchParams } from "react-router";
 import PuzzleDate from "../components/PuzzleDate";
 
@@ -20,12 +20,14 @@ export default function Silabas() {
   useEffect(() => {
     setPuzzle(
       getPuzzleForDate(
-        queryParamDate || todayString,
-        puzzles,
-        PuzzleDateSpecificity.MatchDayOfMonth
+        GameString.Silabas,
+        !queryParamDate,
+        queryParamDate || todayString
       ) as RawPuzzle
     );
   }, []);
+
+  const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
 
   return (
     <div id="silabas">
@@ -35,9 +37,9 @@ export default function Silabas() {
           Form Spanish words from their syllables and English definitions
         </div>
         <PuzzleDate
-          dailyPuzzleDate={isDailyPuzzle ? todayString : undefined}
-          queryParamDate={queryParamDate || undefined}
-          puzzleLocalStorageString="silabas"
+          puzzleDate={puzzleDate}
+          isDailyPuzzle={isDailyPuzzle}
+          puzzleLocalStorageString={GameString.Silabas}
         />
       </div>
       <div>

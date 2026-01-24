@@ -9,5 +9,12 @@ export const PuzzleDateSpecificity = {
   // MatchDayOfWeek: 3,
 } as const;
 
+export const GameString = {
+  ObjetoOculto: "objeto-oculto",
+  Silabas: "silabas",
+} as const;
+
 export type PuzzleDateSpecificity =
   (typeof PuzzleDateSpecificity)[keyof typeof PuzzleDateSpecificity];
+
+export type GameString = (typeof GameString)[keyof typeof GameString];

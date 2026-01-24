@@ -16,7 +16,7 @@ import { useSearchParams } from "react-router";
 import { useEffect, useState, type ChangeEvent } from "react";
 import { combineIconSets, minifyPuzzle, unminifyPuzzle } from "./helpers";
 import type { IconSet, MinifiedPuzzle, Puzzle } from "./types";
-import { PuzzleDateSpecificity } from "../types";
+import { GameString } from "../types";
 import PuzzleDate from "../components/PuzzleDate.tsx";
 
 export default function ObjetoOculto() {
@@ -78,9 +78,9 @@ export default function ObjetoOculto() {
   // onInit
   useEffect(() => {
     const puzzle = getPuzzleForDate(
-      queryParamDate || todayString,
-      puzzles,
-      PuzzleDateSpecificity.MatchDayOfMonth
+      GameString.ObjetoOculto,
+      !isInGeneratorMode && !isDailyPuzzle,
+      queryParamDate || todayString
     ) as MinifiedPuzzle;
 
     setPuzzle(unminifyPuzzle(puzzle));
@@ -114,16 +114,18 @@ export default function ObjetoOculto() {
     addSettingToLocalStorage("prefersColorblindMode", prefersColorblindMode);
   }, [prefersColorblindMode]);
 
+  const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
+
   return (
     <div id="objeto-oculto">
       <div className="about">
         <h1>Objeto Oculto</h1>
         <div>Find images that match Spanish words</div>
         <PuzzleDate
-          dailyPuzzleDate={isDailyPuzzle ? todayString : undefined}
-          queryParamDate={queryParamDate || undefined}
+          puzzleDate={puzzleDate}
+          isDailyPuzzle={isDailyPuzzle}
           isUserGenerated={!isDailyPuzzle && !queryParamDate}
-          puzzleLocalStorageString="objeto-oculto"
+          puzzleLocalStorageString={GameString.ObjetoOculto}
         />
         {/* if the puzzle includes colors, add colorblindness mode option */}
         {includesColors && (

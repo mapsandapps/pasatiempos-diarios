@@ -16,6 +16,10 @@ Go to [http://localhost:5174/silabas-generator](http://localhost:5174/silabas-ge
 
 You can go to a specific date via query param, e.g. [http://localhost:5174/silabas?date=2026-01-21](http://localhost:5174/silabas?date=2026-01-21)
 
+## Daily Games
+
+Currently, both Objeto Oscuro & Sílabas have a month's worth of puzzles. The puzzles repeat such that (e.g.) the puzzle is the same on the 10th of every month. This can be configured in the puzzles.ts file for each game.
+
 ## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

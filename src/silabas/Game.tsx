@@ -5,6 +5,7 @@ import type { Puzzle, Syllable } from "./types";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import Win from "../components/Win";
 import { findFirstEmptySyllable, getSolution, initProgress } from "./helpers";
+import { GameString } from "../types";
 
 interface GameProps {
   puzzle: string[];
@@ -28,7 +29,7 @@ export default function Game(props: GameProps) {
     setHasWon(true);
     setShowWinScreen(true);
     if (props.isDailyPuzzle) {
-      addDateToLocalStorage("silabas", props.todayString);
+      addDateToLocalStorage(GameString.Silabas, props.todayString);
     }
   };
 

@@ -7,6 +7,7 @@ import Win from "../components/Win";
 import { isClickInIcon, numberRemaining } from "./helpers";
 import React from "react";
 import Emoji from "./Emoji";
+import { GameString } from "../types";
 
 interface GameProps {
   todayString: string;
@@ -83,7 +84,7 @@ export default function Game(props: GameProps) {
     setShowWinScreen(true);
 
     if (isDailyPuzzle) {
-      addDateToLocalStorage("objeto-oculto", todayString);
+      addDateToLocalStorage(GameString.ObjetoOculto, todayString);
     }
   };
 

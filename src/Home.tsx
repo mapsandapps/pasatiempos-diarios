@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import "./Home.scss";
 import { isTodayInLocalStorage } from "./utils/localstorage";
+import { GameString } from "./types";
 
 export default function Home() {
   return (
@@ -16,9 +17,9 @@ export default function Home() {
             <Link to="/silabas">
               <button>
                 Play today's puzzle
-                {isTodayInLocalStorage("silabas") && " again"}
+                {isTodayInLocalStorage(GameString.Silabas) && " again"}
               </button>
-              {isTodayInLocalStorage("silabas") && " ✅"}
+              {isTodayInLocalStorage(GameString.Silabas) && " ✅"}
             </Link>
           </div>
         </div>
@@ -29,9 +30,9 @@ export default function Home() {
             <Link to="/objeto-oculto">
               <button>
                 Play today's puzzle
-                {isTodayInLocalStorage("objeto-oculto") && " again"}
+                {isTodayInLocalStorage(GameString.ObjetoOculto) && " again"}
               </button>
-              {isTodayInLocalStorage("objeto-oculto") && " ✅"}
+              {isTodayInLocalStorage(GameString.ObjetoOculto) && " ✅"}
             </Link>
           </div>
         </div>

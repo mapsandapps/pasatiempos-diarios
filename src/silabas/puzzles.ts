@@ -1,4 +1,7 @@
+// ignored by prettier in .prettierignore
+import { PuzzleDateSpecificity } from "../types";
 import type { RawPuzzle } from "./types";
+export const PUZZLE_DATE_SPECIFICITY = PuzzleDateSpecificity.MatchDayOfMonth; // the puzzle will be the same on the same day of each month
 
 export const puzzles: RawPuzzle[] = [
   { date: "2025-12-08", puzzle: ["es-pec-tá-cu-lo|Show", "os-cu-ri-dad|Darkness", "mer-ca-do|Market", "ro-sa|Pink", "te-so-ro|Treasure" ] },
@@ -34,4 +37,6 @@ export const puzzles: RawPuzzle[] = [
   { date: "2026-01-07", puzzle: ["a-fi-cio-na-do|Fan", "an-te-rior|Previous", "ho-ja|Sheet", "in-for-mar|To inform", "de-sen-tra-ñar|To unravel" ] },
   { date: "2026-01-08", puzzle: ["trá-gi-co|Tragic", "cien-cia|Science", "de-sor-den|Mess", "men-ción|Mention", "pro-me-ter|To promise" ] },
   { date: "2026-01-09", puzzle: ["cue-va|Cave", "ge-mir|Groan", "es-pe-cie|Species", "no-ti-cias|News", "mi-nús-cu-lo|Tiny" ] },
+  // gap
+  {"date":"2026-01-24","puzzle":["his-tó-ri-co|Historical","he-cho|Done","no-che|Night","per-mi-tir|To allow","nin-gún|None of"]},
 ];
