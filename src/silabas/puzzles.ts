@@ -39,4 +39,11 @@ export const puzzles: RawPuzzle[] = [
   { date: "2026-01-09", puzzle: ["cue-va|Cave", "ge-mir|Groan", "es-pe-cie|Species", "no-ti-cias|News", "mi-nús-cu-lo|Tiny" ] },
   // gap
   {"date":"2026-01-24","puzzle":["his-tó-ri-co|Historical","he-cho|Done","no-che|Night","per-mi-tir|To allow","nin-gún|None of"]},
+  {"date":"2026-01-25","puzzle":["sue-lo|Floor","pi-no|Pine","ca-da|Each","per-dón|Pardon","pe-lí-ca-no|Pelican"]},
+  {"date":"2026-01-26","puzzle":["clá-si-co|Classical","ti-po|Type","in-vier-no|Winter","mag-ní-fi-co|Wonderful","tax-is-ta|Taxi driver"]},
+  {"date":"2026-01-27","puzzle":["pas-ti-lla|Pill","an-te-a-no-che|The night before last","re-tra-to|Portrait","me-di-ci-na|Medicine","a-pa-re-cer|To appear"]},
+  {"date":"2026-01-28","puzzle":["es-pec-tá-cu-lo|Show","fres-co|Fresco","pri-mo|Cousin","es-po-so|Husband","co-mo|As"]},
+  {"date":"2026-01-29","puzzle":["due-ño|Owner","bo-ti-quín|First aid kit","es-pi-na|Thorn","lle-var|To wear","co-me-dor|Dining room"]},
+  {"date":"2026-01-30","puzzle":["bi-go-te|Mustache","fron-te-ra|Border","llo-ver|To rain","ga-so-li-ne-ra|Gas station","lis-to|Ready"]},
+  {"date":"2026-01-31","puzzle":["ma-yo|May","gran-ja|Farm","ma-ne-ra|Way","tra-du-cir|To translate","da-mas|Checkers"]}
 ];
