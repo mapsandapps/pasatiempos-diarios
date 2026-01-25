@@ -8,6 +8,7 @@ import { isClickInIcon, numberRemaining } from "./helpers";
 import React from "react";
 import Emoji from "./Emoji";
 import { GameString } from "../types";
+import clsx from "clsx";
 
 interface GameProps {
   todayString: string;
@@ -108,7 +109,7 @@ export default function Game(props: GameProps) {
   }, [inProgressPuzzle]);
 
   return (
-    <div className={`objeto-oculto-game ${hasWon ? "game-over" : ""}`}>
+    <div className={clsx("objeto-oculto-game", hasWon && "game-over")}>
       {showWinScreen && <Win canBeHidden={false} />}
       <div id="game">
         {inProgressPuzzle.otherIcons.map((icon) => {

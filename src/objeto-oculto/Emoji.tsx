@@ -3,6 +3,7 @@ import "./Emoji.scss";
 import { ICON_SIZE } from "./generator";
 import type { Icon, IconToFind } from "./types";
 import { getEnglishNameOfColor } from "./helpers";
+import clsx from "clsx";
 
 const ICON_TYPES = ["Icon", "IconToFind"];
 
@@ -35,9 +36,10 @@ export default function Emoji(props: EmojiProps) {
       ></img>
       {isInColorblindMode && (
         <span
-          className={`english-word ${
+          className={clsx(
+            "english-word",
             icon.spanishWord === "negro" ? "dark-icon" : "light-icon"
-          }`}
+          )}
           style={{
             left: `${icon.x}px`,
             top: `${icon.y}px`,

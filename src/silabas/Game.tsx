@@ -6,6 +6,7 @@ import { addDateToLocalStorage } from "../utils/localstorage";
 import Win from "../components/Win";
 import { findFirstEmptySyllable, getSolution, initProgress } from "./helpers";
 import { GameString } from "../types";
+import clsx from "clsx";
 
 interface GameProps {
   puzzle: string[];
@@ -174,16 +175,18 @@ export default function Game(props: GameProps) {
   };
 
   return (
-    <div className={`silabas-game ${hasWon ? "game-over" : ""}`}>
+    <div className={clsx("silabas-game", hasWon && "game-over")}>
       {showWinScreen && (
         <Win closeWinScreen={closeWinScreen} canBeHidden={true} />
       )}
       <div className="game">
         {inProgressPuzzle.words.map((word, i) => (
           <div
-            className={`word ${i === activeWordIndex ? "active" : ""} ${
-              isWordCorrect(i) ? "correct" : ""
-            }`}
+            className={clsx(
+              "word",
+              i === activeWordIndex && "active",
+              isWordCorrect(i) && "correct"
+            )}
             key={i}
             onClick={() => onClickWord(i)}
           >
@@ -191,11 +194,13 @@ export default function Game(props: GameProps) {
             <div>
               {word.syllables.map((syllable, j) => (
                 <div
-                  className={`${syllable === "" ? "empty-syllable" : ""} ${
-                    activeWordIndex === i && activeSyllableIndex === j
-                      ? "active-syllable"
-                      : ""
-                  } syllable`}
+                  className={clsx(
+                    "syllable",
+                    syllable === "" && "empty-syllable",
+                    activeWordIndex === i &&
+                      activeSyllableIndex === j &&
+                      "active-syllable"
+                  )}
                   onClick={(e) => onClickSyllable(i, j, e)}
                   key={j}
                 >
@@ -208,7 +213,7 @@ export default function Game(props: GameProps) {
         <div className="bank">
           {inProgressPuzzle.syllables.map((syllable, i) => (
             <div
-              className={`syllable ${syllable.isInUse ? "disabled" : ""}`}
+              className={clsx("syllable", syllable.isInUse && "disabled")}
               onClick={() => onClickBank(syllable, i)}
               key={i}
             >
