@@ -108,7 +108,7 @@ export default function Game(props: GameProps) {
     }
 
     const syllableInList = puzzle.syllables.find(
-      (s) => s.text === activeSyllable
+      (s) => s.text === activeSyllable && s.isInUse
     );
 
     if (!syllableInList) {
