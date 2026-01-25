@@ -96,10 +96,15 @@ export const combineIconSets = (iconSets: IconSet[]): CombinedIconSet => {
   // Source - https://stackoverflow.com/questions/16251822/array-to-comma-separated-string-and-for-last-tag-use-the-and-instead-of-comma
   // Posted by cipher, modified by community. See post 'Timeline' for change history
   // Retrieved 2026-01-14, License - CC BY-SA 3.0
-  const name = iconSets
-    .map((set) => set.name)
-    .join(", ")
-    .replace(/,(?!.*,)/gim, " and");
+
+  // if there are lots of sets, don't list them all
+  const name =
+    iconSets.length > 5
+      ? "Everything"
+      : iconSets
+          .map((set) => set.name)
+          .join(", ")
+          .replace(/,(?!.*,)/gim, " and");
 
   const iconSet: CombinedIconSet = {
     name,

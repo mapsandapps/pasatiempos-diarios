@@ -17,8 +17,11 @@ import { combineIconSets, minifyPuzzle, unminifyPuzzle } from "./helpers";
 import type { IconSet, MinifiedPuzzle, Puzzle } from "./types";
 import { GameString } from "../types";
 import PuzzleDate from "../components/PuzzleDate.tsx";
+import { filter } from "lodash";
 
 export default function ObjetoOculto() {
+  /** exclude flags because it's a different knowledge set than just words; exclude colors so we don't have to enable colorblind mode just for one or two icons */
+  const EXCLUDE_FROM_SELECT_ALL = ["Spanish-speaking Flags", "Colors"];
   const todayString = getTodayString();
   const [searchParams] = useSearchParams();
   const queryParamDate = searchParams.get("date");
@@ -114,6 +117,17 @@ export default function ObjetoOculto() {
 
   const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
 
+  const selectMost = () => {
+    setSelectedIconSets(
+      filter(iconSets, (set) => {
+        return !EXCLUDE_FROM_SELECT_ALL.includes(set.name);
+      })
+    );
+  };
+  const selectNone = () => {
+    setSelectedIconSets([]);
+  };
+
   return (
     <div id="objeto-oculto">
       <div className="about">
@@ -139,8 +153,11 @@ export default function ObjetoOculto() {
         )}
         {isInGeneratorMode && (
           <>
-            <div>
+            <div className="icon-sets">
               Icon sets:
+              <br />
+              <button onClick={selectMost}>Select Most</button>
+              <button onClick={selectNone}>Select None</button>
               <br />
               {iconSets.map((set) => (
                 <label className="iconset-checkbox" key={set.name}>

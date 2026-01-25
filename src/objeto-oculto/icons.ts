@@ -318,18 +318,6 @@ const sportsIcons = [
   { filename: "1fa85.png", spanishWords: ["la piñata"] },
 ];
 
-const colorIcons = [
-  { filename: "1f7e5.png", spanishWords: ["rojo"] },
-  { filename: "1f7e7.png", spanishWords: ["naranja"] },
-  { filename: "1f7e8.png", spanishWords: ["amarillo"] },
-  { filename: "1f7e9.png", spanishWords: ["verde"] },
-  { filename: "1f7e6.png", spanishWords: ["azul"] },
-  { filename: "1f7ea.png", spanishWords: ["morado"] },
-  { filename: "1f7eb.png", spanishWords: ["café"] },
-  { filename: "2b1b.png", spanishWords: ["negro"] },
-  { filename: "2b1c.png", spanishWords: ["blanco"] },
-];
-
 const plantIcons = [
   { filename: "1f33c.png", spanishWords: ["la flor"] },
   { filename: "1f339.png", spanishWords: ["la rosa"] },
@@ -599,7 +587,6 @@ const toolIcons = [
   { filename: "1f511.png", spanishWords: ["la llave"] },
   { filename: "1f528.png", spanishWords: ["el martillo"] },
   { filename: "1fa93.png", spanishWords: ["el hacha"] },
-  { filename: "1fa8f.png", spanishWords: ["la pala"] },
   { filename: "1faa0.png", spanishWords: ["el destapacaños"] },
   { filename: "1f9fd.png", spanishWords: ["la esponja"] },
   { filename: "1f9f9.png", spanishWords: ["la escoba"] },
@@ -700,6 +687,19 @@ const spanishFlagIcons = [
   { filename: "1f1f5-1f1f7.png", spanishWords: ["Puerto Rico"] },
 ];
 
+const colorIcons = [
+  { filename: "1f7e5.png", spanishWords: ["rojo"] },
+  { filename: "1f7e7.png", spanishWords: ["naranja"] },
+  { filename: "1f7e8.png", spanishWords: ["amarillo"] },
+  { filename: "1f7e9.png", spanishWords: ["verde"] },
+  { filename: "1f7e6.png", spanishWords: ["azul"] },
+  { filename: "1f7ea.png", spanishWords: ["morado"] },
+  { filename: "1f7eb.png", spanishWords: ["café"] },
+  { filename: "2b1b.png", spanishWords: ["negro"] },
+  { filename: "2b1c.png", spanishWords: ["blanco"] },
+];
+// NOTE: keep colorIcons and flagIcons at the bottom — they don't get included in "selectMost"
+
 export const iconSets: IconSet[] = [
   // // how to use local icons instead of CDN: (make a "food-icons" dir within /public)
   // {
@@ -781,12 +781,6 @@ export const iconSets: IconSet[] = [
     source: "https://github.com/twitter/twemoji",
   },
   {
-    name: "Colors",
-    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
-    icons: colorIcons,
-    source: "https://github.com/twitter/twemoji",
-  },
-  {
     name: "Plants",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: plantIcons,
@@ -865,9 +859,16 @@ export const iconSets: IconSet[] = [
     source: "https://github.com/twitter/twemoji",
   },
   {
+    name: "Colors",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: colorIcons,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
     name: "Spanish-speaking Flags",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: spanishFlagIcons,
     source: "https://github.com/twitter/twemoji",
   },
+  // NOTE: keep these two at the bottom — they don't get included in "selectMost"
 ];
