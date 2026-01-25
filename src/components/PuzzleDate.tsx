@@ -5,7 +5,7 @@ import { format, parse } from "date-fns";
 interface PuzzleDateProps {
   puzzleDate?: string;
   isDailyPuzzle: boolean;
-  isUserGenerated?: boolean;
+  isInGeneratorMode?: boolean;
   puzzleLocalStorageString: string;
 }
 
@@ -13,7 +13,7 @@ export default function PuzzleDate(props: PuzzleDateProps) {
   const {
     puzzleDate,
     isDailyPuzzle,
-    isUserGenerated,
+    isInGeneratorMode,
     puzzleLocalStorageString,
   } = props;
 
@@ -22,25 +22,21 @@ export default function PuzzleDate(props: PuzzleDateProps) {
     "PPPP"
   );
 
-  return (
-    <div className="puzzle-date">
-      {isDailyPuzzle && (
-        <>
-          <div className="date">
-            {date}
-            {isDateInLocalStorage(
-              puzzleLocalStorageString,
-              puzzleDate || "2026-01-23"
-            ) && " ✅"}
-          </div>
-        </>
-      )}
-      {isUserGenerated && <div className="date">User-generated puzzle</div>}
-      {!isUserGenerated && !isDailyPuzzle && (
-        <>
-          <div className="date">Archive puzzle from {date}</div>
-        </>
-      )}
-    </div>
-  );
+  if (isInGeneratorMode) {
+    return;
+  }
+
+  if (isDailyPuzzle) {
+    return (
+      <div className="puzzle-date">
+        {date}
+        {isDateInLocalStorage(
+          puzzleLocalStorageString,
+          puzzleDate || "2026-01-23"
+        ) && " ✅"}
+      </div>
+    );
+  }
+
+  return <div className="puzzle-date">Archive puzzle from {date}</div>;
 }

@@ -29,6 +29,15 @@ export default function ObjetoOculto() {
     queryParamDate && queryParamDate !== todayString ? false : true
   );
   const [puzzle, setPuzzle] = useState<Puzzle>();
+  const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
+
+  const includesColors = puzzle?.name.toLowerCase().includes("color");
+  // is the puzzle using colorblind mode? true if the user has the setting on and the puzzle involves colors
+  const [isInColorblindMode, setColorblindMode] = useState(false);
+  // does the user want colorblind mode on when relevant?
+  const [prefersColorblindMode, setPrefersColorblindMode] = useState(
+    getSettingFromLocalStorage("prefersColorblindMode") == "true"
+  );
 
   // generator stuff:
   const isInGeneratorMode = searchParams.get("generate");
@@ -37,14 +46,6 @@ export default function ObjetoOculto() {
   const [numberToFind, setNumberToFind] = useState(1);
   const [numberToShow, setNumberToShow] = useState(0); // set below in useEffect
   const [shouldShowMinified, setShouldShowMinified] = useState(true);
-  // is the puzzle using colorblind mode? true if the user has the setting on and the puzzle involves colors
-  const [isInColorblindMode, setColorblindMode] = useState(false);
-  // does the user want colorblind mode on when relevant?
-  const [prefersColorblindMode, setPrefersColorblindMode] = useState(
-    getSettingFromLocalStorage("prefersColorblindMode") == "true"
-  );
-
-  const includesColors = puzzle?.name.toLowerCase().includes("color");
 
   const generate = () => {
     setDailyPuzzle(false);
@@ -79,6 +80,10 @@ export default function ObjetoOculto() {
 
   // onInit
   useEffect(() => {
+    if (isInGeneratorMode) {
+      setPuzzle(undefined);
+      return;
+    }
     const puzzle = getPuzzleForDate(
       GameString.ObjetoOculto,
       queryParamDate || todayString
@@ -115,8 +120,6 @@ export default function ObjetoOculto() {
     addSettingToLocalStorage("prefersColorblindMode", prefersColorblindMode);
   }, [prefersColorblindMode]);
 
-  const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
-
   const selectMost = () => {
     setSelectedIconSets(
       filter(iconSets, (set) => {
@@ -132,11 +135,11 @@ export default function ObjetoOculto() {
     <div id="objeto-oculto">
       <div className="about">
         <h1>Objeto Oculto</h1>
-        <div>Find images that match Spanish words</div>
+        {!isInGeneratorMode && <div>Find images that match Spanish words</div>}
         <PuzzleDate
           puzzleDate={puzzleDate}
           isDailyPuzzle={isDailyPuzzle}
-          isUserGenerated={!isDailyPuzzle && !queryParamDate}
+          isInGeneratorMode={!!isInGeneratorMode}
           puzzleLocalStorageString={GameString.ObjetoOculto}
         />
         {/* if the puzzle includes colors, add colorblindness mode option */}

@@ -64,6 +64,10 @@
       button {
         background-color: white;
         cursor: default;
+
+        &:hover {
+          border: 1px solid transparent;
+        }
       }
     }
   }

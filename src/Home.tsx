@@ -46,6 +46,16 @@ export default function Home() {
             <button disabled>Coming soon</button>
           </div>
         </div>
+        <div className="card inactive">
+          <div className="card-header">
+            Memoria
+            {/* <img className="beta" src="/beta.png" /> */}
+          </div>
+          <div className="card-body">
+            <p className="description">Info coming soon</p>
+            <button disabled>Coming soon</button>
+          </div>
+        </div>
       </div>
       <div className="home-footer">
         <Link to="/credits">Credits</Link>
