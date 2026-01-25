@@ -40,7 +40,7 @@ export default function ObjetoOculto() {
   );
 
   // generator stuff:
-  const isInGeneratorMode = searchParams.get("generate");
+  const isInGeneratorMode = searchParams.get("generate") === "true";
   const [selectedIconSets, setSelectedIconSets] = useState<IconSet[]>([]);
   const [numberOfIconsInSet, setNumberOfIconsInSet] = useState(0); // set below in useEffect
   const [numberToFind, setNumberToFind] = useState(1);
@@ -139,7 +139,7 @@ export default function ObjetoOculto() {
         <PuzzleDate
           puzzleDate={puzzleDate}
           isDailyPuzzle={isDailyPuzzle}
-          isInGeneratorMode={!!isInGeneratorMode}
+          isInGeneratorMode={isInGeneratorMode}
           puzzleLocalStorageString={GameString.ObjetoOculto}
         />
         {/* if the puzzle includes colors, add colorblindness mode option */}

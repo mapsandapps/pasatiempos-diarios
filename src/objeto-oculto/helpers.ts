@@ -2,6 +2,7 @@ import { ICON_SIZE } from "./generator";
 import type {
   CombinedIconSet,
   Icon,
+  IconData,
   IconDataWithPath,
   IconSet,
   IconToFind,
@@ -85,11 +86,18 @@ export const hasNameInCommon = (a: string[], b: string[]): boolean => {
 
 export const hasFilePathBeenUsed = (
   filePath: string,
-  icons: IconDataWithPath[]
+  icons: IconDataWithPath[],
 ) => {
   const usedFilePaths = icons.map((icon) => icon.filePath);
 
   return includes(usedFilePaths, filePath);
+};
+
+export const getFullPathForIcon = (
+  iconDir: string,
+  iconFilename: string,
+): string => {
+  return `${iconDir}/${iconFilename}`;
 };
 
 export const combineIconSets = (iconSets: IconSet[]): CombinedIconSet => {
@@ -114,7 +122,7 @@ export const combineIconSets = (iconSets: IconSet[]): CombinedIconSet => {
 
   iconSets.forEach((set) => {
     set.icons.forEach((icon) => {
-      const filePath = `${set.iconDir}/${icon.filename}`;
+      const filePath = getFullPathForIcon(set.iconDir, icon.filename);
 
       // if this icon has the same spanish translation as another icon
       // or if the icon has the same filePath as another icon
@@ -138,7 +146,7 @@ export const combineIconSets = (iconSets: IconSet[]): CombinedIconSet => {
 
 export const getSpanishWord = (
   hasArgentinianBias: boolean,
-  icon: IconDataWithPath
+  icon: IconDataWithPath | IconData,
 ) => {
   // if we're using the Argentinian words, pick the first word for each icon, otherwise, pick the 2nd one (if there's more than one)
 
@@ -154,7 +162,7 @@ export const findAcceptablePosition = (
   maxX: number,
   minY: number,
   maxY: number,
-  attempts: number = 0
+  attempts: number = 0,
 ): { x: number; y: number } => {
   if (attempts > 5) {
     console.warn("lots of recursion happening...");
@@ -201,7 +209,7 @@ export const findPosition = (
   minX: number,
   maxX: number,
   minY: number,
-  maxY: number
+  maxY: number,
 ) => {
   const allIcons = [...iconsToFind, ...otherIcons];
 

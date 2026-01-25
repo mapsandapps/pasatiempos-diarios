@@ -53,6 +53,16 @@
       }
     }
 
+    &.memoria {
+      .card-header {
+        background-color: var(--yellow-light);
+      }
+
+      button {
+        background-color: var(--yellow-light);
+      }
+    }
+
     &.inactive {
       border-color: darkgray;
       color: darkgray;

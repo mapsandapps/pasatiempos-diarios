@@ -672,7 +672,7 @@ const spanishFlagIcons = [
   { filename: "1f1ec-1f1f9.png", spanishWords: ["Guatemala"] },
   { filename: "1f1e7-1f1f4.png", spanishWords: ["Bolivia"] },
   { filename: "1f1e8-1f1fa.png", spanishWords: ["Cuba"] },
-  { filename: "1f1e9-1f1f4.png", spanishWords: ["Repúbica Dominicana"] },
+  { filename: "1f1e9-1f1f4.png", spanishWords: ["República Dominicana"] },
   { filename: "1f1ed-1f1f3.png", spanishWords: ["Honduras"] },
   { filename: "1f1f5-1f1fe.png", spanishWords: ["Paraguay"] },
   { filename: "1f1f8-1f1fb.png", spanishWords: ["El Salvador"] },

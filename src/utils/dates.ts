@@ -1,6 +1,7 @@
 import { GameString, type GenericPuzzle } from "../types";
 import { puzzles as objetoOcultoPuzzles } from "../objeto-oculto/puzzles";
 import { puzzles as silabasPuzzles } from "../silabas/puzzles";
+import { puzzles as memoriaPuzzles } from "../memoria/puzzles";
 import { format } from "date-fns";
 
 const games = {
@@ -11,6 +12,10 @@ const games = {
   silabas: {
     name: GameString.Silabas,
     puzzles: silabasPuzzles,
+  },
+  memoria: {
+    name: GameString.Memoria,
+    puzzles: memoriaPuzzles,
   },
 };
 

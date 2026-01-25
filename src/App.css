@@ -87,8 +87,11 @@
   /* --gray-900: #1f2428; */
   /* --gray-950: #101214; */
   --success: #15bc15;
+  --yellow: #eeb711;
+  --yellow-light: #f5d46f;
 
   --title-font: "Barriecito", system-ui;
+  --easy-font: "Rosario", sans-serif;
 
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;

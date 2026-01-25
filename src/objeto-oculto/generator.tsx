@@ -6,6 +6,7 @@ import { combineIconSets, findPosition, getSpanishWord } from "./helpers";
 export const ICON_SIZE = 48;
 export const MAX_DEFAULT_ITEMS_TO_FIND = 30;
 export const MAX_ITEMS_TO_INCLUDE = 80;
+export const HAS_ARGENTINIAN_BIAS = true;
 const PUZZLE_WIDTH = 468;
 const PUZZLE_HEIGHT = 500;
 
@@ -25,7 +26,6 @@ export const generatePuzzle = (props: {
     props.iconSets || [sample(allIconSets) as IconSet]
   );
 
-  const hasArgentinianBias = true;
   // numberToFind should never exceed the number of icons
   const minNumberToFind = Math.min(10, iconSet.icons.length);
   const maxNumberToFind = Math.min(
@@ -55,7 +55,7 @@ export const generatePuzzle = (props: {
 
       iconsToFind.push({
         filePath: `${icon.filePath}`,
-        spanishWord: getSpanishWord(hasArgentinianBias, icon),
+        spanishWord: getSpanishWord(HAS_ARGENTINIAN_BIAS, icon),
         x,
         y,
         rotation: random(-75, 75),
@@ -73,7 +73,7 @@ export const generatePuzzle = (props: {
 
       otherIcons.push({
         filePath: `${icon.filePath}`,
-        spanishWord: getSpanishWord(hasArgentinianBias, icon),
+        spanishWord: getSpanishWord(HAS_ARGENTINIAN_BIAS, icon),
         x,
         y,
         rotation: random(-75, 75),
@@ -87,6 +87,6 @@ export const generatePuzzle = (props: {
     iconsToFind,
     otherIcons,
     totalIconsShown,
-    hasArgentinianBias,
+    hasArgentinianBias: HAS_ARGENTINIAN_BIAS,
   };
 };

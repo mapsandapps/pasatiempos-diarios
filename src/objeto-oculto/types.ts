@@ -47,7 +47,7 @@ export type MinifiedIcon = [
   spanishWord: string,
   x: number,
   y: number,
-  rotation: number
+  rotation: number,
   // NOTE: these don't have `hasBeenFound` because this is just a format for storing puzzles, not for using while the puzzle is being completed
   // if i end up using this for e.g. storing state of in-progress puzzles, this will need to change
 ];
