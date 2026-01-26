@@ -130,7 +130,6 @@ export default function MemoriaGenerator() {
                   }}
                   iconDir={puzzle.iconDir}
                   hasArgentinianBias
-                  // isInColorblindMode={isInColorblindMode}
                 />
               );
             })}

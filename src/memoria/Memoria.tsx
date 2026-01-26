@@ -20,8 +20,7 @@ export default function Memoria() {
   const [puzzle, setPuzzle] = useState<MemoriaPuzzle>();
   const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
 
-  // const includesColors = puzzle?.name.toLowerCase().includes("color");
-  const includesColors = false;
+  const includesColors = puzzle?.name.toLowerCase().includes("color");
   // is the puzzle using colorblind mode? true if the user has the setting on and the puzzle involves colors
   const [isInColorblindMode, setColorblindMode] = useState(false);
   // does the user want colorblind mode on when relevant?

@@ -1,5 +1,9 @@
 import type { InProgressSlot } from "../memoria/types";
-import { getFullPathForIcon, getSpanishWord } from "../objeto-oculto/helpers";
+import {
+  getEnglishNameOfColor,
+  getFullPathForIcon,
+  getSpanishWord,
+} from "../objeto-oculto/helpers";
 import "./EmojiTile.scss";
 import clsx from "clsx";
 
@@ -21,7 +25,6 @@ export default function EmojiTile(props: EmojiTileProps) {
     slotData,
     isActive,
     hasArgentinianBias,
-    // @ts-ignore
     isInColorblindMode,
     isSmall,
   } = props;
@@ -79,7 +82,18 @@ export default function EmojiTile(props: EmojiTileProps) {
       )}
       onClick={() => onClickMismatched(slotData)}
     >
-      {slotData.isImage ? <img src={filePath} /> : <span>{spanishWord}</span>}
+      {slotData.isImage ? (
+        <>
+          <img src={filePath} />
+          {isInColorblindMode && (
+            <span className="colorblind-hint">
+              {getEnglishNameOfColor(spanishWord)}
+            </span>
+          )}
+        </>
+      ) : (
+        <span>{spanishWord}</span>
+      )}
     </div>
   );
 }

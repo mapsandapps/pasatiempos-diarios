@@ -13,6 +13,15 @@
     width: 72px;
     height: 72px;
     padding: 8px;
+    position: relative;
+
+    .colorblind-hint {
+      position: absolute;
+      top: 0;
+      margin-top: 16px;
+      background: rgba(white, 0.5);
+      padding: 0 4px;
+    }
   }
   &.text-tile {
     font-family: var(--easy-font);
