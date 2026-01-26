@@ -5,6 +5,7 @@ import {
   getSpanishWord,
 } from "../objeto-oculto/helpers";
 import "./EmojiTile.scss";
+import "animate.css";
 import clsx from "clsx";
 
 interface EmojiTileProps {
@@ -42,12 +43,12 @@ export default function EmojiTile(props: EmojiTileProps) {
     props.onClickMismatched(slotData);
   };
 
-  // @ts-ignore
+  // back of card
   if (!isActive && !slotData.hasBeenMatched) {
-    // show back
     return (
       <div
-        className="emoji-tile back clickable"
+        key={`${slotData.emoji.filename}-back`}
+        className="emoji-tile back clickable animate__animated animate__flipInY"
         onClick={() => (props.onClickBack ? props.onClickBack(slotData) : {})}
       >
         <div className="inside" />
@@ -55,12 +56,14 @@ export default function EmojiTile(props: EmojiTileProps) {
     );
   }
 
+  // front of card that has been matched
   if (slotData.hasBeenMatched) {
     return (
       <div
+        key={`${slotData.emoji.filename}-matched`}
         className={clsx(
           className,
-          "emoji-tile image-and-text-tile",
+          "emoji-tile image-and-text-tile animate__animated animate__pulse",
           isSmall && "small-tile",
         )}
       >
@@ -70,15 +73,16 @@ export default function EmojiTile(props: EmojiTileProps) {
     );
   }
 
+  // front of card that has not been matched
   return (
     <div
+      key={`${slotData.emoji.filename}-front`}
       className={clsx(
         className,
-        "emoji-tile",
+        "emoji-tile animate__animated",
         slotData.isImage ? "image-tile" : "text-tile",
-        // !slotData.hasBeenMatched && "clickable",
         isSmall && "small-tile",
-        isActive && "active",
+        isActive && "animate__flipInY",
       )}
       onClick={() => onClickMismatched(slotData)}
     >

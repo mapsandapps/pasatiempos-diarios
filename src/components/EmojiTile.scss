@@ -46,6 +46,15 @@
     margin: -6px !important;
   }
 
+  &.animate__animated.animate__pulse {
+    animation-duration: 0.5s;
+  }
+
+  &.animate__animated.animate__flipInY {
+    animation-duration: 0.5s;
+    animation-delay: 0.1s;
+  }
+
   &.clickable {
     cursor: pointer;
   }

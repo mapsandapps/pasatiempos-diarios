@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./MemoriaGame.scss";
+import "animate.css";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import { type InProgressSlot, type MemoriaPuzzle } from "./types";
 import Win from "../components/Win";
@@ -62,8 +63,6 @@ export default function MemoriaGame(props: MemoriaGameProps) {
     return cardA.pairIndex === cardB.pairIndex;
   };
 
-  const clearAfterFailedMatch = () => {};
-
   const completeSuccessfulMatch = (pairIndex: number) => {
     setInProgressPuzzle((prevItems) => {
       return prevItems.map((slot) => {
@@ -92,8 +91,8 @@ export default function MemoriaGame(props: MemoriaGameProps) {
     let nextMatchStatus = [...attemptedMatch];
 
     if (attemptedMatch.length > 1) {
+      // clear tiles after failed match
       nextMatchStatus = [];
-      clearAfterFailedMatch();
     }
 
     if (nextMatchStatus.length === 0) {
@@ -111,7 +110,7 @@ export default function MemoriaGame(props: MemoriaGameProps) {
         completeSuccessfulMatch(slotData.pairIndex);
         setAttemptedMatch([]);
       } else {
-        clearAfterFailedMatch();
+        // clear tiles after failed match
         setAttemptedMatch(nextMatchStatus);
       }
     }
