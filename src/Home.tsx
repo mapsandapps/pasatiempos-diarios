@@ -36,19 +36,27 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="card inactive">
+        <div className="card memoria">
           <div className="card-header">
-            Alphabet Game
-            {/* <img className="beta" src="/beta.png" /> */}
+            Memoria
+            <img className="beta" src="/beta.png" />
           </div>
           <div className="card-body">
-            <p className="description">Info coming soon</p>
-            <button disabled>Coming soon</button>
+            <p className="description">
+              Match images with their definitions in Spanish
+            </p>
+            <Link to="/memoria">
+              <button>
+                Play today's puzzle
+                {isTodayInLocalStorage(GameString.Memoria) && " again"}
+              </button>
+              {isTodayInLocalStorage(GameString.Memoria) && " ✅"}
+            </Link>
           </div>
         </div>
         <div className="card inactive">
           <div className="card-header">
-            Memoria
+            Alphabet Game
             {/* <img className="beta" src="/beta.png" /> */}
           </div>
           <div className="card-body">
