@@ -97,7 +97,6 @@ export default function MemoriaGenerator() {
                 slotData={{
                   index: i,
                   pairIndex: 0,
-                  numberOfFlips: 0,
                   emoji: icon,
                   hasBeenMatched: true,
                   isImage: true,
@@ -114,9 +113,7 @@ export default function MemoriaGenerator() {
           {puzzle &&
             puzzle.slots.map((slot, i) => {
               if (!slot || !slot.emoji) {
-                return (
-                  <div key={`slot-${i}`} className="emoji-tile empty-tile" />
-                );
+                return <div key={`slot-${i}`} className="emoji-tile" />;
               }
               return (
                 <EmojiTile
@@ -126,7 +123,6 @@ export default function MemoriaGenerator() {
                     index: i,
                     pairIndex: 0,
                     hasBeenMatched: true,
-                    numberOfFlips: 0,
                   }}
                   iconDir={puzzle.iconDir}
                   hasArgentinianBias

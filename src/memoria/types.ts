@@ -13,7 +13,6 @@ export interface InProgressSlot extends Slot {
    * i.e. both slots/tiles for each pair have the same pairIndex
    */
   hasBeenMatched: boolean;
-  numberOfFlips: number;
 }
 
 export interface MemoriaPuzzle {

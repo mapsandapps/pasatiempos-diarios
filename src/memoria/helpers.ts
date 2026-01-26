@@ -59,7 +59,6 @@ export const unminifyPuzzle = (
       pairIndex: i,
       index: pair.imageIndex,
       hasBeenMatched: false,
-      numberOfFlips: 0,
     };
     puzzle.slots[pair.textIndex] = {
       emoji: pair.emoji,
@@ -67,7 +66,6 @@ export const unminifyPuzzle = (
       pairIndex: i,
       index: pair.textIndex,
       hasBeenMatched: false,
-      numberOfFlips: 0,
     };
   });
 

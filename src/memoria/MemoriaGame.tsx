@@ -126,9 +126,6 @@ export default function MemoriaGame(props: MemoriaGameProps) {
       {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
       <div id="game">
         {inProgressPuzzle.map((slot, i) => {
-          if (!slot || !slot.emoji) {
-            return <div key={`slot-${i}`} className="emoji-tile empty-tile" />;
-          }
           return (
             <EmojiTile
               key={`slot-${i}`}
