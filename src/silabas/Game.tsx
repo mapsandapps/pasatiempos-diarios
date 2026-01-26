@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Game.scss";
+import "animate.css";
 import { cloneDeep, isEqual } from "lodash";
 import type { Puzzle, Syllable } from "./types";
 import { addDateToLocalStorage } from "../utils/localstorage";
@@ -23,7 +24,7 @@ export default function Game(props: GameProps) {
   const [activeSyllableIndex, setActiveSyllableIndex] = useState(0);
   const solution = getSolution(props.puzzle);
   const [inProgressPuzzle, setInProgressPuzzle] = useState(
-    initProgress(solution)
+    initProgress(solution),
   );
 
   const win = () => {
@@ -62,13 +63,13 @@ export default function Game(props: GameProps) {
   const setActiveSyllable = (
     activeWordIndex: number,
     puzzleState: Puzzle,
-    syllableIndex?: number
+    syllableIndex?: number,
   ) => {
     if (syllableIndex && syllableIndex >= 0) {
       setActiveSyllableIndex(syllableIndex);
     } else {
       setActiveSyllableIndex(
-        findFirstEmptySyllable(activeWordIndex, puzzleState)
+        findFirstEmptySyllable(activeWordIndex, puzzleState),
       );
     }
   };
@@ -77,7 +78,7 @@ export default function Game(props: GameProps) {
     wordIndex: number,
     syllableIndex: number,
     bankIndex: number,
-    syllable: Syllable
+    syllable: Syllable,
   ) => {
     if (syllableIndex < 0) {
       console.warn("no active tile to place syllable");
@@ -108,7 +109,7 @@ export default function Game(props: GameProps) {
     }
 
     const syllableInList = puzzle.syllables.find(
-      (s) => s.text === activeSyllable && s.isInUse
+      (s) => s.text === activeSyllable && s.isInUse,
     );
 
     if (!syllableInList) {
@@ -149,7 +150,7 @@ export default function Game(props: GameProps) {
   const onClickSyllable = (
     wordIndex: number,
     syllableIndex: number,
-    e: any
+    e: any,
   ) => {
     e.stopPropagation();
 
@@ -185,7 +186,7 @@ export default function Game(props: GameProps) {
             className={clsx(
               "word",
               i === activeWordIndex && "active",
-              isWordCorrect(i) && "correct"
+              isWordCorrect(i) && "correct animate__animated animate__pulse",
             )}
             key={i}
             onClick={() => onClickWord(i)}
@@ -199,7 +200,7 @@ export default function Game(props: GameProps) {
                     syllable === "" && "empty-syllable",
                     activeWordIndex === i &&
                       activeSyllableIndex === j &&
-                      "active-syllable"
+                      "active-syllable",
                   )}
                   onClick={(e) => onClickSyllable(i, j, e)}
                   key={j}
