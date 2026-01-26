@@ -52,13 +52,28 @@ export default function EmojiTile(props: EmojiTileProps) {
     );
   }
 
+  if (slotData.hasBeenMatched) {
+    return (
+      <div
+        className={clsx(
+          className,
+          "emoji-tile image-and-text-tile",
+          isSmall && "small-tile",
+        )}
+      >
+        <img src={filePath} />
+        <span>{spanishWord}</span>
+      </div>
+    );
+  }
+
   return (
     <div
       className={clsx(
         className,
         "emoji-tile",
         slotData.isImage ? "image-tile" : "text-tile",
-        !slotData.hasBeenMatched && "clickable",
+        // !slotData.hasBeenMatched && "clickable",
         isSmall && "small-tile",
         isActive && "active",
       )}

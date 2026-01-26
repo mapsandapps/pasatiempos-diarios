@@ -18,6 +18,17 @@
     font-family: var(--easy-font);
     font-size: 1.2rem;
   }
+  &.image-and-text-tile {
+    position: relative;
+    border-color: var(--success);
+    span {
+      position: absolute;
+      bottom: 0;
+      margin-bottom: 4px;
+      background: rgba(white, 0.5);
+      width: 100%;
+    }
+  }
 
   &.small-tile {
     scale: 0.75;

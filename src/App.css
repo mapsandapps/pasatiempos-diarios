@@ -94,6 +94,14 @@
   --title-font: "Barriecito", system-ui;
   --easy-font: "Rosario", sans-serif;
 
+  /* --pinstripe-background: repeating-linear-gradient(
+    45deg,
+    var(--blue-050),
+    var(--blue-050) 10px,
+    var(--blue-100) 10px,
+    var(--blue-100) 11px
+  ); */
+
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;

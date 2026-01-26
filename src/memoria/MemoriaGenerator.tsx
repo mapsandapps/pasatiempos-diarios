@@ -105,18 +105,6 @@ export default function MemoriaGenerator() {
                 iconDir={selectedIconSet.iconDir}
                 isSmall
               />
-              <EmojiTile
-                slotData={{
-                  index: i,
-                  pairIndex: 0,
-                  numberOfFlips: 0,
-                  emoji: icon,
-                  hasBeenMatched: true,
-                  isImage: false,
-                }}
-                iconDir={selectedIconSet.iconDir}
-                isSmall
-              />
             </label>
           ))}
         </div>

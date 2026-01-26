@@ -117,9 +117,13 @@ export default function MemoriaGame(props: MemoriaGameProps) {
     }
   };
 
+  const closeWinScreen = () => {
+    setShowWinScreen(false);
+  };
+
   return (
     <div className={clsx("memoria-game", hasWon && "game-over")}>
-      {showWinScreen && <Win canBeHidden />}
+      {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
       <div id="game">
         {inProgressPuzzle.map((slot, i) => {
           if (!slot || !slot.emoji) {
