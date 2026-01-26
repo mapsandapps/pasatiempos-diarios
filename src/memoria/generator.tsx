@@ -27,5 +27,5 @@ export const generatePuzzle = (
     slots[findIndexOfRandomEmptySlot(slots)] = { emoji, isImage: false };
   });
 
-  return { name: iconSetName, iconDir, slots };
+  return { date: "", name: iconSetName, iconDir, slots };
 };

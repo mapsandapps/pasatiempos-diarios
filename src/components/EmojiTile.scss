@@ -4,7 +4,7 @@
   justify-content: center;
   text-align: center;
   border-radius: 4px;
-  border: 1px solid rgba(navy, 0.1);
+  border: 1px solid var(--yellow);
   width: 80px;
   height: 80px;
   padding: 4px;
@@ -18,11 +18,27 @@
     font-family: var(--easy-font);
     font-size: 1.2rem;
   }
-  &.empty-tile {
-  }
 
   &.small-tile {
     scale: 0.75;
     margin: -8px !important;
+  }
+
+  &.back {
+    border: 1px solid var(--yellow);
+    cursor: pointer;
+
+    .inside {
+      width: 72px;
+      height: 72px;
+      border-radius: 4px;
+      background: repeating-linear-gradient(
+        45deg,
+        var(--yellow),
+        var(--yellow) 10px,
+        var(--yellow-light) 10px,
+        var(--yellow-light) 20px
+      );
+    }
   }
 }

@@ -16,6 +16,10 @@ Go to [http://localhost:5174/silabas-generator](http://localhost:5174/silabas-ge
 
 You can go to a specific date via query param, e.g. [http://localhost:5174/silabas?date=2026-01-21](http://localhost:5174/silabas?date=2026-01-21)
 
+## Memoria
+
+Go to [http://localhost:5174/memoria-generator](http://localhost:5174/memoria-generator) to generate a new Memoria puzzle.
+
 ## Daily Games
 
 Currently, both Objeto Oscuro & Sílabas have at least a month's worth of puzzles. If there is no puzzle for this specific date, they will select another one based on the date, e.g. by choosing one from the same date of a different month.

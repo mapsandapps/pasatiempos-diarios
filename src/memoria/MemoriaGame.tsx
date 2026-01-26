@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import "./MemoriaGame.scss";
 import { addDateToLocalStorage } from "../utils/localstorage";
-import type { MemoriaPuzzle } from "./types";
+import {
+  type InProgressSlot,
+  type MemoriaInProgressPuzzle,
+  type MemoriaPuzzle,
+} from "./types";
 import Win from "../components/Win";
 import { GameString } from "../types";
 import clsx from "clsx";
 import EmojiTile from "../components/EmojiTile";
+import { constructInProgressPuzzle } from "./helpers";
 
 interface MemoriaGameProps {
   todayString: string;
@@ -14,6 +19,7 @@ interface MemoriaGameProps {
   isDailyPuzzle: boolean;
   /** is in colorblind mode if user has expressed a preference for that _and_ the puzzle needs it */
   isInColorblindMode: boolean;
+  isInGeneratorMode?: boolean;
   hasArgentinianBias: boolean;
 }
 
@@ -28,40 +34,96 @@ export default function MemoriaGame(props: MemoriaGameProps) {
 
   const [hasWon, setHasWon] = useState(false);
   const [showWinScreen, setShowWinScreen] = useState(false);
-  const [inProgressPuzzle, setInProgressPuzzle] = useState(puzzle);
+  const [inProgressPuzzle, setInProgressPuzzle] =
+    useState<MemoriaInProgressPuzzle>(constructInProgressPuzzle(puzzle));
+  const [attemptedMatch, setAttemptedMatch] = useState<number[]>([]);
 
-  // @ts-ignore
   const win = () => {
     setHasWon(true);
     setShowWinScreen(true);
 
     if (isDailyPuzzle) {
-      addDateToLocalStorage(GameString.ObjetoOculto, todayString);
+      addDateToLocalStorage(GameString.Memoria, todayString);
     }
   };
 
   useEffect(() => {
     // onInit
-    setInProgressPuzzle(puzzle);
+    setInProgressPuzzle(constructInProgressPuzzle(puzzle));
+
     setHasWon(false);
     setShowWinScreen(false);
   }, [puzzle]);
 
+  // check for win condition
+  useEffect(() => {
+    if (!inProgressPuzzle.find((slot) => !slot.hasBeenMatched)) {
+      win();
+    }
+  }, [inProgressPuzzle]);
+
+  const checkForMatch = (cardA: InProgressSlot, cardB: InProgressSlot) => {
+    return cardA.pairIndex === cardB.pairIndex;
+  };
+
+  const clearAfterFailedMatch = () => {};
+
+  const completeSuccessfulMatch = (pairIndex: number) => {
+    setInProgressPuzzle((prevItems) => {
+      return prevItems.map((slot) => {
+        if (slot.pairIndex === pairIndex) {
+          return { ...slot, hasBeenMatched: true };
+        }
+        return slot;
+      });
+    });
+  };
+
+  const onClickTile = (slotData: InProgressSlot) => {
+    let nextMatchStatus = [...attemptedMatch];
+
+    if (attemptedMatch.length > 1) {
+      nextMatchStatus = [];
+      clearAfterFailedMatch();
+    }
+
+    if (nextMatchStatus.length === 0) {
+      setAttemptedMatch([slotData.index]);
+    }
+
+    if (nextMatchStatus.length === 1) {
+      nextMatchStatus.push(slotData.index);
+      const isMatch = checkForMatch(
+        inProgressPuzzle[attemptedMatch[0]],
+        slotData,
+      );
+
+      if (isMatch) {
+        completeSuccessfulMatch(slotData.pairIndex);
+        setAttemptedMatch([]);
+      } else {
+        clearAfterFailedMatch();
+        setAttemptedMatch(nextMatchStatus);
+      }
+    }
+  };
+
   return (
     <div className={clsx("memoria-game", hasWon && "game-over")}>
-      {showWinScreen && <Win canBeHidden={false} />}
+      {showWinScreen && <Win canBeHidden />}
       <div id="game">
-        {inProgressPuzzle.slots.map((slot, i) => {
+        {inProgressPuzzle.map((slot, i) => {
           if (!slot || !slot.emoji) {
             return <div key={`slot-${i}`} className="emoji-tile empty-tile" />;
           }
           return (
             <EmojiTile
               key={`slot-${i}`}
-              icon={slot.emoji}
+              slotData={slot}
+              onClickTile={onClickTile}
+              isActive={attemptedMatch.includes(i)}
               iconDir={puzzle.iconDir}
               hasArgentinianBias={hasArgentinianBias}
-              isImage={slot.isImage}
               isInColorblindMode={isInColorblindMode}
             />
           );

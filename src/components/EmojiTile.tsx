@@ -1,34 +1,61 @@
+import type { InProgressSlot } from "../memoria/types";
 import { getFullPathForIcon, getSpanishWord } from "../objeto-oculto/helpers";
-import type { IconData } from "../objeto-oculto/types";
 import "./EmojiTile.scss";
 import clsx from "clsx";
 
 interface EmojiTileProps {
-  icon: IconData;
+  className?: string;
+  slotData: InProgressSlot;
   iconDir: string;
-  isImage?: boolean;
+  isActive?: boolean;
+  onClickTile?: (slotData: InProgressSlot) => void;
   hasArgentinianBias?: boolean;
   isInColorblindMode?: boolean;
   isSmall?: boolean;
 }
 
 export default function EmojiTile(props: EmojiTileProps) {
-  const { hasArgentinianBias, icon, isImage, isInColorblindMode, isSmall } =
-    props;
-  const filePath = getFullPathForIcon(props.iconDir, props.icon.filename);
-  const spanishWord = getSpanishWord(hasArgentinianBias || false, icon);
+  const {
+    className,
+    slotData,
+    isActive,
+    hasArgentinianBias,
+    // @ts-ignore
+    isInColorblindMode,
+    isSmall,
+  } = props;
+  const filePath = getFullPathForIcon(props.iconDir, slotData.emoji.filename);
+  const spanishWord = getSpanishWord(
+    hasArgentinianBias || false,
+    slotData.emoji,
+  );
 
-  console.log(isInColorblindMode); // TODO: use
+  // @ts-ignore
+  if (!isActive && !slotData.hasBeenMatched) {
+    // show back
+    return (
+      <div
+        className="emoji-tile back"
+        onClick={() =>
+          props.onClickTile ? props.onClickTile(slotData as InProgressSlot) : {}
+        }
+      >
+        <div className="inside" />
+      </div>
+    );
+  }
 
   return (
     <div
       className={clsx(
+        className,
         "emoji-tile",
-        isImage ? "image-tile" : "text-tile",
+        slotData.isImage ? "image-tile" : "text-tile",
         isSmall && "small-tile",
+        isActive && "active",
       )}
     >
-      {isImage ? <img src={filePath} /> : <span>{spanishWord}</span>}
+      {slotData.isImage ? <img src={filePath} /> : <span>{spanishWord}</span>}
     </div>
   );
 }

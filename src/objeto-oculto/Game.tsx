@@ -32,7 +32,7 @@ export default function Game(props: GameProps) {
   // always will be the first `iconsToFind` that hasn't yet been found
   const currentIcon = useMemo(
     () => findLast(inProgressPuzzle.iconsToFind, ["hasBeenFound", false]),
-    [inProgressPuzzle]
+    [inProgressPuzzle],
   );
 
   const markCurrentIconFound = () => {
@@ -90,7 +90,6 @@ export default function Game(props: GameProps) {
   };
 
   useEffect(() => {
-    // onInit
     setInProgressPuzzle(puzzle);
     setHasWon(false);
     setShowWinScreen(false);
