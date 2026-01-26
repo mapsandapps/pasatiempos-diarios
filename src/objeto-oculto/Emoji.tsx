@@ -10,21 +10,23 @@ const ICON_TYPES = ["Icon", "IconToFind"];
 type IconType = (typeof ICON_TYPES)[number];
 
 interface EmojiProps {
+  className?: string;
   icon: Icon | IconToFind;
   isInColorblindMode: boolean;
   iconType: IconType;
 }
 
 export default function Emoji(props: EmojiProps) {
-  const { icon, isInColorblindMode, iconType } = props;
+  const { className, icon, iconType, isInColorblindMode } = props;
 
-  if (iconType === "IconToFind" && (icon as IconToFind).hasBeenFound) return;
+  const hasBeenFound =
+    iconType === "IconToFind" && (icon as IconToFind).hasBeenFound;
 
   return (
     <React.Fragment>
       <img
         src={icon.filePath}
-        className="game-icon"
+        className={clsx("game-icon", className)}
         width={`${ICON_SIZE}px`}
         height={`${ICON_SIZE}px`}
         data-spanishword={icon.spanishWord}
@@ -34,11 +36,11 @@ export default function Emoji(props: EmojiProps) {
           transform: `rotate(${icon.rotation}deg)`,
         }}
       ></img>
-      {isInColorblindMode && (
+      {isInColorblindMode && !hasBeenFound && (
         <span
           className={clsx(
             "english-word",
-            icon.spanishWord === "negro" ? "dark-icon" : "light-icon"
+            icon.spanishWord === "negro" ? "dark-icon" : "light-icon",
           )}
           style={{
             left: `${icon.x}px`,

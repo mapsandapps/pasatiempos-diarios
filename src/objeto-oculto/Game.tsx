@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./Game.scss";
+import "animate.css";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import type { Icon, IconToFind, Puzzle } from "./types";
 import { cloneDeep, find, findLast } from "lodash";
@@ -128,6 +129,9 @@ export default function Game(props: GameProps) {
               icon={icon}
               isInColorblindMode={isInColorblindMode}
               iconType="IconToFind"
+              className={
+                icon.hasBeenFound ? "animate__animated animate__zoomOut" : ""
+              }
             />
           );
         })}
