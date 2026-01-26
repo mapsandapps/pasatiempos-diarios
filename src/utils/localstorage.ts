@@ -1,14 +1,21 @@
 import { getTodayString } from "./dates";
 
+const defaultToTrue = ["hasArgentinianBias"];
+
 export const addSettingToLocalStorage = (keyName: string, setting: any) => {
   // prefersColorblindMode: stringified boolean
+  // hasArgentinianBias: stringified boolean (NOTE: not relevant to Objeto Oculto—its puzzle generation doesn't use this)
 
   localStorage.setItem(keyName, JSON.stringify(setting));
 };
 
 // this returns the stringified object, or null
 export const getSettingFromLocalStorage = (keyName: string): string | null => {
-  return localStorage.getItem(keyName);
+  const localStorageSetting = localStorage.getItem(keyName);
+
+  if (!localStorageSetting && defaultToTrue.includes(keyName)) return "true";
+
+  return localStorageSetting;
 };
 
 export const addDateToLocalStorage = (keyName: string, date: string) => {
@@ -45,7 +52,7 @@ export const isTodayInLocalStorage = (keyName: string): boolean => {
 
 export const isDateInLocalStorage = (
   keyName: string,
-  date: string
+  date: string,
 ): boolean => {
   const data = localStorage.getItem(keyName);
 

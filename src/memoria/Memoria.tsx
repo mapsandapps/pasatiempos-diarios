@@ -16,7 +16,6 @@ export default function Memoria() {
   const todayString = getTodayString();
   const [searchParams] = useSearchParams();
   const queryParamDate = searchParams.get("date");
-  // TODO: setDailyPuzzle
   const [isDailyPuzzle] = useState(
     queryParamDate && queryParamDate !== todayString ? false : true,
   );
@@ -31,7 +30,10 @@ export default function Memoria() {
     getSettingFromLocalStorage("prefersColorblindMode") == "true",
   );
 
-  const hasArgentinianBias = true; // TODO: make this a setting & store in localstorage like colorblindness
+  // NOTE: this can currently only be changed via the secret settings page
+  const [hasArgentinianBias] = useState(
+    getSettingFromLocalStorage("hasArgentinianBias") == "true",
+  );
 
   const handleColorblindOnChange = () => {
     setPrefersColorblindMode(!prefersColorblindMode);

@@ -18,6 +18,18 @@ export default function Settings() {
     addSettingToLocalStorage("prefersColorblindMode", prefersColorblindMode);
   }, [prefersColorblindMode]);
 
+  // argentinian bias
+  const [hasArgentinianBias, setArgentinianBias] = useState(
+    getSettingFromLocalStorage("hasArgentinianBias") == "true",
+  );
+  const handleArgentinianBiasChange = () => {
+    setArgentinianBias(!hasArgentinianBias);
+  };
+  // save colorblind preference to localstorage whenever it changes
+  useEffect(() => {
+    addSettingToLocalStorage("hasArgentinianBias", hasArgentinianBias);
+  }, [hasArgentinianBias]);
+
   return (
     <div className="home-settings">
       <h1>Settings</h1>
@@ -29,6 +41,15 @@ export default function Settings() {
           onChange={handleColorblindOnChange}
         />
         Colorblind Mode
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          name="argentinian-bias"
+          checked={hasArgentinianBias}
+          onChange={handleArgentinianBiasChange}
+        />
+        Prefer Using Argentinian Vocabulary
       </label>
     </div>
   );
