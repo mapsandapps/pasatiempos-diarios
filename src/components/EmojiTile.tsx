@@ -8,7 +8,8 @@ interface EmojiTileProps {
   slotData: InProgressSlot;
   iconDir: string;
   isActive?: boolean;
-  onClickTile?: (slotData: InProgressSlot) => void;
+  onClickBack?: (slotData: InProgressSlot) => void;
+  onClickMismatched?: (slotData: InProgressSlot) => void;
   hasArgentinianBias?: boolean;
   isInColorblindMode?: boolean;
   isSmall?: boolean;
@@ -30,15 +31,21 @@ export default function EmojiTile(props: EmojiTileProps) {
     slotData.emoji,
   );
 
+  const onClickMismatched = (slotData: InProgressSlot) => {
+    if (!props.onClickMismatched) return;
+
+    if (slotData.hasBeenMatched) return;
+
+    props.onClickMismatched(slotData);
+  };
+
   // @ts-ignore
   if (!isActive && !slotData.hasBeenMatched) {
     // show back
     return (
       <div
-        className="emoji-tile back"
-        onClick={() =>
-          props.onClickTile ? props.onClickTile(slotData as InProgressSlot) : {}
-        }
+        className="emoji-tile back clickable"
+        onClick={() => (props.onClickBack ? props.onClickBack(slotData) : {})}
       >
         <div className="inside" />
       </div>
@@ -51,9 +58,11 @@ export default function EmojiTile(props: EmojiTileProps) {
         className,
         "emoji-tile",
         slotData.isImage ? "image-tile" : "text-tile",
+        !slotData.hasBeenMatched && "clickable",
         isSmall && "small-tile",
         isActive && "active",
       )}
+      onClick={() => onClickMismatched(slotData)}
     >
       {slotData.isImage ? <img src={filePath} /> : <span>{spanishWord}</span>}
     </div>

@@ -24,9 +24,12 @@
     margin: -8px !important;
   }
 
+  &.clickable {
+    cursor: pointer;
+  }
+
   &.back {
     border: 1px solid var(--yellow);
-    cursor: pointer;
 
     .inside {
       width: 72px;
