@@ -24,7 +24,7 @@ You can go to a specific date via query param, e.g. [http://localhost:5174/memor
 
 ## Daily Games
 
-Currently, both Objeto Oscuro & Sílabas have at least a month's worth of puzzles. If there is no puzzle for this specific date, they will select another one based on the date, e.g. by choosing one from the same date of a different month.
+Currently, Objeto Oscuro, Sílabas, and Memoria have at least a month's worth of puzzles. If there is no puzzle for this specific date, they will select another one based on the date, e.g. by choosing one from the same date of a different month.
 
 ## Settings
 

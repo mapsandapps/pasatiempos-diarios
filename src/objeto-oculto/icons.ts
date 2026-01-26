@@ -528,7 +528,7 @@ const clothingIcons = [
   { filename: "1f9e3.png", spanishWords: ["la bufanda"] },
   { filename: "1f9e4.png", spanishWords: ["los guantes"] },
   { filename: "1f9e5.png", spanishWords: ["el abrigo"] },
-  { filename: "1f9e6.png", spanishWords: ["las media", "los calcetines"] },
+  { filename: "1f9e6.png", spanishWords: ["las medias", "los calcetines"] },
   { filename: "1f457.png", spanishWords: ["el vestido"] },
   { filename: "1fa71.png", spanishWords: ["la malla", "el traje de baño"] },
   { filename: "1fa72.png", spanishWords: ["la ropa interior"] },
@@ -616,6 +616,7 @@ const toolIcons = [
   { filename: "1f58a.png", spanishWords: ["el bolígrafo"] },
   { filename: "1f58c.png", spanishWords: ["el pincel"] },
   { filename: "1f9ba.png", spanishWords: ["el chaleco reflectante"] },
+  { filename: "1f97d.png", spanishWords: ["las gafas de seguridad"] },
 ];
 
 const scienceIcons = [
@@ -632,14 +633,15 @@ const scienceIcons = [
   { filename: "1f52d.png", spanishWords: ["el telescopio"] },
   { filename: "1f489.png", spanishWords: ["la jeringa"] },
   { filename: "1fa79.png", spanishWords: ["la curita"] },
-  {
-    filename: "1f97c.png",
-    spanishWords: ["la guardapolvo", "la bata de laboratorio"],
-  },
+  // prettier-ignore
+  { filename: "1f97c.png", spanishWords: ["la guardapolvo", "la bata de laboratorio"] },
   { filename: "1f97d.png", spanishWords: ["las gafas de seguridad"] },
   { filename: "1f680.png", spanishWords: ["el cohete"] },
   { filename: "1fa7a.png", spanishWords: ["el estetoscopio"] },
   { filename: "1fa7b.png", spanishWords: ["la radiografía"] },
+  { filename: "1f4e1.png", spanishWords: ["la antena parabólica"] },
+  { filename: "2600.png", spanishWords: ["el sol"] },
+  { filename: "1f48a.png", spanishWords: ["la pastilla"] },
 ];
 
 const weatherIcons = [
@@ -661,6 +663,7 @@ const weatherIcons = [
   { filename: "1f315.png", spanishWords: ["luna llena"] },
   { filename: "1f525.png", spanishWords: ["el fuego"] },
   { filename: "1f300.png", spanishWords: ["el ciclón"] },
+  { filename: "1f9ca.png", spanishWords: ["el hielo"] },
 ];
 
 const spanishFlagIcons = [
