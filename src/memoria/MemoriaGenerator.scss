@@ -9,7 +9,7 @@
   width: 100%;
 
   .generator-settings {
-    max-height: 480px;
+    max-height: calc(100vh - 96px);
     overflow-y: scroll;
     width: 480px;
 
@@ -17,18 +17,26 @@
       margin-bottom: 1rem;
     }
 
-    input[type="checkbox"] {
-      width: 32px;
-      height: 32px;
-      margin: auto 4px auto 0;
+    label {
+      display: inline-block;
     }
-  }
-
-  .tile-pair {
-    display: flex;
 
     .emoji-tile {
-      margin: 4px;
+      cursor: pointer;
+
+      &.disabled {
+        cursor: default;
+        filter: grayscale(100%);
+        opacity: 0.2;
+      }
+
+      &.selected {
+        box-shadow: 0 0 4px 2px var(--success);
+      }
+    }
+
+    input[type="checkbox"] {
+      display: none;
     }
   }
 

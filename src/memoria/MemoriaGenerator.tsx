@@ -7,10 +7,16 @@ import { generatePuzzle } from "./generator";
 import EmojiTile from "../components/EmojiTile";
 import { every } from "lodash";
 import { minifyPuzzle } from "./helpers";
+import { getSettingFromLocalStorage } from "../utils/localstorage";
 
 export default function MemoriaGenerator() {
   const [puzzle, setPuzzle] = useState<MemoriaPuzzle>();
   const [minifiedPuzzle, setMinifiedPuzzle] = useState<MemoriaMinifiedPuzzle>();
+
+  // NOTE: this can currently only be changed via the secret settings page
+  const [hasArgentinianBias] = useState(
+    getSettingFromLocalStorage("hasArgentinianBias") == "true",
+  );
 
   // generator stuff:
   const [selectedIconSet, setSelectedIconSet] = useState<IconSet>(iconSets[0]);
@@ -70,17 +76,19 @@ export default function MemoriaGenerator() {
           {selectedEmoji.length}/{(puzzle?.slots.length || 0) / 2}
         </div>
         <div className="generator-settings">
-          <label>
-            Choose an icon set:
-            <br />
-            <select value={selectedIconSet.name} onChange={handleSetChange}>
-              {iconSets.map((iconSet) => (
-                <option key={iconSet.name} value={iconSet.name}>
-                  {iconSet.name}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div>
+            <label>
+              Choose an icon set:
+              <br />
+              <select value={selectedIconSet.name} onChange={handleSetChange}>
+                {iconSets.map((iconSet) => (
+                  <option key={iconSet.name} value={iconSet.name}>
+                    {iconSet.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
           {selectedIconSet.icons.map((icon, i) => (
             <label
               key={`per-icon${icon.spanishWords[0]}`}
@@ -103,6 +111,14 @@ export default function MemoriaGenerator() {
                 }}
                 iconDir={selectedIconSet.iconDir}
                 isSmall
+                hasArgentinianBias={hasArgentinianBias}
+                className={
+                  !selectedEmoji?.includes(icon) && areSlotsFull
+                    ? "disabled"
+                    : selectedEmoji?.includes(icon)
+                      ? "selected"
+                      : ""
+                }
               />
             </label>
           ))}

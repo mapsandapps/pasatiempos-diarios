@@ -8,6 +8,7 @@
   width: 80px;
   height: 80px;
   padding: 4px;
+  background-color: white;
 
   &.image-tile {
     width: 72px;
@@ -39,9 +40,10 @@
     }
   }
 
+  // for generator
   &.small-tile {
     scale: 0.75;
-    margin: -8px !important;
+    margin: -6px !important;
   }
 
   &.clickable {
