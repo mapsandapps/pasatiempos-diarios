@@ -1,8 +1,8 @@
-import { findIndex, reduce, sample, sampleSize, uniq } from "lodash";
+import { fill, reduce, sample, sampleSize, uniq } from "lodash";
 import type {
   InProgressSlot,
-  MemoriaInProgressPuzzle,
   MemoriaPuzzle,
+  MemoriaMinifiedPuzzle,
   Slot,
 } from "./types";
 
@@ -26,7 +26,7 @@ export const findIndexOfRandomEmptySlot = (slots: any[]): number => {
   return sample(emptyIndices)!;
 };
 
-const getRandomOrderOfFirstSpanishWords = (slots: Slot[]) => {
+export const getRandomOrderOfFirstSpanishWords = (slots: Slot[]) => {
   const uniqueFirstSpanishWords = uniq(
     slots.map((slot) => slot.emoji.spanishWords[0]),
   );
@@ -38,28 +38,72 @@ const getRandomOrderOfFirstSpanishWords = (slots: Slot[]) => {
   return randomOrder;
 };
 
-export const constructInProgressPuzzle = (
-  puzzle: MemoriaPuzzle,
-): MemoriaInProgressPuzzle => {
-  const inProgressPuzzle: MemoriaInProgressPuzzle = [];
+export const unminifyPuzzle = (
+  minifiedPuzzle: MemoriaMinifiedPuzzle,
+): MemoriaPuzzle => {
+  const puzzle = {
+    date: minifiedPuzzle.date,
+    name: minifiedPuzzle.name,
+    iconDir: minifiedPuzzle.iconDir,
+    // @ts-ignore
+    slots: fill(
+      Array(minifiedPuzzle.pairs.length * 2),
+      undefined,
+    ) as InProgressSlot[],
+  };
+
+  minifiedPuzzle.pairs.forEach((pair, i) => {
+    puzzle.slots[pair.imageIndex] = {
+      emoji: pair.emoji,
+      isImage: true,
+      pairIndex: i,
+      index: pair.imageIndex,
+      hasBeenMatched: false,
+      numberOfFlips: 0,
+    };
+    puzzle.slots[pair.textIndex] = {
+      emoji: pair.emoji,
+      isImage: false,
+      pairIndex: i,
+      index: pair.textIndex,
+      hasBeenMatched: false,
+      numberOfFlips: 0,
+    };
+  });
+
+  return puzzle;
+};
+
+export const minifyPuzzle = (puzzle: MemoriaPuzzle): MemoriaMinifiedPuzzle => {
+  const minifiedPuzzle: MemoriaMinifiedPuzzle = {
+    date: puzzle.date,
+    name: puzzle.name,
+    iconDir: puzzle.iconDir,
+    pairs: [],
+  };
 
   const firstSpanishWords = getRandomOrderOfFirstSpanishWords(puzzle.slots);
 
-  puzzle.slots.forEach((slot, i) => {
-    const inProgressSlot: InProgressSlot = {
-      emoji: slot.emoji,
-      isImage: slot.isImage,
-      hasBeenMatched: false,
-      numberOfFlips: 0,
-      index: i,
-      // compare words by their first spanish word and then give each pair a random index
-      pairIndex: findIndex(
-        firstSpanishWords,
-        (word) => word === slot.emoji.spanishWords[0],
+  firstSpanishWords.forEach((word) => {
+    const pair = puzzle.slots.filter((slot) => {
+      return slot.emoji.spanishWords[0] === word;
+    });
+
+    if (pair.length !== 2) {
+      console.error("pair isn't a pair");
+      return;
+    }
+
+    minifiedPuzzle.pairs.push({
+      emoji: pair[0].emoji,
+      textIndex: puzzle.slots.findIndex(
+        (slot) => slot.emoji.spanishWords[0] === word && !slot.isImage,
       ),
-    };
-    inProgressPuzzle.push(inProgressSlot);
+      imageIndex: puzzle.slots.findIndex(
+        (slot) => slot.emoji.spanishWords[0] === word && slot.isImage,
+      ),
+    });
   });
 
-  return inProgressPuzzle;
+  return minifiedPuzzle;
 };

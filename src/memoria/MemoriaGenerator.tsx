@@ -1,13 +1,16 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import "./MemoriaGenerator.scss";
-import type { MemoriaPuzzle } from "./types";
+import type { MemoriaPuzzle, MemoriaMinifiedPuzzle } from "./types";
 import type { IconData, IconSet } from "../objeto-oculto/types";
 import { iconSets } from "../objeto-oculto/icons";
 import { generatePuzzle } from "./generator";
 import EmojiTile from "../components/EmojiTile";
+import { every } from "lodash";
+import { minifyPuzzle } from "./helpers";
 
 export default function MemoriaGenerator() {
   const [puzzle, setPuzzle] = useState<MemoriaPuzzle>();
+  const [minifiedPuzzle, setMinifiedPuzzle] = useState<MemoriaMinifiedPuzzle>();
 
   // generator stuff:
   const [selectedIconSet, setSelectedIconSet] = useState<IconSet>(iconSets[0]);
@@ -42,7 +45,13 @@ export default function MemoriaGenerator() {
     });
   };
 
-  const areSlotsFull = selectedEmoji.length >= (puzzle?.slots.length || 0) / 2;
+  const areSlotsFull = puzzle ? every(puzzle?.slots, Boolean) : false;
+
+  useEffect(() => {
+    if (areSlotsFull) {
+      setMinifiedPuzzle(minifyPuzzle(puzzle!));
+    }
+  }, [areSlotsFull]);
 
   useEffect(() => {
     const puzzle = generatePuzzle(
@@ -138,7 +147,9 @@ export default function MemoriaGenerator() {
               );
             })}
         </div>
-        {areSlotsFull && <textarea value={JSON.stringify(puzzle)} readOnly />}
+        {areSlotsFull && (
+          <textarea value={JSON.stringify(minifiedPuzzle)} readOnly />
+        )}
       </div>
     </div>
   );

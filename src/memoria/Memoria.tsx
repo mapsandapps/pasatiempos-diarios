@@ -5,8 +5,9 @@ import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import { useEffect, useState } from "react";
 import { getSettingFromLocalStorage } from "../utils/localstorage";
 import { GameString } from "../types";
-import type { MemoriaPuzzle } from "./types";
+import type { MemoriaMinifiedPuzzle, MemoriaPuzzle } from "./types";
 import MemoriaGame from "./MemoriaGame";
+import { unminifyPuzzle } from "./helpers";
 
 export default function Memoria() {
   const todayString = getTodayString();
@@ -39,9 +40,9 @@ export default function Memoria() {
     const puzzle = getPuzzleForDate(
       GameString.Memoria,
       queryParamDate || todayString,
-    ) as MemoriaPuzzle;
+    ) as MemoriaMinifiedPuzzle;
 
-    setPuzzle(puzzle);
+    setPuzzle(unminifyPuzzle(puzzle));
   }, []);
 
   useEffect(() => {

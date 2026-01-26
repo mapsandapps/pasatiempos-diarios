@@ -3,6 +3,7 @@ import type { IconData } from "../objeto-oculto/types";
 export interface Slot {
   emoji: IconData;
   isImage?: boolean;
+  pairIndex: number;
 }
 
 export interface InProgressSlot extends Slot {
@@ -11,7 +12,6 @@ export interface InProgressSlot extends Slot {
    * there are half as many of these as there are slots,
    * i.e. both slots/tiles for each pair have the same pairIndex
    */
-  pairIndex: number;
   hasBeenMatched: boolean;
   numberOfFlips: number;
 }
@@ -20,7 +20,18 @@ export interface MemoriaPuzzle {
   date: string;
   name: string;
   iconDir: string;
-  slots: Slot[];
+  slots: InProgressSlot[];
 }
 
-export type MemoriaInProgressPuzzle = InProgressSlot[];
+interface Pair {
+  emoji: IconData;
+  imageIndex: number;
+  textIndex: number;
+}
+
+export interface MemoriaMinifiedPuzzle {
+  date: string;
+  name: string;
+  iconDir: string;
+  pairs: Pair[];
+}

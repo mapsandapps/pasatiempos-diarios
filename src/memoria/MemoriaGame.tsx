@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import "./MemoriaGame.scss";
 import { addDateToLocalStorage } from "../utils/localstorage";
-import {
-  type InProgressSlot,
-  type MemoriaInProgressPuzzle,
-  type MemoriaPuzzle,
-} from "./types";
+import { type InProgressSlot, type MemoriaPuzzle } from "./types";
 import Win from "../components/Win";
 import { GameString } from "../types";
 import clsx from "clsx";
 import EmojiTile from "../components/EmojiTile";
-import { constructInProgressPuzzle } from "./helpers";
 
 interface MemoriaGameProps {
   todayString: string;
@@ -34,8 +29,9 @@ export default function MemoriaGame(props: MemoriaGameProps) {
 
   const [hasWon, setHasWon] = useState(false);
   const [showWinScreen, setShowWinScreen] = useState(false);
-  const [inProgressPuzzle, setInProgressPuzzle] =
-    useState<MemoriaInProgressPuzzle>(constructInProgressPuzzle(puzzle));
+  const [inProgressPuzzle, setInProgressPuzzle] = useState<InProgressSlot[]>(
+    puzzle.slots,
+  );
   const [attemptedMatch, setAttemptedMatch] = useState<number[]>([]);
 
   const win = () => {
@@ -49,7 +45,7 @@ export default function MemoriaGame(props: MemoriaGameProps) {
 
   useEffect(() => {
     // onInit
-    setInProgressPuzzle(constructInProgressPuzzle(puzzle));
+    setInProgressPuzzle(puzzle.slots);
 
     setHasWon(false);
     setShowWinScreen(false);
