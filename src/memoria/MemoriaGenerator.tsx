@@ -5,22 +5,29 @@ import type { IconData, IconSet } from "../objeto-oculto/types";
 import { iconSets } from "../objeto-oculto/icons";
 import { generatePuzzle } from "./generator";
 import EmojiTile from "../components/EmojiTile";
-import { every } from "lodash";
+import { every, flatten, uniq } from "lodash";
 import { minifyPuzzle } from "./helpers";
 import { getSettingFromLocalStorage } from "../utils/localstorage";
+import { puzzles } from "./puzzles";
 
 export default function MemoriaGenerator() {
   const [puzzle, setPuzzle] = useState<MemoriaPuzzle>();
   const [minifiedPuzzle, setMinifiedPuzzle] = useState<MemoriaMinifiedPuzzle>();
+  const [selectedIconSet, setSelectedIconSet] = useState<IconSet>(iconSets[0]);
+  const [selectedEmoji, setSelectedEmoji] = useState<IconData[]>([]);
+  const [shouldDisplayError, setDisplayError] = useState(false);
+
+  // array of filenames
+  const iconsUsedInPreviousPuzzles = uniq(
+    flatten(
+      puzzles.map((puzzle) => puzzle.pairs.map((pair) => pair.emoji.filename)),
+    ),
+  );
 
   // NOTE: this can currently only be changed via the secret settings page
   const [hasArgentinianBias] = useState(
     getSettingFromLocalStorage("hasArgentinianBias") == "true",
   );
-
-  // generator stuff:
-  const [selectedIconSet, setSelectedIconSet] = useState<IconSet>(iconSets[0]);
-  const [selectedEmoji, setSelectedEmoji] = useState<IconData[]>([]);
 
   const handleSetChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedEmoji([]);
@@ -35,14 +42,19 @@ export default function MemoriaGenerator() {
     const firstSpanishWord = e.target.name;
     const isChecked = e.target.checked;
 
+    const iconData = selectedIconSet.icons.find(
+      (icon) => icon.spanishWords[0] === firstSpanishWord,
+    ) as IconData;
+
+    if (isChecked && iconsUsedInPreviousPuzzles.includes(iconData?.filename)) {
+      setDisplayError(true);
+    } else {
+      setDisplayError(false);
+    }
+
     setSelectedEmoji((prevItems) => {
       if (isChecked) {
-        return [
-          ...prevItems,
-          selectedIconSet.icons.find(
-            (icon) => icon.spanishWords[0] === firstSpanishWord,
-          ),
-        ] as IconData[];
+        return [...prevItems, iconData] as IconData[];
       } else {
         return prevItems.filter(
           (icon) => icon.spanishWords[0] !== firstSpanishWord,
@@ -89,6 +101,11 @@ export default function MemoriaGenerator() {
               </select>
             </label>
           </div>
+          {shouldDisplayError && (
+            <div className="warning">
+              Warning: This icon has been used in a previous puzzle.
+            </div>
+          )}
           {selectedIconSet.icons.map((icon, i) => (
             <label
               key={`per-icon${icon.spanishWords[0]}`}
@@ -117,7 +134,9 @@ export default function MemoriaGenerator() {
                     ? "disabled"
                     : selectedEmoji?.includes(icon)
                       ? "selected"
-                      : ""
+                      : iconsUsedInPreviousPuzzles.includes(icon.filename)
+                        ? "previously-used"
+                        : ""
                 }
               />
             </label>

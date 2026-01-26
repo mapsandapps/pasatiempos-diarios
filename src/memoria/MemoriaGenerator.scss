@@ -33,6 +33,10 @@
       &.selected {
         box-shadow: 0 0 4px 2px var(--success);
       }
+
+      &.previously-used {
+        border-color: var(--pink-500);
+      }
     }
 
     input[type="checkbox"] {
@@ -52,4 +56,9 @@
     height: 240px;
     margin-top: 1rem;
   }
+}
+
+.warning {
+  background-color: var(--yellow);
+  padding: 16px;
 }
