@@ -8,21 +8,27 @@ Daily puzzle games in Spanish
 
 Go to [http://localhost:5174/objeto-oculto?generate=true](http://localhost:5174/objeto-oculto?generate=true) to generate a new Objeto Oculto puzzle & play it.
 
-You can go to a specific date via query param, e.g. [http://localhost:5174/objeto-oculto?date=2026-09-23](http://localhost:5174/objeto-oculto?date=2026-09-23)
+You can go to a specific date via query param, e.g. [http://localhost:5174/objeto-oculto?date=2026-09-23](http://localhost:5174/objeto-oculto?date=2026-09-23).
 
 ## Sílabas
 
 Go to [http://localhost:5174/silabas-generator](http://localhost:5174/silabas-generator) to generate a new Sílabas puzzle.
 
-You can go to a specific date via query param, e.g. [http://localhost:5174/silabas?date=2026-01-21](http://localhost:5174/silabas?date=2026-01-21)
+You can go to a specific date via query param, e.g. [http://localhost:5174/silabas?date=2026-01-21](http://localhost:5174/silabas?date=2026-01-21).
 
 ## Memoria
 
 Go to [http://localhost:5174/memoria-generator](http://localhost:5174/memoria-generator) to generate a new Memoria puzzle.
 
+You can go to a specific date via query param, e.g. [http://localhost:5174/memoria?date=2026-01-25](http://localhost:5174/memoria?date=2026-01-25).
+
 ## Daily Games
 
 Currently, both Objeto Oscuro & Sílabas have at least a month's worth of puzzles. If there is no puzzle for this specific date, they will select another one based on the date, e.g. by choosing one from the same date of a different month.
+
+## Settings
+
+There is a secret setting page (i.e. not linked from anywhere currenlty) at [http://localhost:5174/settings](http://localhost:5174/settings).
 
 ## React + TypeScript + Vite
 

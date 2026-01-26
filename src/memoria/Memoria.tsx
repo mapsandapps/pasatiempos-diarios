@@ -3,7 +3,10 @@ import PuzzleDate from "../components/PuzzleDate";
 import "./Memoria.scss";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import { useEffect, useState } from "react";
-import { getSettingFromLocalStorage } from "../utils/localstorage";
+import {
+  addSettingToLocalStorage,
+  getSettingFromLocalStorage,
+} from "../utils/localstorage";
 import { GameString } from "../types";
 import type { MemoriaMinifiedPuzzle, MemoriaPuzzle } from "./types";
 import MemoriaGame from "./MemoriaGame";
@@ -57,6 +60,11 @@ export default function Memoria() {
       setColorblindMode(false);
     }
   }, [includesColors, prefersColorblindMode]);
+
+  // save colorblind preference to localstorage whenever it changes
+  useEffect(() => {
+    addSettingToLocalStorage("prefersColorblindMode", prefersColorblindMode);
+  }, [prefersColorblindMode]);
 
   return (
     <div id="memoria">

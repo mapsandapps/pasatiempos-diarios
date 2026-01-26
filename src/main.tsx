@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Credits from "./credits/Credits.tsx";
+import Settings from "./settings/Settings.tsx";
 import Silabas from "./silabas/Silabas.tsx";
 import SilabasGenerator from "./silabas/Generator.tsx";
 import ObjetoOculto from "./objeto-oculto/ObjetoOculto.tsx";
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "credits", Component: Credits },
+      { path: "settings", Component: Settings },
       { path: "silabas", Component: Silabas },
       { path: "silabas-generator", Component: SilabasGenerator },
       { path: "objeto-oculto", Component: ObjetoOculto },
