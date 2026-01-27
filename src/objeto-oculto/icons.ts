@@ -308,6 +308,7 @@ const sportsIcons = [
   { filename: "1f3b3.png", spanishWords: ["los bolos"] },
   { filename: "1f3d2.png", spanishWords: ["el hockey"] },
   { filename: "1f3a3.png", spanishWords: ["la pesca"] },
+  { filename: "1f3d5.png", spanishWords: ["el camping"] },
 
   // games
   { filename: "1f3ae.png", spanishWords: ["el mando de videoconsola"] },
@@ -316,6 +317,9 @@ const sportsIcons = [
   { filename: "1f3b2.png", spanishWords: ["el dado"] },
   { filename: "1f9e9.png", spanishWords: ["la pieza de puzle"] },
   { filename: "1fa85.png", spanishWords: ["la piñata"] },
+
+  // misc
+  { filename: "1f3df.png", spanishWords: ["el estadio"] },
 ];
 
 const plantIcons = [
@@ -413,6 +417,12 @@ const vehicleIcons = [
   { filename: "26f5.png", spanishWords: ["el velero"] },
   { filename: "1f6f8.png", spanishWords: ["el platillo volador"] },
   { filename: "1fa82.png", spanishWords: ["el paracaídas"] },
+  { filename: "1f6de.png", spanishWords: ["la rueda"] },
+  { filename: "26fd.png", spanishWords: ["el surtidor"] },
+  { filename: "1f6a6.png", spanishWords: ["el semáforo"] },
+  // prettier-ignore
+  { filename: "1f6d1.png", spanishWords: ["la señal de pare", "la señal de alto"] },
+  { filename: "1f68f.png", spanishWords: ["la parada de autobús"] },
 ];
 
 const springAndFallIcons = [
@@ -580,6 +590,9 @@ const householdItems = [
   { filename: "1f58c.png", spanishWords: ["el pincel"] },
   { filename: "1f3e1.png", spanishWords: ["la casa"] },
   { filename: "1fab4.png", spanishWords: ["la planta de interior"] },
+  { filename: "1f374.png", spanishWords: ["tenedor y cuchillo"] },
+  { filename: "1f944.png", spanishWords: ["la cuchara"] },
+  { filename: "23f0.png", spanishWords: ["el despertador"] },
 ];
 
 const toolIcons = [
@@ -617,6 +630,9 @@ const toolIcons = [
   { filename: "1f58c.png", spanishWords: ["el pincel"] },
   { filename: "1f9ba.png", spanishWords: ["el chaleco reflectante"] },
   { filename: "1f97d.png", spanishWords: ["las gafas de seguridad"] },
+  { filename: "1f52a.png", spanishWords: ["el cuchillo"] },
+  { filename: "1f944.png", spanishWords: ["la cuchara"] },
+  { filename: "1f9ed.png", spanishWords: ["la brújula"] },
 ];
 
 const scienceIcons = [
@@ -642,6 +658,7 @@ const scienceIcons = [
   { filename: "1f4e1.png", spanishWords: ["la antena parabólica"] },
   { filename: "2600.png", spanishWords: ["el sol"] },
   { filename: "1f48a.png", spanishWords: ["la pastilla"] },
+  { filename: "1f6f0.png", spanishWords: ["el satélite"] },
 ];
 
 const weatherIcons = [
@@ -664,6 +681,31 @@ const weatherIcons = [
   { filename: "1f525.png", spanishWords: ["el fuego"] },
   { filename: "1f300.png", spanishWords: ["el ciclón"] },
   { filename: "1f9ca.png", spanishWords: ["el hielo"] },
+];
+
+const travelIcons = [
+  { filename: "1f68f.png", spanishWords: ["la parada de autobús"] },
+  { filename: "1f9f3.png", spanishWords: ["la valija", "la maleta"] },
+  { filename: "26f0.png", spanishWords: ["la montaña"] },
+  { filename: "1f30b.png", spanishWords: ["el volcán"] },
+  { filename: "1f3d5.png", spanishWords: ["el camping"] },
+  { filename: "1f3d6.png", spanishWords: ["la playa"] },
+  { filename: "1f3dc.png", spanishWords: ["el desierto"] },
+  { filename: "1f3dd.png", spanishWords: ["la isla"] },
+  { filename: "1f3df.png", spanishWords: ["el estadio"] },
+  { filename: "1f3db.png", spanishWords: ["el edificio clásico"] },
+  { filename: "1f3e8.png", spanishWords: ["el hotel"] },
+  { filename: "26f2.png", spanishWords: ["la fuente"] },
+  { filename: "1f3d9.png", spanishWords: ["la ciudad"] },
+  { filename: "1f3a2.png", spanishWords: ["la montaña rusa"] },
+  { filename: "1f695.png", spanishWords: ["el taxi"] },
+  { filename: "1f68c.png", spanishWords: ["el colectivo", "el autobús"] },
+  { filename: "1f687.png", spanishWords: ["el subte", "el metro"] },
+  { filename: "2708.png", spanishWords: ["el avión"] },
+  { filename: "1f686.png", spanishWords: ["el tren"] },
+  { filename: "1f3de.png", spanishWords: ["el parque"] },
+  { filename: "1f5fa.png", spanishWords: ["el mapa"] },
+  { filename: "1f30e.png", spanishWords: ["el globo"] },
 ];
 
 const spanishFlagIcons = [
@@ -859,6 +901,12 @@ export const iconSets: IconSet[] = [
     name: "Household",
     iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
     icons: householdItems,
+    source: "https://github.com/twitter/twemoji",
+  },
+  {
+    name: "Travel",
+    iconDir: "https://twemoji.maxcdn.com/v/latest/72x72",
+    icons: travelIcons,
     source: "https://github.com/twitter/twemoji",
   },
   {
