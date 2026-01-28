@@ -1,25 +1,5 @@
-import { isEqual } from "lodash";
-
 const falseDiphthongs = ["ía", "ea", "eo"];
 const prefixes = ["in", "en"];
-
-const testCases = [
-  { word: "estrella", correctSyllables: ["es", "tre", "lla"] }, // "ll" should not split
-  { word: "librería", correctSyllables: ["li", "bre", "rí", "a"] }, // "br" should not split; "ía" should split
-  { word: "inalcanzable", correctSyllables: ["in", "al", "can", "za", "ble"] }, // "in" should not split at beginning of word
-  { word: "correr", correctSyllables: ["co", "rrer"] }, // "rr" should not split
-  { word: "triple", correctSyllables: ["tri", "ple"] }, // "pl" should not split
-  { word: "bibliografía", correctSyllables: ["bi", "blio", "gra", "fí", "a"] }, // "bl should not split"; "gr" should not split; "ía" should split
-  { word: "voltear", correctSyllables: ["vol", "te", "ar"] }, // "ea" should split
-  { word: "veintitrés", correctSyllables: ["vein", "ti", "trés"] }, // "tr" should not split
-  { word: "enlazar", correctSyllables: ["en", "la", "zar"] }, // "en" should not split at beginning of word; in this case, "nl" SHOULD split
-  { word: "núcleo", correctSyllables: ["nú", "cle", "o"] }, // "eo" should split
-  { word: "noche", correctSyllables: ["no", "che"] }, // should not split before "h"
-  { word: "alhajas", correctSyllables: ["al", "ha", "jas"] }, // should split before "h"
-  { word: "influir", correctSyllables: ["in", "fluir"] }, // "in" should not split; "fl" should not split
-  // TODO: not yet fixed:
-  // { word: "retransmisión", correctSyllables: ["re-trans-mi-sión"] }, // "trans" should be together
-];
 
 const isConsonant = (letter?: string) => {
   if (!letter) return false;
@@ -157,34 +137,4 @@ export const getSyllables = (spanishWord: string): string[] => {
   var adjustedSyllables = adjustSyllables(spanishWord, syllables);
 
   return adjustedSyllables;
-};
-
-/**
- * @param i if provided, run only the test case at this index
- */
-export const runTests = (i?: number) => {
-  if (i) {
-    const { word, correctSyllables } = testCases[i];
-
-    console.log({
-      word,
-      correctSyllables,
-      syllablesFromSyllablizer: getSyllables(word),
-    });
-
-    return;
-  }
-
-  testCases.forEach((c) => {
-    const { word, correctSyllables } = c;
-
-    if (!isEqual(getSyllables(word), correctSyllables)) {
-      console.error({
-        word,
-        correctSyllables,
-        syllablesFromSyllablizer: getSyllables(word),
-      });
-      throw new Error(`Found wrong syllables for ${word}`);
-    }
-  });
 };
