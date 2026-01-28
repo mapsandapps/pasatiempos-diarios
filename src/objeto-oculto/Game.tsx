@@ -119,6 +119,10 @@ export default function Game(props: GameProps) {
               icon={icon}
               isInColorblindMode={isInColorblindMode}
               iconType="Icon"
+              className={clsx(
+                icon.spanishWord === wrongIconClicked?.spanishWord &&
+                  "animate__animated animate__headShake",
+              )}
             />
           );
         })}
@@ -129,9 +133,11 @@ export default function Game(props: GameProps) {
               icon={icon}
               isInColorblindMode={isInColorblindMode}
               iconType="IconToFind"
-              className={
-                icon.hasBeenFound ? "animate__animated animate__zoomOut" : ""
-              }
+              className={clsx(
+                icon.hasBeenFound && "animate__animated animate__zoomOut",
+                icon.spanishWord === wrongIconClicked?.spanishWord &&
+                  "animate__animated animate__headShake",
+              )}
             />
           );
         })}
