@@ -2268,7 +2268,6 @@ export const words = [
   ["regalo", "present", 4020],
   ["regalo", "gift", 4020],
   ["fresco", "fresh", 4029],
-  ["fresco", "fresco", 4029],
   ["indígena", "indigenous", 4030],
   ["indígena", "native", 4030],
   ["herida", "wound", 4033],
