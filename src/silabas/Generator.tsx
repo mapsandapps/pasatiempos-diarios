@@ -21,7 +21,7 @@ export default function Generator() {
   const NUMBER_OF_WORDS_TO_CHOOSE_FROM = 10;
 
   const numberOfWordsSelected = proposedWords.filter(
-    (word) => word.isIncluded
+    (word) => word.isIncluded,
   ).length;
 
   const handleCheckboxChange = (wordIndex: number) => {

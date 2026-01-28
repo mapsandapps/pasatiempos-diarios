@@ -7527,7 +7527,6 @@ export const words = [
   ["crayón", "crayon", 189806],
   ["refri", "fridge", 195883],
   ["rellenito", "plump", 195950],
-  ["repeat", "please", 195990],
   ["surfear", "to surf", 196987],
   ["zanco", "stilt", 198125],
   ["acomedido", "obliging", 198334],
