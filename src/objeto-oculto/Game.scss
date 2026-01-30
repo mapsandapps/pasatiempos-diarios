@@ -2,7 +2,14 @@ $HINT_WAIT_TIME: 15s;
 
 .objeto-oculto-game {
   // needs to be darker than most games to contrast with white icons
-  background-color: var(--purple-300);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--purple-300),
+    var(--purple-300) 10px,
+    var(--purple-200) 10px,
+    var(--purple-200) 11px
+  ); /* https://stripesgenerator.com/ */
+  background-size: 15.56px 15.56px;
   color: black;
   position: relative;
 

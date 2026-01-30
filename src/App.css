@@ -94,14 +94,6 @@
   --title-font: "Barriecito", system-ui;
   --easy-font: "Rosario", sans-serif;
 
-  /* --pinstripe-background: repeating-linear-gradient(
-    45deg,
-    var(--blue-050),
-    var(--blue-050) 10px,
-    var(--blue-100) 10px,
-    var(--blue-100) 11px
-  ); */
-
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -137,6 +129,17 @@ button {
 } */
 
 .header {
-  padding: 8px;
-  max-width: 200px;
+  padding: 8px 24px;
+
+  img {
+    width: 320px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .header {
+    padding: 8px;
+    text-align: center;
+  }
 }

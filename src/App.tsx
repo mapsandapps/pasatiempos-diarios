@@ -4,9 +4,11 @@ import { Link, Outlet } from "react-router";
 function App() {
   return (
     <>
-      <Link to="/" aria-label="Home">
-        <img className="header" src="/wordmark.png" alt="" />
-      </Link>
+      <div className="header">
+        <Link to="/" aria-label="Home">
+          <img src="/wordmark.png" alt="" />
+        </Link>
+      </div>
       <div className="page">
         <Outlet />
       </div>
