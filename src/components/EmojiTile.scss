@@ -1,3 +1,20 @@
+.emoji-tile-container {
+  position: relative;
+  width: 88px;
+  height: 88px;
+
+  &.clickable {
+    cursor: pointer;
+  }
+}
+
+$matched-tile-duration: 0.7s;
+
+.hidden {
+  // until animated in
+  opacity: 0;
+}
+
 .emoji-tile {
   display: flex;
   align-items: center;
@@ -9,8 +26,19 @@
   height: 80px;
   padding: 4px;
   background-color: white;
+  font-family: var(--easy-font);
+  font-size: 1.2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
 
-  &.image-tile {
+  .emoji-tile-container & {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+  }
+
+  &.front {
     width: 72px;
     height: 72px;
     padding: 8px;
@@ -22,22 +50,41 @@
       margin-top: 16px;
       background: rgba(white, 0.5);
       padding: 0 4px;
+      font-size: 1rem;
     }
-  }
-  &.text-tile {
-    font-family: var(--easy-font);
-    font-size: 1.2rem;
-  }
-  &.image-and-text-tile {
-    position: relative;
-    border-color: var(--success);
-    span {
+
+    img {
       position: absolute;
-      bottom: 0;
-      margin-bottom: 4px;
-      background: rgba(white, 0.5);
-      width: 100%;
+      top: 8px;
+      left: 8px;
     }
+  }
+  &.matched {
+    border-color: var(--success);
+    align-items: end;
+    justify-content: end;
+  }
+
+  .spanish-word {
+    position: absolute;
+    width: 100%;
+    bottom: calc(50% - 12px);
+    left: 0;
+    text-align: center;
+    background: rgba(white, 0.5);
+    width: 100%;
+  }
+
+  img.animate__fadeIn {
+    animation-duration: $matched-tile-duration;
+  }
+
+  &.text-tile .spanish-word.matched {
+    animation: $matched-tile-duration ease-in 0s slide-down forwards;
+  }
+
+  &.image-tile .spanish-word.matched {
+    animation: $matched-tile-duration ease-in 0s fade-in-slide-down forwards;
   }
 
   // for generator
@@ -55,8 +102,9 @@
     animation-delay: 0.1s;
   }
 
-  &.clickable {
-    cursor: pointer;
+  &.word-tile img.animate__fadeIn,
+  &.image-tile span.animate__fadeIn {
+    animation-delay: 0.3s;
   }
 
   &.back {
@@ -74,5 +122,42 @@
         var(--yellow-light) 20px
       );
     }
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    bottom: calc(50% - 12px);
+    margin-top: 0%;
+  }
+
+  // wait while fade-in-slide-down is fading in
+  90% {
+    bottom: calc(50% - 12px);
+    margin-top: 0%;
+  }
+
+  100% {
+    bottom: 0%;
+    margin-top: 50%;
+  }
+}
+
+@keyframes fade-in-slide-down {
+  0% {
+    bottom: calc(50% - 12px);
+    margin-top: 0%;
+    opacity: 0.01;
+  }
+
+  90% {
+    bottom: calc(50% - 12px);
+    margin-top: 0%;
+  }
+
+  100% {
+    bottom: 0%;
+    margin-top: 50%;
+    opacity: 1;
   }
 }

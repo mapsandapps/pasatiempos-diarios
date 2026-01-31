@@ -74,20 +74,10 @@ export default function MemoriaGame(props: MemoriaGameProps) {
     });
   };
 
-  /** if there are two mismatched cards, and the user clicks one, flip both back to their backs */
-  const onClickMismatched = (slotData: InProgressSlot) => {
-    // first, check that they are mismatched
-    // i.e. that two tiles are being checked
-    if (attemptedMatch.length !== 2) return;
+  const onClick = (slotData: InProgressSlot) => {
+    if (slotData.hasBeenMatched || attemptedMatch.includes(slotData.index))
+      return;
 
-    // double-check that the card clicked is one in the attempted match
-    if (attemptedMatch.includes(slotData.index)) {
-      // flip the cards back over
-      setAttemptedMatch([]);
-    }
-  };
-
-  const onClickBack = (slotData: InProgressSlot) => {
     let nextMatchStatus = [...attemptedMatch];
 
     if (attemptedMatch.length > 1) {
@@ -129,8 +119,7 @@ export default function MemoriaGame(props: MemoriaGameProps) {
             <EmojiTile
               key={`slot-${i}`}
               slotData={slot}
-              onClickBack={onClickBack}
-              onClickMismatched={onClickMismatched}
+              onClick={onClick}
               isActive={attemptedMatch.includes(i)}
               iconDir={puzzle.iconDir}
               hasArgentinianBias={hasArgentinianBias}

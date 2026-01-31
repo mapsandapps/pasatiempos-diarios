@@ -148,7 +148,9 @@ export default function MemoriaGenerator() {
           {puzzle &&
             puzzle.slots.map((slot, i) => {
               if (!slot || !slot.emoji) {
-                return <div key={`slot-${i}`} className="emoji-tile" />;
+                return (
+                  <div key={`slot-${i}`} className="emoji-tile-container" />
+                );
               }
               return (
                 <EmojiTile
