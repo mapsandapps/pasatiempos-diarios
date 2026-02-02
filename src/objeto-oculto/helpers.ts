@@ -66,6 +66,16 @@ export const unminifyPuzzle = (puzzle: MinifiedPuzzle) => {
     });
   });
 
+  puzzle.otherIcons.forEach((icon) => {
+    unminifiedPuzzle.otherIcons.push({
+      filePath: icon[0] as string,
+      spanishWord: icon[1],
+      x: icon[2],
+      y: icon[3],
+      rotation: icon[4],
+    });
+  });
+
   return unminifiedPuzzle;
 };
 
