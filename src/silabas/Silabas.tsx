@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Game from "./Game";
 import "./Silabas.scss";
-import type { RawPuzzle } from "./types";
+import type { RawPuzzle } from "../types";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import { GameString } from "../types";
 import { useSearchParams } from "react-router";
@@ -20,8 +20,8 @@ export default function Silabas() {
     setPuzzle(
       getPuzzleForDate(
         GameString.Silabas,
-        queryParamDate || todayString
-      ) as RawPuzzle
+        queryParamDate || todayString,
+      ) as RawPuzzle,
     );
   }, []);
 

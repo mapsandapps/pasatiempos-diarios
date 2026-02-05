@@ -37,10 +37,7 @@ export default function Home() {
           </div>
         </div>
         <div className="card memoria">
-          <div className="card-header">
-            Memoria
-            <img className="beta" src="/beta.png" />
-          </div>
+          <div className="card-header">Memoria</div>
           <div className="card-body">
             <p className="description">
               Match images with their definitions in Spanish
@@ -54,15 +51,31 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="card inactive">
+        <div className="card ortografia">
           <div className="card-header">
-            Alphabet Game
-            {/* <img className="beta" src="/beta.png" /> */}
+            Ortografía
+            <img className="beta" src="/beta.png" />
           </div>
           <div className="card-body">
             <p className="description">Info coming soon</p>
-            <button disabled>Coming soon</button>
+            <Link to="/ortografia">
+              <button>
+                Play today's puzzle
+                {isTodayInLocalStorage(GameString.Ortografia) && " again"}
+              </button>
+              {isTodayInLocalStorage(GameString.Ortografia) && " ✅"}
+            </Link>
           </div>
+          {/* <div className="card inactive">
+            <div className="card-header">
+              Alphabet Game
+              <img className="beta" src="/beta.png" />
+            </div>
+            <div className="card-body">
+              <p className="description">Info coming soon</p>
+              <button disabled>Coming soon</button>
+            </div>
+          </div> */}
         </div>
       </div>
       <div className="home-footer">

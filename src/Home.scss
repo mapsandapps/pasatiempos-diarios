@@ -63,6 +63,16 @@
       }
     }
 
+    &.ortografia {
+      .card-header {
+        background-color: var(--pink-400);
+      }
+
+      button {
+        background-color: var(--pink-400);
+      }
+    }
+
     &.inactive {
       border-color: darkgray;
       color: darkgray;

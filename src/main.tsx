@@ -10,6 +10,7 @@ import SilabasGenerator from "./silabas/Generator.tsx";
 import ObjetoOculto from "./objeto-oculto/ObjetoOculto.tsx";
 import Memoria from "./memoria/Memoria.tsx";
 import MemoriaGenerator from "./memoria/MemoriaGenerator.tsx";
+import Ortografia from "./ortografia/Ortografia.tsx";
 import Home from "./Home.tsx";
 
 const router = createBrowserRouter([
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "objeto-oculto", Component: ObjetoOculto },
       { path: "memoria", Component: Memoria },
       { path: "memoria-generator", Component: MemoriaGenerator },
+      { path: "ortografia", Component: Ortografia },
     ],
   },
 ]);

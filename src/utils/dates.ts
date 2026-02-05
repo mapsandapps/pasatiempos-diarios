@@ -2,6 +2,7 @@ import { GameString, type GenericPuzzle } from "../types";
 import { puzzles as objetoOcultoPuzzles } from "../objeto-oculto/puzzles";
 import { puzzles as silabasPuzzles } from "../silabas/puzzles";
 import { puzzles as memoriaPuzzles } from "../memoria/puzzles";
+import { puzzles as ortografiaPuzzles } from "../ortografia/puzzles";
 import { format } from "date-fns";
 
 const games = {
@@ -16,6 +17,10 @@ const games = {
   memoria: {
     name: GameString.Memoria,
     puzzles: memoriaPuzzles,
+  },
+  ortografia: {
+    name: GameString.Ortografia,
+    puzzles: ortografiaPuzzles,
   },
 };
 

@@ -1,0 +1,17 @@
+.ortografia-game {
+  .word {
+    font-size: 24px;
+    button {
+      box-sizing: content-box;
+      width: 48px;
+      height: 48px;
+      color: lightgray;
+      margin: 1rem;
+
+      img {
+        width: 48px;
+        height: 48px;
+      }
+    }
+  }
+}

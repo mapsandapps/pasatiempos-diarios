@@ -1,9 +1,3 @@
-import type { GenericPuzzle } from "../types";
-
-export interface RawPuzzle extends GenericPuzzle {
-  puzzle: string[];
-}
-
 export interface Syllable {
   text: string;
   isInUse: boolean;
