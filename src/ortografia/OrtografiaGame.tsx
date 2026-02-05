@@ -57,6 +57,12 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
 
   // play letters of a word, in sequence
   const playWord = (wordIndex: number) => {
+    // if the word is currently playing, clicking the play button should instead pause it
+    if (letterBeingPlayed > -1) {
+      setLetterBeingPlayed(-1);
+      return;
+    }
+
     setCurrentWord(wordIndex);
     setLetterBeingPlayed(0);
   };
