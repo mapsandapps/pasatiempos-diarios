@@ -31,8 +31,8 @@
   /* --purple-950: #180f16; */
   /* note: pink can be used for red, e.g. for error messages */
   /* --pink-050: #fceff1; */
-  /* --pink-100: #f9e0e3; */
-  /* --pink-200: #f6ccd1; */
+  --pink-100: #f9e0e3;
+  --pink-200: #f6ccd1;
   /* --pink-300: #f0aeb5; */
   /* --pink-350: #eb919c; */
   --pink-400: #e56d7b;

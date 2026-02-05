@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import "./OrtografiaGame.scss";
+import { addDateToLocalStorage } from "../utils/localstorage";
+import Win from "../components/Win";
+import { GameString } from "../types";
+import clsx from "clsx";
 import { delay } from "lodash";
 import type { OrtografiaPuzzle } from "./types";
+import Card from "./OrtografiaCard";
 
 const DELAY_BETWEEN_LETTERS = 0; // ms
 
@@ -13,22 +18,47 @@ interface OrtografiaGameProps {
 }
 
 export default function OrtografiaGame(props: OrtografiaGameProps) {
-  const { puzzle } = props;
+  const { isDailyPuzzle, puzzle, todayString } = props;
 
+  const [hasWon, setHasWon] = useState(false);
+  const [showWinScreen, setShowWinScreen] = useState(false);
   const [inProgressPuzzle, setInProgressPuzzle] = useState(puzzle);
   // index of the letter whose audio is currently being played
   // set to -1 when not playing; set to 0 to start playing
   const [letterBeingPlayed, setLetterBeingPlayed] = useState(-1);
   const [currentWord, setCurrentWord] = useState(0); // index
 
+  const win = () => {
+    setHasWon(true);
+    setShowWinScreen(true);
+
+    if (isDailyPuzzle) {
+      addDateToLocalStorage(GameString.Ortografia, todayString);
+    }
+  };
+
   useEffect(() => {
     // onInit
     setInProgressPuzzle(puzzle);
+
+    setHasWon(false);
+    setShowWinScreen(false);
   }, [puzzle]);
+
+  // check for win condition
+  useEffect(() => {
+    if (!inProgressPuzzle.find((word) => !word.isCorrect)) {
+      win();
+    }
+  }, [inProgressPuzzle]);
+
+  const closeWinScreen = () => {
+    setShowWinScreen(false);
+  };
 
   // play audio file of a letter, recursive
   useEffect(() => {
-    const word = puzzle.words[currentWord].spanishWord;
+    const word = inProgressPuzzle[currentWord].spanishWord;
 
     if (letterBeingPlayed < 0) return;
     if (letterBeingPlayed >= word.length) {
@@ -58,7 +88,7 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
   // play letters of a word, in sequence
   const playWord = (wordIndex: number) => {
     // if the word is currently playing, clicking the play button should instead pause it
-    if (letterBeingPlayed > -1) {
+    if (wordIndex === currentWord && letterBeingPlayed > -1) {
       setLetterBeingPlayed(-1);
       return;
     }
@@ -67,18 +97,28 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
     setLetterBeingPlayed(0);
   };
 
+  const setWordCorrect = (wordIndex: number) => {
+    setInProgressPuzzle((prevWords) => {
+      return prevWords.map((word, i) => {
+        if (i === wordIndex) {
+          return { ...word, isCorrect: true };
+        }
+        return word;
+      });
+    });
+  };
+
   return (
-    <div className="ortografia-game">
+    <div className={clsx("ortografia-game", hasWon && "game-over")}>
+      {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
       <div id="game">
-        {inProgressPuzzle.words.map((word, i) => (
-          <div className="word" key={word.spanishWord}>
-            <button onClick={() => playWord(i)}>
-              <img src="https://twemoji.maxcdn.com/v/latest/72x72/1f50a.png" />
-            </button>
-            {[...word.spanishWord].map(() => (
-              <>_ </>
-            ))}
-          </div>
+        {inProgressPuzzle.map((word, i) => (
+          <Card
+            key={word.spanishWord}
+            word={word}
+            onPlayWord={() => playWord(i)}
+            setWordCorrect={() => setWordCorrect(i)}
+          />
         ))}
       </div>
     </div>

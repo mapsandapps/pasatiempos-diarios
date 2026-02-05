@@ -39,15 +39,13 @@ export default function Ortografia() {
           puzzleLocalStorageString={GameString.Ortografia}
         />
       </div>
-      <div>
-        {puzzle && (
-          <OrtografiaGame
-            todayString={todayString}
-            puzzle={puzzle}
-            isDailyPuzzle={isDailyPuzzle}
-          />
-        )}
-      </div>
+      {puzzle && (
+        <OrtografiaGame
+          todayString={todayString}
+          puzzle={puzzle}
+          isDailyPuzzle={isDailyPuzzle}
+        />
+      )}
     </div>
   );
 }

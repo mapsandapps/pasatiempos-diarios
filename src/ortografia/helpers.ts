@@ -2,7 +2,7 @@ import type { RawPuzzle } from "../types";
 import type { OrtografiaPuzzle, Word } from "./types";
 
 export const unminifyPuzzle = (puzzle: RawPuzzle): OrtografiaPuzzle => {
-  const { date, puzzle: rawWords } = puzzle;
+  const { puzzle: rawWords } = puzzle;
 
   const words: Word[] = [];
 
@@ -12,11 +12,9 @@ export const unminifyPuzzle = (puzzle: RawPuzzle): OrtografiaPuzzle => {
     words.push({
       spanishWord,
       definition,
+      isCorrect: false,
     });
   });
 
-  return {
-    date,
-    words,
-  };
+  return words;
 };

@@ -1,10 +1,7 @@
-import type { GenericPuzzle } from "../types";
-
 export interface Word {
   spanishWord: string;
   definition: string;
+  isCorrect: boolean;
 }
 
-export interface OrtografiaPuzzle extends GenericPuzzle {
-  words: Word[];
-}
+export type OrtografiaPuzzle = Word[];

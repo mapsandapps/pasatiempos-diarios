@@ -1,0 +1,53 @@
+.ortografia-card {
+  font-size: 24px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem;
+  width: 100%;
+
+  .buttons {
+    padding-bottom: 1rem;
+  }
+
+  &.correct {
+    background-color: var(--pink-200);
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+
+    input {
+      border-color: var(--success);
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  button {
+    box-sizing: content-box;
+    width: 48px;
+    height: 48px;
+    color: lightgray;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  input {
+    display: block;
+    height: 5rem;
+    width: calc(100% - 1rem - 4px);
+    border: 2px solid black;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    padding: 0 0.5rem;
+    background-color: transparent;
+    color: black;
+    text-transform: uppercase;
+  }
+}
