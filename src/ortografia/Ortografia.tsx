@@ -33,6 +33,7 @@ export default function Ortografia() {
     <div id="ortografia">
       <div className="about">
         <h1>Ortografía</h1>
+        <div>Learn the Spanish alphabet by spelling words you hear!</div>
         <PuzzleDate
           puzzleDate={puzzleDate}
           isDailyPuzzle={isDailyPuzzle}

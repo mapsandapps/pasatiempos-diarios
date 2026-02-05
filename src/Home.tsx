@@ -57,7 +57,9 @@ export default function Home() {
             <img className="beta" src="/beta.png" />
           </div>
           <div className="card-body">
-            <p className="description">Info coming soon</p>
+            <p className="description">
+              Learn the Spanish alphabet by spelling words you hear
+            </p>
             <Link to="/ortografia">
               <button>
                 Play today's puzzle

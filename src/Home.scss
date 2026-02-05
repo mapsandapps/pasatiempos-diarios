@@ -41,6 +41,10 @@
         cursor: pointer;
         padding: 8px;
       }
+
+      .description {
+        min-height: 39px;
+      }
     }
 
     &.objeto-oculto {
