@@ -31,6 +31,23 @@ export default function Credits() {
           <img className="header" src="/wordmark.png" alt="" /> app logo by
           Shawn Taylor
         </li>
+        <li>
+          Audio from{" "}
+          <a
+            href="https://commons.wikimedia.org/wiki/User:Jynus"
+            target="_blank"
+          >
+            Jynus
+          </a>{" "}
+          on Wikimedia Commons, e.g.{" "}
+          <a
+            href="https://commons.wikimedia.org/wiki/File:Letter_a_es_es.flac"
+            target="_blank"
+          >
+            letter "a"
+          </a>
+          , licensed as CC0 public domain
+        </li>
       </ul>
     </div>
   );
