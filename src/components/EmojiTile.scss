@@ -69,11 +69,11 @@ $matched-tile-duration: 0.7s;
   .spanish-word {
     position: absolute;
     width: 100%;
-    bottom: calc(50% - 12px);
+    top: 50%;
+    transform: translateY(-50%);
     left: 0;
     text-align: center;
     background: rgba(white, 0.5);
-    width: 100%;
   }
 
   img.animate__fadeIn {
@@ -128,37 +128,37 @@ $matched-tile-duration: 0.7s;
 
 @keyframes slide-down {
   0% {
-    bottom: calc(50% - 12px);
-    margin-top: 0%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   // wait while fade-in-slide-down is fading in
   90% {
-    bottom: calc(50% - 12px);
-    margin-top: 0%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   100% {
-    bottom: 0%;
-    margin-top: 50%;
+    top: 100%;
+    transform: translateY(-100%);
   }
 }
 
 @keyframes fade-in-slide-down {
   0% {
-    bottom: calc(50% - 12px);
-    margin-top: 0%;
+    top: 50%;
+    transform: translateY(-50%);
     opacity: 0.01;
   }
 
   90% {
-    bottom: calc(50% - 12px);
-    margin-top: 0%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   100% {
-    bottom: 0%;
-    margin-top: 50%;
+    top: 100%;
+    transform: translateY(-100%);
     opacity: 1;
   }
 }

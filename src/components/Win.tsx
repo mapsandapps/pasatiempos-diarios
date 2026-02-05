@@ -20,7 +20,7 @@ export default function Win(props: WinProps) {
   }, []);
 
   return (
-    <div className="win animate__animated animate__bounceInDown">
+    <div className="win animate__animated animate__bounceInDown animate__delay-1s">
       <div className="close-button">
         {props.canBeHidden && <button onClick={props.closeWinScreen}>✖</button>}
       </div>
