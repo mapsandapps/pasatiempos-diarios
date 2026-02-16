@@ -1,5 +1,6 @@
 import "./App.css";
 import { Link, Outlet } from "react-router";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div className="page">
         <Outlet />
       </div>
+      <Analytics />
     </>
   );
 }
