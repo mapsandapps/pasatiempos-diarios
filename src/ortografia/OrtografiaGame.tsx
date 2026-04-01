@@ -93,7 +93,7 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
   }, [letterBeingPlayed]);
 
   // play letters of a word, in sequence
-  const playWord = (wordIndex: number) => {
+  const playWord = (wordIndex: number, pause?: number) => {
     // if the word is currently playing, clicking the play button should instead pause it
     if (wordIndex === currentWord && letterBeingPlayed > -1) {
       setLetterBeingPlayed(-1);
@@ -104,7 +104,11 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
     inputRef.current?.focus();
     setCurrentWord(wordIndex);
 
-    setLetterBeingPlayed(0);
+    if (pause) {
+      setTimeout(() => setLetterBeingPlayed(0), pause);
+    } else {
+      setLetterBeingPlayed(0);
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -117,8 +121,7 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
       // move on to next word
       inProgressPuzzle[currentWord].isCorrect = true;
       setInput("");
-      playWord(currentWord + 1);
-      // setCurrentWord(currentWord + 1);
+      playWord(currentWord + 1, 300);
     }
   };
 
@@ -126,23 +129,24 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
     <div className={clsx("ortografia-game", hasWon && "game-over")}>
       {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
       <div id="game">
-        <button className="play-pause" onClick={() => playWord(currentWord)}>
-          {isAudioPlaying ? (
-            <img src="https://Card.maxcdn.com/v/latest/72x72/23f9.png" />
-          ) : (
-            <img src="https://Card.maxcdn.com/v/latest/72x72/25b6.png" />
-          )}
-        </button>
-        {/* set max length of input to length of word? */}
-        <input
-          id="input"
-          type="text"
-          ref={inputRef}
-          value={input}
-          onChange={handleInputChange}
-          lang="es"
-          maxLength={inProgressPuzzle[currentWord]?.spanishWord.length || 0}
-        />
+        <div className="controls">
+          <button className="play-pause" onClick={() => playWord(currentWord)}>
+            {isAudioPlaying ? (
+              <img src="https://Card.maxcdn.com/v/latest/72x72/23f9.png" />
+            ) : (
+              <img src="https://Card.maxcdn.com/v/latest/72x72/25b6.png" />
+            )}
+          </button>
+          <input
+            id="input"
+            type="text"
+            ref={inputRef}
+            value={input}
+            onChange={handleInputChange}
+            lang="es"
+            maxLength={inProgressPuzzle[currentWord]?.spanishWord.length || 0}
+          />
+        </div>
         {inProgressPuzzle.map((word, i) => (
           <Word
             key={word.spanishWord}

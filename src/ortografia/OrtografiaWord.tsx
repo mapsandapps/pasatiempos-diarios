@@ -56,7 +56,7 @@ export default function OrtografiaWord(props: OrtografiaWordProps) {
       {isCompletedWord && (
         <img
           className="checkmark"
-          src="https://Card.maxcdn.com/v/latest/72x72/2611.png"
+          src="https://Card.maxcdn.com/v/latest/72x72/2705.png"
         />
       )}
     </div>
