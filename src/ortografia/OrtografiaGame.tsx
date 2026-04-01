@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./OrtografiaGame.scss";
+// import "animate.css";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import Win from "../components/Win";
 import { GameString } from "../types";
@@ -116,6 +117,7 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
           <Card
             key={word.spanishWord}
             word={word}
+            isAudioPlaying={i === currentWord && letterBeingPlayed > -1}
             onPlayWord={() => playWord(i)}
             setWordCorrect={() => setWordCorrect(i)}
           />
