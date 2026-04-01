@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import "./OrtografiaGame.scss";
-// import "animate.css";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import Win from "../components/Win";
 import { GameString } from "../types";
 import clsx from "clsx";
 import { delay } from "lodash";
 import type { OrtografiaPuzzle } from "./types";
-import Card from "./OrtografiaCard";
+import Word from "./OrtografiaWord";
 
 const DELAY_BETWEEN_LETTERS = 0; // ms
 
@@ -28,8 +27,13 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
   // set to -1 when not playing; set to 0 to start playing
   const [letterBeingPlayed, setLetterBeingPlayed] = useState(-1);
   const [currentWord, setCurrentWord] = useState(0); // index
+  const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const isAudioPlaying = letterBeingPlayed > -1;
 
   const win = () => {
+    if (inputRef.current) inputRef.current.disabled = true;
     setHasWon(true);
     setShowWinScreen(true);
 
@@ -59,6 +63,8 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
 
   // play audio file of a letter, recursive
   useEffect(() => {
+    if (currentWord > inProgressPuzzle.length - 1) return;
+
     const word = inProgressPuzzle[currentWord].spanishWord;
 
     if (letterBeingPlayed < 0) return;
@@ -94,32 +100,56 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
       return;
     }
 
+    // focus the input if it isn't already
+    inputRef.current?.focus();
     setCurrentWord(wordIndex);
+
     setLetterBeingPlayed(0);
   };
 
-  const setWordCorrect = (wordIndex: number) => {
-    setInProgressPuzzle((prevWords) => {
-      return prevWords.map((word, i) => {
-        if (i === wordIndex) {
-          return { ...word, isCorrect: true };
-        }
-        return word;
-      });
-    });
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+
+    if (
+      e.target.value.toLowerCase() ===
+      inProgressPuzzle[currentWord].spanishWord.toLowerCase()
+    ) {
+      // move on to next word
+      inProgressPuzzle[currentWord].isCorrect = true;
+      setInput("");
+      playWord(currentWord + 1);
+      // setCurrentWord(currentWord + 1);
+    }
   };
 
   return (
     <div className={clsx("ortografia-game", hasWon && "game-over")}>
       {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
       <div id="game">
+        <button className="play-pause" onClick={() => playWord(currentWord)}>
+          {isAudioPlaying ? (
+            <img src="https://Card.maxcdn.com/v/latest/72x72/23f9.png" />
+          ) : (
+            <img src="https://Card.maxcdn.com/v/latest/72x72/25b6.png" />
+          )}
+        </button>
+        {/* set max length of input to length of word? */}
+        <input
+          id="input"
+          type="text"
+          ref={inputRef}
+          value={input}
+          onChange={handleInputChange}
+          lang="es"
+          maxLength={inProgressPuzzle[currentWord]?.spanishWord.length || 0}
+        />
         {inProgressPuzzle.map((word, i) => (
-          <Card
+          <Word
             key={word.spanishWord}
             word={word}
-            isAudioPlaying={i === currentWord && letterBeingPlayed > -1}
-            onPlayWord={() => playWord(i)}
-            setWordCorrect={() => setWordCorrect(i)}
+            wordIndex={i}
+            activeIndex={currentWord}
+            currentInput={input}
           />
         ))}
       </div>

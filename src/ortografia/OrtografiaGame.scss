@@ -1,4 +1,31 @@
 .ortografia-game {
   background-color: var(--pink-100);
   width: 384px;
+  position: relative;
+
+  #game {
+    padding: 1rem;
+  }
+
+  button.play-pause {
+    all: unset;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    vertical-align: middle;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  input {
+    vertical-align: middle;
+    line-height: 48px;
+    font-size: 1.4rem;
+    padding: 0 0.5rem;
+    margin-left: 0.5rem;
+    color: black;
+  }
 }
