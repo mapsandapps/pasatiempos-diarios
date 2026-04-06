@@ -29,7 +29,7 @@ export default function OrtografiaWord(props: OrtografiaWordProps) {
         {word.spanishWord.split("").map((letter, i) => {
           // for words above active word, show the word
           if (isCompletedWord) {
-            return <span>{letter}</span>;
+            return <span key={`${word.spanishWord}-${i}`}>{letter}</span>;
           }
 
           // for the active word, show correct & incorrect letters
@@ -38,19 +38,21 @@ export default function OrtografiaWord(props: OrtografiaWordProps) {
               word.spanishWord[i]?.toLowerCase() ===
               currentInput[i]?.toLowerCase()
             ) {
-              return <span>{letter} </span>;
+              return <span key={`${word.spanishWord}-${i}`}>{letter} </span>;
             } else if (currentInput[i]) {
               return (
                 <>
-                  <span className="incorrect">{currentInput[i]}</span>{" "}
+                  <span className="incorrect" key={`${word.spanishWord}-${i}`}>
+                    {currentInput[i]}
+                  </span>{" "}
                 </>
               );
             } else {
-              return <span>_ </span>;
+              return <span key={`${word.spanishWord}-${i}`}>_ </span>;
             }
           }
 
-          return <span>_ </span>;
+          return <span key={`${word.spanishWord}-${i}`}>_ </span>;
         })}
       </pre>
       {isCompletedWord && (

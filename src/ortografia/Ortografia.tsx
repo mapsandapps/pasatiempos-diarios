@@ -1,13 +1,16 @@
 import { useSearchParams } from "react-router";
 import PuzzleDate from "../components/PuzzleDate";
 import "./Ortografia.scss";
+import "../GamePage.scss";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import { useEffect, useState } from "react";
 import { GameString } from "../types";
-import OrtografiaGame from "./OrtografiaGame";
+import OrtografiaSpellingGame from "./OrtografiaGame";
+import OrtografiaMatchingGame from "./OrtografiaMatchingGame";
+import Win from "../components/Win";
 import type { RawPuzzle } from "../types";
 import { unminifyPuzzle } from "./helpers";
-import type { OrtografiaPuzzle } from "./types";
+import type { OrtografiaGameMode, OrtografiaPuzzle } from "./types";
 
 export default function Ortografia() {
   const todayString = getTodayString();
@@ -17,7 +20,9 @@ export default function Ortografia() {
     queryParamDate && queryParamDate !== todayString ? false : true,
   );
   const [puzzle, setPuzzle] = useState<OrtografiaPuzzle>();
+  const [showWinScreen, setShowWinScreen] = useState(false);
   const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
+  const [gameMode, setGameMode] = useState<OrtografiaGameMode>("LOADING");
 
   // onInit
   useEffect(() => {
@@ -26,11 +31,25 @@ export default function Ortografia() {
       queryParamDate || todayString,
     ) as RawPuzzle;
 
+    setShowWinScreen(false);
     setPuzzle(unminifyPuzzle(puzzle));
+    setGameMode("SPELLING");
   }, []);
 
+  const onCompleteSpellingStage = () => {
+    setGameMode("MATCHING");
+  };
+
+  const closeWinScreen = () => {
+    setShowWinScreen(false);
+  };
+
+  const onWin = () => {
+    setShowWinScreen(true);
+  };
+
   return (
-    <div id="ortografia">
+    <div id="ortografia" className="game-page">
       <div className="about">
         <h1>Ortografía</h1>
         <div>Learn the Spanish alphabet by spelling words you hear!</div>
@@ -40,13 +59,23 @@ export default function Ortografia() {
           puzzleLocalStorageString={GameString.Ortografia}
         />
       </div>
-      {puzzle && (
-        <OrtografiaGame
-          todayString={todayString}
-          puzzle={puzzle}
-          isDailyPuzzle={isDailyPuzzle}
-        />
-      )}
+      <div className="container">
+        {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
+        {gameMode === "SPELLING" && puzzle && (
+          <OrtografiaSpellingGame
+            puzzle={puzzle}
+            onCompleteSpellingStage={onCompleteSpellingStage}
+          />
+        )}
+        {gameMode === "MATCHING" && puzzle && (
+          <OrtografiaMatchingGame
+            todayString={todayString}
+            puzzle={puzzle}
+            isDailyPuzzle={isDailyPuzzle}
+            onWin={onWin}
+          />
+        )}
+      </div>
     </div>
   );
 }
