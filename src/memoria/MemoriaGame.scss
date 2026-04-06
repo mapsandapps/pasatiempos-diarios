@@ -1,16 +1,11 @@
 .memoria-game,
 #memoria-generator {
   position: relative;
+  display: grid;
 
   #game {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
-  }
-
-  .win {
-    .return-button {
-      background-color: var(--yellow-light);
-    }
   }
 }

@@ -3,7 +3,6 @@ import "./MemoriaGame.scss";
 import "animate.css";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import { type InProgressSlot, type MemoriaPuzzle } from "./types";
-import Win from "../components/Win";
 import { GameString } from "../types";
 import clsx from "clsx";
 import EmojiTile from "../components/EmojiTile";
@@ -17,6 +16,7 @@ interface MemoriaGameProps {
   isInColorblindMode: boolean;
   isInGeneratorMode?: boolean;
   hasArgentinianBias: boolean;
+  onWin: () => void;
 }
 
 export default function MemoriaGame(props: MemoriaGameProps) {
@@ -26,10 +26,10 @@ export default function MemoriaGame(props: MemoriaGameProps) {
     isInColorblindMode,
     puzzle,
     todayString,
+    onWin,
   } = props;
 
   const [hasWon, setHasWon] = useState(false);
-  const [showWinScreen, setShowWinScreen] = useState(false);
   const [inProgressPuzzle, setInProgressPuzzle] = useState<InProgressSlot[]>(
     puzzle.slots,
   );
@@ -37,7 +37,7 @@ export default function MemoriaGame(props: MemoriaGameProps) {
 
   const win = () => {
     setHasWon(true);
-    setShowWinScreen(true);
+    onWin();
 
     if (isDailyPuzzle) {
       addDateToLocalStorage(GameString.Memoria, todayString);
@@ -49,7 +49,6 @@ export default function MemoriaGame(props: MemoriaGameProps) {
     setInProgressPuzzle(puzzle.slots);
 
     setHasWon(false);
-    setShowWinScreen(false);
   }, [puzzle]);
 
   // check for win condition
@@ -106,13 +105,8 @@ export default function MemoriaGame(props: MemoriaGameProps) {
     }
   };
 
-  const closeWinScreen = () => {
-    setShowWinScreen(false);
-  };
-
   return (
     <div className={clsx("memoria-game", hasWon && "game-over")}>
-      {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
       <div id="game">
         {inProgressPuzzle.map((slot, i) => {
           return (

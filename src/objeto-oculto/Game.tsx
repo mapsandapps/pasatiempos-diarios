@@ -4,7 +4,6 @@ import "animate.css";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import type { Icon, IconToFind, Puzzle } from "./types";
 import { cloneDeep, find, findLast } from "lodash";
-import Win from "../components/Win";
 import { isClickInIcon, numberRemaining } from "./helpers";
 import React from "react";
 import Emoji from "./Emoji";
@@ -18,13 +17,14 @@ interface GameProps {
   isDailyPuzzle: boolean;
   /** is in colorblind mode if user has expressed a preference for that _and_ the puzzle needs it */
   isInColorblindMode: boolean;
+  onWin: () => void;
 }
 
 export default function Game(props: GameProps) {
-  const { todayString, puzzle, isDailyPuzzle, isInColorblindMode } = props;
+  const { todayString, puzzle, isDailyPuzzle, isInColorblindMode, onWin } =
+    props;
 
   const [hasWon, setHasWon] = useState(false);
-  const [showWinScreen, setShowWinScreen] = useState(false);
   const [wrongIconClicked, setWrongIconClicked] = useState<Icon>();
   const [inProgressPuzzle, setInProgressPuzzle] = useState(puzzle);
   const clickAreaRef = useRef<HTMLDivElement>(null);
@@ -83,7 +83,7 @@ export default function Game(props: GameProps) {
 
   const win = () => {
     setHasWon(true);
-    setShowWinScreen(true);
+    onWin();
 
     if (isDailyPuzzle) {
       addDateToLocalStorage(GameString.ObjetoOculto, todayString);
@@ -93,7 +93,6 @@ export default function Game(props: GameProps) {
   useEffect(() => {
     setInProgressPuzzle(puzzle);
     setHasWon(false);
-    setShowWinScreen(false);
 
     // clean up
     return () => {
@@ -110,7 +109,6 @@ export default function Game(props: GameProps) {
 
   return (
     <div className={clsx("objeto-oculto-game", hasWon && "game-over")}>
-      {showWinScreen && <Win canBeHidden={false} />}
       <div id="game">
         {inProgressPuzzle.otherIcons.map((icon) => {
           return (

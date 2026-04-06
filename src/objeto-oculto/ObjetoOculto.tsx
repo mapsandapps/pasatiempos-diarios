@@ -4,6 +4,7 @@ import {
 } from "../utils/localstorage";
 import Game from "./Game";
 import "./ObjetoOculto.scss";
+import "../GamePage.scss";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import {
   generatePuzzle,
@@ -17,6 +18,7 @@ import { combineIconSets, minifyPuzzle, unminifyPuzzle } from "./helpers";
 import type { IconSet, MinifiedPuzzle, Puzzle } from "./types";
 import { GameString } from "../types";
 import PuzzleDate from "../components/PuzzleDate.tsx";
+import Win from "../components/Win";
 import { filter } from "lodash";
 
 export default function ObjetoOculto() {
@@ -26,9 +28,10 @@ export default function ObjetoOculto() {
   const [searchParams] = useSearchParams();
   const queryParamDate = searchParams.get("date");
   const [isDailyPuzzle, setDailyPuzzle] = useState(
-    queryParamDate && queryParamDate !== todayString ? false : true
+    queryParamDate && queryParamDate !== todayString ? false : true,
   );
   const [puzzle, setPuzzle] = useState<Puzzle>();
+  const [showWinScreen, setShowWinScreen] = useState(false);
   const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
 
   const includesColors = puzzle?.name.toLowerCase().includes("color");
@@ -36,7 +39,7 @@ export default function ObjetoOculto() {
   const [isInColorblindMode, setColorblindMode] = useState(false);
   // does the user want colorblind mode on when relevant?
   const [prefersColorblindMode, setPrefersColorblindMode] = useState(
-    getSettingFromLocalStorage("prefersColorblindMode") == "true"
+    getSettingFromLocalStorage("prefersColorblindMode") == "true",
   );
 
   // generator stuff:
@@ -54,7 +57,7 @@ export default function ObjetoOculto() {
         iconSets: selectedIconSets,
         numberToFind,
         numberToShow,
-      })
+      }),
     );
   };
 
@@ -86,10 +89,11 @@ export default function ObjetoOculto() {
     }
     const puzzle = getPuzzleForDate(
       GameString.ObjetoOculto,
-      queryParamDate || todayString
+      queryParamDate || todayString,
     ) as MinifiedPuzzle;
 
     setPuzzle(unminifyPuzzle(puzzle));
+    setShowWinScreen(false);
   }, []);
 
   useEffect(() => {
@@ -110,7 +114,7 @@ export default function ObjetoOculto() {
     const combinedSets = combineIconSets(selectedIconSets);
     setNumberToShow(Math.min(combinedSets.icons.length, MAX_ITEMS_TO_INCLUDE));
     setNumberToFind(
-      Math.min(combinedSets.icons.length, MAX_DEFAULT_ITEMS_TO_FIND)
+      Math.min(combinedSets.icons.length, MAX_DEFAULT_ITEMS_TO_FIND),
     );
     setNumberOfIconsInSet(combinedSets.icons.length);
   }, [selectedIconSets]);
@@ -124,15 +128,23 @@ export default function ObjetoOculto() {
     setSelectedIconSets(
       filter(iconSets, (set) => {
         return !EXCLUDE_FROM_SELECT_ALL.includes(set.name);
-      })
+      }),
     );
   };
   const selectNone = () => {
     setSelectedIconSets([]);
   };
 
+  const onWin = () => {
+    setShowWinScreen(true);
+  };
+
+  const closeWinScreen = () => {
+    setShowWinScreen(false);
+  };
+
   return (
-    <div id="objeto-oculto">
+    <div id="objeto-oculto" className="game-page">
       <div className="about">
         <h1>Objeto Oculto</h1>
         {!isInGeneratorMode && <div>Find images that match Spanish words</div>}
@@ -237,14 +249,18 @@ export default function ObjetoOculto() {
           </>
         )}
       </div>
-      {puzzle && (
-        <Game
-          todayString={todayString}
-          puzzle={puzzle}
-          isDailyPuzzle={isDailyPuzzle}
-          isInColorblindMode={isInColorblindMode}
-        />
-      )}
+      <div className="container">
+        {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
+        {puzzle && (
+          <Game
+            todayString={todayString}
+            puzzle={puzzle}
+            isDailyPuzzle={isDailyPuzzle}
+            isInColorblindMode={isInColorblindMode}
+            onWin={onWin}
+          />
+        )}
+      </div>
     </div>
   );
 }

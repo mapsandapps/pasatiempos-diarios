@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router";
 import PuzzleDate from "../components/PuzzleDate";
 import "./Memoria.scss";
+import "../GamePage.scss";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import { useEffect, useState } from "react";
 import {
@@ -10,6 +11,7 @@ import {
 import { GameString } from "../types";
 import type { MemoriaMinifiedPuzzle, MemoriaPuzzle } from "./types";
 import MemoriaGame from "./MemoriaGame";
+import Win from "../components/Win";
 import { unminifyPuzzle } from "./helpers";
 
 export default function Memoria() {
@@ -20,6 +22,7 @@ export default function Memoria() {
     queryParamDate && queryParamDate !== todayString ? false : true,
   );
   const [puzzle, setPuzzle] = useState<MemoriaPuzzle>();
+  const [showWinScreen, setShowWinScreen] = useState(false);
   const puzzleDate = isDailyPuzzle ? todayString : queryParamDate || undefined;
 
   const includesColors = puzzle?.name.toLowerCase().includes("color");
@@ -47,6 +50,7 @@ export default function Memoria() {
     ) as MemoriaMinifiedPuzzle;
 
     setPuzzle(unminifyPuzzle(puzzle));
+    setShowWinScreen(false);
   }, []);
 
   useEffect(() => {
@@ -68,8 +72,16 @@ export default function Memoria() {
     addSettingToLocalStorage("prefersColorblindMode", prefersColorblindMode);
   }, [prefersColorblindMode]);
 
+  const onWin = () => {
+    setShowWinScreen(true);
+  };
+
+  const closeWinScreen = () => {
+    setShowWinScreen(false);
+  };
+
   return (
-    <div id="memoria">
+    <div id="memoria" className="game-page">
       <div className="about">
         <h1>Memoria</h1>
         <div>Match images with their definitions in Spanish</div>
@@ -91,7 +103,8 @@ export default function Memoria() {
           </label>
         )}
       </div>
-      <div>
+      <div className="container">
+        {showWinScreen && <Win closeWinScreen={closeWinScreen} canBeHidden />}
         {puzzle && (
           <MemoriaGame
             todayString={todayString}
@@ -99,6 +112,7 @@ export default function Memoria() {
             isDailyPuzzle={isDailyPuzzle}
             isInColorblindMode={isInColorblindMode}
             hasArgentinianBias={hasArgentinianBias}
+            onWin={onWin}
           />
         )}
       </div>
