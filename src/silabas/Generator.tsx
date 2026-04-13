@@ -117,7 +117,7 @@ export default function Generator() {
       )}
       {puzzle && (
         <>
-          <Game todayString="" puzzle={puzzle} />
+          <Game todayString="" puzzle={puzzle} onWin={() => {}} />
           <textarea value={JSON.stringify({ date: "", puzzle })} readOnly />
         </>
       )}

@@ -2,25 +2,38 @@
 
 import { useRef, useCallback } from "react";
 import * as d3 from "d3";
+import type { SimulationNodeDatum } from "d3";
+import { random } from "lodash";
 
 const CABLE_SEGMENTS = 5;
 
+type Cable = d3.Selection<
+  SVGPathElement,
+  {
+    nodes: SimulationNodeDatum[];
+    sim: d3.Simulation<SimulationNodeDatum, undefined>;
+  },
+  null,
+  undefined
+>;
+
 export function useCable(cableColors: string[] = [...d3.schemeCategory10]) {
   const svgRef = useRef(null);
-  const cableRef = useRef(null); // active cable being dragged
-  const cablesRef: any[] = useRef([]);
+  const cableRef = useRef<Cable>(null); // active cable being dragged
+  const cablesRef = useRef<Cable[]>([]);
 
   const getNextColor = useCallback(() => {
     const usedColors = cablesRef.current.map((cable) => cable.attr("stroke"));
-    return cableColors.find((color) => !usedColors.includes(color));
+    const nextColor = cableColors.find((color) => !usedColors.includes(color));
+    return nextColor || d3.schemeCategory10[random(0, 9)];
   }, [cablesRef.current, cableColors]);
 
   // stable line drawer — defined once, shared across all cables
   const lineDrawer = useRef(
     d3
-      .line()
-      .x((d) => d.x)
-      .y((d) => d.y)
+      .line<SimulationNodeDatum>()
+      .x((d) => d.x ?? 0)
+      .y((d) => d.y ?? 0)
       .curve(d3.curveBasis),
   );
 
@@ -32,7 +45,6 @@ export function useCable(cableColors: string[] = [...d3.schemeCategory10]) {
       cableEndY?: number,
     ) => {
       const svg = d3.select(svgRef.current);
-      const draw = lineDrawer.current;
       const stroke = getNextColor();
 
       const c = svg
@@ -41,7 +53,9 @@ export function useCable(cableColors: string[] = [...d3.schemeCategory10]) {
         .attr("fill", "none")
         .attr("stroke-width", 4);
 
-      const nodes = d3.range(CABLE_SEGMENTS).map(() => ({}));
+      const nodes: SimulationNodeDatum[] = d3
+        .range(CABLE_SEGMENTS)
+        .map(() => ({}));
       const links = d3
         .pairs(nodes)
         .map(([source, target]) => ({ source, target }));
@@ -58,11 +72,11 @@ export function useCable(cableColors: string[] = [...d3.schemeCategory10]) {
         .force("gravity", d3.forceY(1000).strength(0.002))
         .force("collide", d3.forceCollide(20))
         .force("links", d3.forceLink(links).strength(0.9))
-        .on("tick", () => c.attr("d", () => draw(nodes)));
+        .on("tick", () => c.attr("d", () => lineDrawer.current(nodes)));
 
       c.datum({ nodes, sim });
-      cablesRef.current.push(c);
-      cableRef.current = c;
+      cablesRef.current.push(c as Cable);
+      cableRef.current = c as Cable;
     },
     [],
   );
@@ -77,8 +91,16 @@ export function useCable(cableColors: string[] = [...d3.schemeCategory10]) {
     end.fx = cableEndX;
     end.fy = cableEndY;
 
-    const distance = Math.hypot(end.fx - start.fx, end.fy - start.fy);
-    sim.force("links").distance(distance / CABLE_SEGMENTS);
+    const distance = Math.hypot(
+      end.fx - (start.fx || 0),
+      end.fy - (start.fy || 0),
+    );
+    (
+      sim.force("links") as d3.ForceLink<
+        SimulationNodeDatum,
+        d3.SimulationLinkDatum<SimulationNodeDatum>
+      >
+    ).distance(distance / CABLE_SEGMENTS);
     sim.alpha(1).restart();
 
     cableRef.current = null;

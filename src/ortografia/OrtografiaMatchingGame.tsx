@@ -142,7 +142,7 @@ export default function OrtografiaMatchingGame(
     english?: string,
   ) => {
     setInProgressPuzzle((prevPuzzle) => {
-      return prevPuzzle.map((word, i) => {
+      return prevPuzzle.map((word) => {
         if (spanish) {
           return word.spanishWord === spanish ? { ...word, isCorrect } : word;
         }

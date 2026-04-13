@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type FocusEvent,
-} from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import "./OrtografiaGame.scss";
 import { delay } from "lodash";
 import type { OrtografiaPuzzle } from "./types";
@@ -121,7 +115,7 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
     }
   };
 
-  const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
+  const handleFocus = () => {
     // the first time the input field is focused, the audio should start playing
     if (letterBeingPlayed < 0 && !audioHasPlayed) {
       playWord(currentWord, 300);
