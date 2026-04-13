@@ -4398,7 +4398,6 @@ export const words = [
   ["llamativo", "bright", 14092],
   ["relámpago", "bolt of lightning", 14143],
   ["hornear", "to bake", 14151],
-  ["violar", "to rape", 14156],
   ["copiar", "to copy", 14160],
   ["imaginarse", "to imagine", 14167],
   ["retrasar", "to put back", 14175],

@@ -1,24 +1,9 @@
 #objeto-oculto {
-  display: grid;
   grid-template-columns: 344px 516px;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 1024px;
-  flex-direction: row;
-  align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 16px 0 60px;
 
   h1 {
     color: var(--purple-550);
-    font-family: var(--title-font);
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  .about {
-    padding: 8px 32px;
   }
 
   .icon-sets {
@@ -55,16 +40,14 @@
       height: 32px;
     }
   }
-}
 
-.error {
-  background-color: var(--pink-500);
-  padding: 16px;
+  .error {
+    background-color: var(--pink-500);
+  }
 }
 
 @media (max-width: 1024px) {
   #objeto-oculto {
     grid-template-columns: 1fr;
-    padding: 0px 0px 240px;
   }
 }

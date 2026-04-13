@@ -1,0 +1,14 @@
+#ortografia {
+  grid-template-columns: 384px auto;
+  justify-content: space-evenly;
+
+  h1 {
+    color: var(--pink-400);
+  }
+}
+
+@media (max-width: 1024px) {
+  #ortografia {
+    grid-template-columns: 384px;
+  }
+}

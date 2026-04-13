@@ -6,8 +6,8 @@
   /* --blue-200: #badbf2; */
   --blue-300: #92c5ea;
   --blue-350: #6cb2e4;
-  /* --blue-400: #3e99db; */
-  --blue-450: #278ad2;
+  --blue-400: #3e99db;
+  /* --blue-450: #278ad2; */
   /* --blue-500: #237ab9; */
   --blue-550: #1e6aa1;
   /* --blue-600: #1a5c8c; */
@@ -16,11 +16,11 @@
   --blue-900: #0b2639;
   /* --blue-950: #06131d; */
   /* --purple-050: #f6f1f4; */
-  --purple-100: #ede3ea;
+  /* --purple-100: #ede3ea; */
   --purple-200: #e2d2de;
   --purple-300: #d1b8ca;
   --purple-350: #c2a1b9;
-  /* --purple-400: #b185a5; */
+  --purple-400: #b185a5;
   /* --purple-450: #a77599; */
   /* --purple-500: #9b638c; */
   --purple-550: #865679;
@@ -31,11 +31,11 @@
   /* --purple-950: #180f16; */
   /* note: pink can be used for red, e.g. for error messages */
   /* --pink-050: #fceff1; */
-  /* --pink-100: #f9e0e3; */
+  --pink-100: #f9e0e3;
   /* --pink-200: #f6ccd1; */
-  /* --pink-300: #f0aeb5; */
+  --pink-300: #f0aeb5;
   /* --pink-350: #eb919c; */
-  /* --pink-400: #e56d7b; */
+  --pink-400: #e56d7b;
   /* --pink-450: #e05565; */
   --pink-500: #da3347;
   /* --pink-550: #c32336; */
@@ -49,7 +49,7 @@
   /* --orange-200: #fecda7; */
   /* --orange-300: #fdad70; */
   --orange-350: #fc8e3a;
-  /* --orange-400: #f06a04; */
+  --orange-400: #f06a04;
   /* --orange-450: #da6103; */
   /* --orange-500: #c05503; */
   /* --orange-550: #a74a03; */
@@ -60,10 +60,10 @@
   /* --orange-950: #1f0e01; */
   /* --green-050: #e7f5f1; */
   /* --green-100: #d1ece5; */
-  /* --green-200: #b4dfd4; */
+  --green-200: #b4dfd4;
   /* --green-300: #87ccba; */
   /* --green-350: #5ebba2; */
-  /* --green-400: #45a289; */
+  --green-400: #45a289;
   /* --green-450: #3e937c; */
   /* --green-500: #37826e; */
   /* --green-550: #30705f; */

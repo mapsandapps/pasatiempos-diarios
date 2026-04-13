@@ -17,6 +17,7 @@ interface Word {
 export default function Generator() {
   const [proposedWords, setProposedWords] = useState<Word[]>([]);
   const [puzzle, setPuzzle] = useState<string[]>();
+  const [shouldIncludeHyphens, setIncludeHyphens] = useState(true);
 
   const NUMBER_OF_WORDS_TO_CHOOSE_FROM = 10;
 
@@ -69,8 +70,12 @@ export default function Generator() {
     const words = proposedWords.filter((word) => word.isIncluded);
     const minifiedWords: string[] = [];
     words.forEach((word) => {
-      const syllables = word.syllables ?? getSyllables(word.spanish);
-      minifiedWords.push(minifyWord(word.definition, syllables));
+      if (shouldIncludeHyphens) {
+        const syllables = word.syllables ?? getSyllables(word.spanish);
+        minifiedWords.push(minifyWord(word.definition, syllables));
+      } else {
+        minifiedWords.push(minifyWord(word.definition, [word.spanish]));
+      }
     });
 
     setPuzzle(minifiedWords);
@@ -113,11 +118,19 @@ export default function Generator() {
           {numberOfWordsSelected === 5 && (
             <button onClick={createPuzzle}>Display Puzzle With Words</button>
           )}
+          <label className="hyphens">
+            <input
+              type="checkbox"
+              checked={shouldIncludeHyphens}
+              onChange={(e) => setIncludeHyphens(e.target.checked)}
+            />
+            Include hyphens (needed for Sílabas but not Ortografía)
+          </label>
         </>
       )}
       {puzzle && (
         <>
-          <Game todayString="" puzzle={puzzle} />
+          <Game todayString="" puzzle={puzzle} onWin={() => {}} />
           <textarea value={JSON.stringify({ date: "", puzzle })} readOnly />
         </>
       )}

@@ -41,6 +41,10 @@
         cursor: pointer;
         padding: 8px;
       }
+
+      .description {
+        min-height: 39px;
+      }
     }
 
     &.objeto-oculto {
@@ -60,6 +64,16 @@
 
       button {
         background-color: var(--yellow-light);
+      }
+    }
+
+    &.ortografia {
+      .card-header {
+        background-color: var(--pink-400);
+      }
+
+      button {
+        background-color: var(--pink-400);
       }
     }
 
@@ -101,6 +115,10 @@
   img {
     width: 80px;
     vertical-align: middle;
+  }
+
+  li {
+    padding: 4px 0;
   }
 }
 
