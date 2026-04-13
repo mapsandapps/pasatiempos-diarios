@@ -58,9 +58,16 @@ export default function OrtografiaSpellingGame(
       return;
     }
 
-    const letterAudio = new Audio(
-      `/alphabet-audio/${word[letterBeingPlayed]}.mp3`,
-    );
+    var letterToPlay = word[letterBeingPlayed];
+    if (letterToPlay === "á") letterToPlay = "a";
+    if (letterToPlay === "é") letterToPlay = "e";
+    if (letterToPlay === "í") letterToPlay = "i";
+    if (letterToPlay === "ó") letterToPlay = "o";
+    if (letterToPlay === "ú") letterToPlay = "u";
+    if (letterToPlay === "ü") letterToPlay = "u";
+
+    const path = `/alphabet-audio/${letterToPlay}.mp3`;
+    const letterAudio = new Audio(path);
 
     letterAudio.onended = () => {
       delay(
@@ -99,12 +106,24 @@ export default function OrtografiaSpellingGame(
     }
   };
 
+  const removeAccentsAndCaps = (input: string) => {
+    input = input
+      .replace(/á/g, "a")
+      .replace(/é/g, "e")
+      .replace(/í/g, "i")
+      .replace(/ó/g, "o")
+      .replace(/ú/g, "u")
+      .replace(/ü/g, "u");
+    return input.toLowerCase();
+  };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
 
+    // since the game objective is spelling from audio, accept un-accented characters
     if (
-      e.target.value.toLowerCase() ===
-      inProgressPuzzle[currentWord].spanishWord.toLowerCase()
+      removeAccentsAndCaps(e.target.value) ===
+      removeAccentsAndCaps(inProgressPuzzle[currentWord].spanishWord)
     ) {
       // move on to next word
       setInProgressPuzzle((prevPuzzle) => {

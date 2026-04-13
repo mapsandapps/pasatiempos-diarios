@@ -26,24 +26,43 @@ export default function OrtografiaWord(props: OrtografiaWordProps) {
       key={word.spanishWord}
     >
       <pre>
-        {word.spanishWord.split("").map((letter, i) => {
+        {word.spanishWord.split("").map((correctLetter, i) => {
           // for words above active word, show the word
           if (isCompletedWord) {
-            return <span key={`${word.spanishWord}-${i}`}>{letter}</span>;
+            return (
+              <span key={`${word.spanishWord}-${i}`}>{correctLetter}</span>
+            );
           }
+
+          const currentLetter = currentInput[i];
 
           // for the active word, show correct & incorrect letters
           if (isActiveWord) {
-            if (
-              word.spanishWord[i]?.toLowerCase() ===
-              currentInput[i]?.toLowerCase()
+            if (correctLetter?.toLowerCase() === currentLetter?.toLowerCase()) {
+              return (
+                <span key={`${word.spanishWord}-${i}`}>{correctLetter} </span>
+              );
+            } else if (
+              // since the game objective is spelling from audio, accept un-accented characters
+              (correctLetter === "á" && currentLetter === "a") ||
+              (correctLetter === "é" && currentLetter === "e") ||
+              (correctLetter === "í" && currentLetter === "i") ||
+              (correctLetter === "ó" && currentLetter === "o") ||
+              (correctLetter === "ú" && currentLetter === "u") ||
+              (correctLetter === "ü" && currentLetter === "u")
             ) {
-              return <span key={`${word.spanishWord}-${i}`}>{letter} </span>;
-            } else if (currentInput[i]) {
+              return (
+                <>
+                  <span key={`${word.spanishWord}-${i}`}>
+                    {correctLetter}
+                  </span>{" "}
+                </>
+              );
+            } else if (currentLetter) {
               return (
                 <>
                   <span className="incorrect" key={`${word.spanishWord}-${i}`}>
-                    {currentInput[i]}
+                    {currentLetter}
                   </span>{" "}
                 </>
               );
