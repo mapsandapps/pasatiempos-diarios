@@ -5,7 +5,7 @@ import "../GamePage.scss";
 import { getPuzzleForDate, getTodayString } from "../utils/dates";
 import { useEffect, useState } from "react";
 import { GameString } from "../types";
-import OrtografiaSpellingGame from "./OrtografiaGame";
+import OrtografiaSpellingGame from "./OrtografiaSpellingGame";
 import OrtografiaMatchingGame from "./OrtografiaMatchingGame";
 import Win from "../components/Win";
 import type { RawPuzzle } from "../types";
