@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Generator.scss";
 import { words as wordList } from "./words";
 import { join, sample } from "lodash";
