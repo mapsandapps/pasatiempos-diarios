@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FocusEvent,
+} from "react";
 import "./OrtografiaGame.scss";
 import { delay } from "lodash";
 import type { OrtografiaPuzzle } from "./types";
@@ -15,6 +21,7 @@ interface OrtografiaGameProps {
 export default function OrtografiaGame(props: OrtografiaGameProps) {
   const { onCompleteSpellingStage, puzzle } = props;
 
+  const [audioHasPlayed, setAudioPlayed] = useState(false);
   const [inProgressPuzzle, setInProgressPuzzle] = useState(puzzle);
   // index of the letter whose audio is currently being played
   // set to -1 when not playing; set to 0 to start playing
@@ -66,7 +73,10 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
       );
     };
 
-    letterAudio.play().catch((error) => console.error("audio failed", error));
+    letterAudio
+      .play()
+      .then(() => setAudioPlayed(true))
+      .catch((error) => console.error("audio failed", error));
 
     return () => {
       letterAudio.pause();
@@ -111,6 +121,13 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
     }
   };
 
+  const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
+    // the first time the input field is focused, the audio should start playing
+    if (letterBeingPlayed < 0 && !audioHasPlayed) {
+      playWord(currentWord, 300);
+    }
+  };
+
   return (
     <div className="ortografia-game">
       <div id="game">
@@ -128,6 +145,7 @@ export default function OrtografiaGame(props: OrtografiaGameProps) {
             ref={inputRef}
             value={input}
             onChange={handleInputChange}
+            onFocus={handleFocus}
             lang="es"
             maxLength={inProgressPuzzle[currentWord]?.spanishWord.length || 0}
           />

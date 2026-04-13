@@ -5,11 +5,15 @@ import * as d3 from "d3";
 
 const CABLE_SEGMENTS = 5;
 
-export function useCable() {
+export function useCable(cableColors: string[] = [...d3.schemeCategory10]) {
   const svgRef = useRef(null);
   const cableRef = useRef(null); // active cable being dragged
-  const colorIndex = useRef(0); // tracks which color to use next
-  const cablesRef = useRef([]);
+  const cablesRef: any[] = useRef([]);
+
+  const getNextColor = useCallback(() => {
+    const usedColors = cablesRef.current.map((cable) => cable.attr("stroke"));
+    return cableColors.find((color) => !usedColors.includes(color));
+  }, [cablesRef.current, cableColors]);
 
   // stable line drawer — defined once, shared across all cables
   const lineDrawer = useRef(
@@ -20,19 +24,16 @@ export function useCable() {
       .curve(d3.curveBasis),
   );
 
-  // TODO: change where the "far end" of the cable starts
   const startCable = useCallback(
     (
       cableStartX: number,
       cableStartY: number,
       cableEndX?: number,
       cableEndY?: number,
-      color?: string,
     ) => {
       const svg = d3.select(svgRef.current);
-      const i = colorIndex.current;
       const draw = lineDrawer.current;
-      const stroke = color || d3.schemeCategory10[i % 10];
+      const stroke = getNextColor();
 
       const c = svg
         .append("path")
@@ -62,7 +63,6 @@ export function useCable() {
       c.datum({ nodes, sim });
       cablesRef.current.push(c);
       cableRef.current = c;
-      colorIndex.current = i + 1;
     },
     [],
   );

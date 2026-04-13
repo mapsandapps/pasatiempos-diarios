@@ -8,15 +8,6 @@ import type { OrtographiaPair, OrtografiaPuzzle } from "./types";
 import Srand from "seeded-rand";
 import { useCable } from "../utils/useCable";
 
-const computedStyle = getComputedStyle(document.documentElement);
-const CABLE_COLORS = [
-  computedStyle.getPropertyValue("--blue-500"),
-  computedStyle.getPropertyValue("--purple-500"),
-  computedStyle.getPropertyValue("--pink-500"),
-  computedStyle.getPropertyValue("--orange-500"),
-  computedStyle.getPropertyValue("--green-500"),
-];
-
 interface OrtografiaMatchingGameProps {
   todayString: string;
   puzzle: OrtografiaPuzzle;
@@ -24,6 +15,17 @@ interface OrtografiaMatchingGameProps {
   isDailyPuzzle: boolean;
   onWin: () => void;
 }
+
+const computedStyle = window.getComputedStyle(
+  document.getElementById("root") || document.documentElement,
+);
+const CABLE_COLORS = [
+  computedStyle.getPropertyValue("--blue-400"),
+  computedStyle.getPropertyValue("--purple-400"),
+  computedStyle.getPropertyValue("--yellow-light"),
+  computedStyle.getPropertyValue("--orange-400"),
+  computedStyle.getPropertyValue("--green-400"),
+];
 
 export default function OrtografiaMatchingGame(
   props: OrtografiaMatchingGameProps,
@@ -40,10 +42,9 @@ export default function OrtografiaMatchingGame(
     useState<string>();
   const [matchedPairs, setMatchedPairs] = useState<OrtographiaPair[]>([]);
 
-  const { svgRef, endCable, removeCable, startCable } = useCable();
+  const { svgRef, endCable, removeCable, startCable } = useCable(CABLE_COLORS);
 
   const win = () => {
-    // TODO: make sure you can't interact with anything when `hasWon` is true
     setHasWon(true);
     onWin();
 
@@ -81,8 +82,6 @@ export default function OrtografiaMatchingGame(
         if (!word.isCorrect) {
           // remove from matchedPairs
           removePairFromArray(word.spanishWord);
-
-          // TODO: animate cables
         }
       }
     }
@@ -186,7 +185,6 @@ export default function OrtografiaMatchingGame(
             bBox.top + bBox.height / 2,
             gameBBox.left + gameBBox.width / 2,
             gameBBox.bottom - 8,
-            CABLE_COLORS[matchedPairs.length],
           );
         }
       }
@@ -229,9 +227,8 @@ export default function OrtografiaMatchingGame(
           startCable(
             bBox.left - 1,
             bBox.top + bBox.height / 2,
-            gameBBox.width / 2,
-            gameBBox.height - 8,
-            CABLE_COLORS[matchedPairs.length],
+            gameBBox.left + gameBBox.width / 2,
+            gameBBox.bottom - 8,
           );
         }
       }
@@ -290,6 +287,7 @@ export default function OrtografiaMatchingGame(
                   isActive && "active",
                   isPaired ? "animate__pulse paired" : "animate__headShake",
                 )}
+                disabled={hasWon}
                 key={definition}
               >
                 {definition}
