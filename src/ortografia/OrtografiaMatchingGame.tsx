@@ -4,9 +4,12 @@ import "animate.css";
 import { addDateToLocalStorage } from "../utils/localstorage";
 import { GameString } from "../types";
 import clsx from "clsx";
-import type { OrtographiaPair, OrtografiaPuzzle } from "./types";
+import type {
+  OrtographiaPair,
+  OrtografiaPuzzle,
+  OrtographiaCardColor,
+} from "./types";
 import Srand from "seeded-rand";
-import { useCable } from "../utils/useCable";
 
 interface OrtografiaMatchingGameProps {
   todayString: string;
@@ -19,13 +22,68 @@ interface OrtografiaMatchingGameProps {
 const computedStyle = window.getComputedStyle(
   document.getElementById("root") || document.documentElement,
 );
-const CABLE_COLORS = [
-  computedStyle.getPropertyValue("--blue-400"),
-  computedStyle.getPropertyValue("--purple-400"),
-  computedStyle.getPropertyValue("--yellow-light"),
-  computedStyle.getPropertyValue("--orange-400"),
-  computedStyle.getPropertyValue("--green-400"),
+const COLORS = {
+  blue200: computedStyle.getPropertyValue("--blue-200"),
+  blue300: computedStyle.getPropertyValue("--blue-300"),
+  green200: computedStyle.getPropertyValue("--green-200"),
+  green300: computedStyle.getPropertyValue("--green-300"),
+  orange200: computedStyle.getPropertyValue("--orange-200"),
+  orange300: computedStyle.getPropertyValue("--orange-300"),
+  purple200: computedStyle.getPropertyValue("--purple-200"),
+  purple300: computedStyle.getPropertyValue("--purple-300"),
+  yellow: computedStyle.getPropertyValue("--yellow"),
+  yellowLight: computedStyle.getPropertyValue("--yellow-light"),
+};
+const CARD_COLORS: OrtographiaCardColor[] = [
+  "purple",
+  "yellow",
+  "blue",
+  "orange",
+  "green",
 ];
+const CARD_BORDERS = {
+  blue: COLORS.blue300,
+  green: COLORS.green300,
+  orange: COLORS.orange300,
+  purple: COLORS.purple300,
+  yellow: COLORS.yellow,
+};
+const CARD_PATTERNS = {
+  purple: `repeating-radial-gradient(circle,
+    ${COLORS.purple200},
+    ${COLORS.purple200} 10px,
+    ${COLORS.purple300} 10px,
+    ${COLORS.purple300} 20px
+  )`,
+  yellow: `repeating-linear-gradient(
+    45deg,
+    ${COLORS.yellow},
+    ${COLORS.yellow} 10px,
+    ${COLORS.yellowLight} 10px,
+    ${COLORS.yellowLight} 20px
+  )`,
+  blue: `repeating-linear-gradient(
+    -45deg,
+    ${COLORS.blue200},
+    ${COLORS.blue200} 10px,
+    ${COLORS.blue300} 10px,
+    ${COLORS.blue300} 20px
+  )`,
+  orange: `repeating-linear-gradient(
+    to right,
+    ${COLORS.orange300},
+    ${COLORS.orange300} 10px,
+    ${COLORS.orange200} 10px,
+    ${COLORS.orange200} 20px
+  )`,
+  green: `repeating-linear-gradient(
+    to bottom,
+    ${COLORS.green200},
+    ${COLORS.green200} 50%,
+    ${COLORS.green300} 50%,
+    ${COLORS.green300}
+  )`,
+};
 
 export default function OrtografiaMatchingGame(
   props: OrtografiaMatchingGameProps,
@@ -42,7 +100,13 @@ export default function OrtografiaMatchingGame(
     useState<string>();
   const [matchedPairs, setMatchedPairs] = useState<OrtographiaPair[]>([]);
 
-  const { svgRef, endCable, removeCable, startCable } = useCable(CABLE_COLORS);
+  const getNextColor = () => {
+    const usedColors = matchedPairs.map((pair) => pair.color);
+
+    return (
+      CARD_COLORS.find((color) => !usedColors.includes(color)) || CARD_COLORS[0]
+    );
+  };
 
   const win = () => {
     setHasWon(true);
@@ -93,6 +157,7 @@ export default function OrtografiaMatchingGame(
       {
         spanish,
         english,
+        color: getNextColor(),
       },
     ]);
     setInProgressMatchSpanish(undefined);
@@ -102,12 +167,6 @@ export default function OrtografiaMatchingGame(
 
   const removePairFromArray = (spanish?: string, english?: string) => {
     if (spanish) {
-      // remove cables
-      const pairIndex = matchedPairs.findIndex(
-        (pair) => pair.spanish === spanish,
-      );
-      if (pairIndex !== -1) removeCable(pairIndex);
-
       setMatchedPairs((prevItems) =>
         prevItems.filter((item) => item.spanish !== spanish),
       );
@@ -115,11 +174,6 @@ export default function OrtografiaMatchingGame(
       setCorrect(false, spanish);
     }
     if (english) {
-      const pairIndex = matchedPairs.findIndex(
-        (pair) => pair.english === english,
-      );
-      if (pairIndex !== -1) removeCable(pairIndex);
-
       setMatchedPairs((prevItems) =>
         prevItems.filter((item) => item.english !== english),
       );
@@ -154,10 +208,7 @@ export default function OrtografiaMatchingGame(
     });
   };
 
-  const onClickSpanish = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    word: string,
-  ) => {
+  const onClickSpanish = (word: string) => {
     if (hasWon) return;
 
     // if the word clicked is already in `matchedPairs`, remove pair and start fresh
@@ -170,36 +221,18 @@ export default function OrtografiaMatchingGame(
     if (inProgressMatchSpanish === word) {
       setInProgressMatchSpanish(undefined);
 
-      // remove in-progress cable
-      removeCable();
       return;
     } else {
       setInProgressMatchSpanish(word);
-
-      if (!inProgressMatchEnglish) {
-        if (gameRef.current) {
-          const gameBBox = gameRef.current.getBoundingClientRect();
-          startCable(
-            e.currentTarget,
-            "right",
-            gameBBox.left + gameBBox.width / 2,
-            gameBBox.bottom - 8,
-          );
-        }
-      }
     }
 
     if (inProgressMatchEnglish) {
       // add to array
       addPairToArray(word, inProgressMatchEnglish);
-      endCable(e.currentTarget, "right");
     }
   };
 
-  const onClickEnglish = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    word: string,
-  ) => {
+  const onClickEnglish = (word: string) => {
     if (hasWon) return;
 
     // if the word clicked is already in `matchedPairs`, remove pair and start fresh
@@ -211,30 +244,14 @@ export default function OrtografiaMatchingGame(
     // if the word clicked is the active one, make it unactive
     if (inProgressMatchEnglish === word) {
       setInProgressMatchEnglish(undefined);
-
-      // remove in-progress cable
-      removeCable();
       return;
     } else {
       setInProgressMatchEnglish(word);
-
-      if (!inProgressMatchSpanish) {
-        if (gameRef.current) {
-          const gameBBox = gameRef.current.getBoundingClientRect();
-          startCable(
-            e.currentTarget,
-            "left",
-            gameBBox.left + gameBBox.width / 2,
-            gameBBox.bottom - 8,
-          );
-        }
-      }
     }
 
     if (inProgressMatchSpanish) {
       // add to array
       addPairToArray(inProgressMatchSpanish, word);
-      endCable(e.currentTarget, "left");
     }
   };
 
@@ -243,56 +260,73 @@ export default function OrtografiaMatchingGame(
       className={clsx("ortografia-matching-game", hasWon && "game-over")}
       ref={gameRef}
     >
+      <div className="objective">Match the words to their definitions</div>
       <div id="game">
         <div className="spanish-column">
           {inProgressPuzzle.map((word) => {
-            const isPaired = matchedPairs
-              .map((pair) => pair.spanish)
-              .includes(word.spanishWord);
+            const pair = matchedPairs.find(
+              (pair) => pair.spanish === word.spanishWord,
+            );
+            const isPaired = Boolean(pair);
             const isActive = inProgressMatchSpanish === word.spanishWord;
 
             return (
-              <button
-                onClick={(e) => onClickSpanish(e, word.spanishWord)}
+              <div
+                onClick={() => onClickSpanish(word.spanishWord)}
                 className={clsx(
                   "card animate__animated",
                   isActive && "active",
                   isPaired ? "animate__pulse paired" : "animate__headShake",
+                  hasWon && "disabled",
                 )}
-                disabled={hasWon}
+                style={{
+                  background: isActive
+                    ? CARD_BORDERS[getNextColor()]
+                    : isPaired
+                      ? CARD_PATTERNS[pair!.color]
+                      : "white",
+                  borderColor: isPaired ? CARD_BORDERS[pair!.color] : "white",
+                }}
                 key={word.spanishWord}
               >
-                {word.spanishWord}
-              </button>
+                <div className="inside">{word.spanishWord}</div>
+              </div>
             );
           })}
         </div>
-        <div className="spacer" />
         <div className="english-column">
           {definitions.map((definition) => {
-            const isPaired = matchedPairs
-              .map((pair) => pair.english)
-              .includes(definition);
+            const pair = matchedPairs.find(
+              (pair) => pair.english === definition,
+            );
+            const isPaired = Boolean(pair);
             const isActive = inProgressMatchSpanish === definition;
 
             return (
-              <button
-                onClick={(e) => onClickEnglish(e, definition)}
+              <div
+                onClick={() => onClickEnglish(definition)}
                 className={clsx(
                   "card animate__animated",
                   isActive && "active",
                   isPaired ? "animate__pulse paired" : "animate__headShake",
+                  hasWon && "disabled",
                 )}
-                disabled={hasWon}
+                style={{
+                  background: isActive
+                    ? CARD_BORDERS[getNextColor()]
+                    : isPaired
+                      ? CARD_PATTERNS[pair!.color]
+                      : "white",
+                  borderColor: isPaired ? CARD_BORDERS[pair!.color] : "white",
+                }}
                 key={definition}
               >
-                {definition}
-              </button>
+                <div className="inside">{definition}</div>
+              </div>
             );
           })}
         </div>
       </div>
-      <svg id="cables" ref={svgRef} />
     </div>
   );
 }

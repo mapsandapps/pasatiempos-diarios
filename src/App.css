@@ -3,10 +3,10 @@
   /* in theory, a 400-point difference is 3:1 contrast ratio, a 500-point difference is 4.5:1, and a 600-point difference is 7:1 */
   /* --blue-050: #e9f4fb; */
   --blue-100: #d5e9f7;
-  /* --blue-200: #badbf2; */
+  --blue-200: #badbf2;
   --blue-300: #92c5ea;
   --blue-350: #6cb2e4;
-  --blue-400: #3e99db;
+  /* --blue-400: #3e99db; */
   /* --blue-450: #278ad2; */
   /* --blue-500: #237ab9; */
   --blue-550: #1e6aa1;
@@ -20,7 +20,7 @@
   --purple-200: #e2d2de;
   --purple-300: #d1b8ca;
   --purple-350: #c2a1b9;
-  --purple-400: #b185a5;
+  /* --purple-400: #b185a5; */
   /* --purple-450: #a77599; */
   /* --purple-500: #9b638c; */
   --purple-550: #865679;
@@ -46,10 +46,10 @@
   /* --pink-950: #27070b; */
   /* --orange-050: #ffefe4; */
   /* --orange-100: #fee1ca; */
-  /* --orange-200: #fecda7; */
-  /* --orange-300: #fdad70; */
+  --orange-200: #fecda7;
+  --orange-300: #fdad70;
   --orange-350: #fc8e3a;
-  --orange-400: #f06a04;
+  /* --orange-400: #f06a04; */
   /* --orange-450: #da6103; */
   /* --orange-500: #c05503; */
   /* --orange-550: #a74a03; */
@@ -61,7 +61,7 @@
   /* --green-050: #e7f5f1; */
   /* --green-100: #d1ece5; */
   --green-200: #b4dfd4;
-  /* --green-300: #87ccba; */
+  --green-300: #87ccba;
   /* --green-350: #5ebba2; */
   --green-400: #45a289;
   /* --green-450: #3e937c; */
@@ -87,8 +87,8 @@
   /* --gray-900: #1f2428; */
   /* --gray-950: #101214; */
   --success: #15bc15;
-  --yellow: #eeb711;
-  --yellow-light: #f5d46f;
+  --yellow: #eeb711; /* 300 */
+  --yellow-light: #f5d46f; /* 200 */
   --brand: #bb0000;
 
   --title-font: "Barriecito", system-ui;
