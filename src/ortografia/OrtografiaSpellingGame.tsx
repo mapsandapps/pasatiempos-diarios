@@ -165,15 +165,34 @@ export default function OrtografiaSpellingGame(
             maxLength={inProgressPuzzle[currentWord]?.spanishWord.length || 0}
           />
         </div>
-        {inProgressPuzzle.map((word, i) => (
-          <Word
-            key={word.spanishWord}
-            word={word}
-            wordIndex={i}
-            activeIndex={currentWord}
-            currentInput={input}
-          />
-        ))}
+        {/* display current word first, then future words */}
+        {inProgressPuzzle.map((word, i) => {
+          if (i < currentWord) return;
+
+          return (
+            <Word
+              key={word.spanishWord}
+              word={word}
+              wordIndex={i}
+              activeIndex={currentWord}
+              currentInput={input}
+            />
+          );
+        })}
+        {/* display completed words last */}
+        {inProgressPuzzle.map((word, i) => {
+          if (i >= currentWord) return;
+
+          return (
+            <Word
+              key={word.spanishWord}
+              word={word}
+              wordIndex={i}
+              activeIndex={currentWord}
+              currentInput={input}
+            />
+          );
+        })}
       </div>
     </div>
   );
