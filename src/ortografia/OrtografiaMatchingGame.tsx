@@ -177,12 +177,11 @@ export default function OrtografiaMatchingGame(
       setInProgressMatchSpanish(word);
 
       if (!inProgressMatchEnglish) {
-        const bBox = e.currentTarget.getBoundingClientRect();
         if (gameRef.current) {
           const gameBBox = gameRef.current.getBoundingClientRect();
           startCable(
-            bBox.right + 1,
-            bBox.top + bBox.height / 2,
+            e.currentTarget,
+            "right",
             gameBBox.left + gameBBox.width / 2,
             gameBBox.bottom - 8,
           );
@@ -193,8 +192,7 @@ export default function OrtografiaMatchingGame(
     if (inProgressMatchEnglish) {
       // add to array
       addPairToArray(word, inProgressMatchEnglish);
-      const bBox = e.currentTarget.getBoundingClientRect();
-      endCable(bBox.right + 1, bBox.top + bBox.height / 2);
+      endCable(e.currentTarget, "right");
     }
   };
 
@@ -221,12 +219,11 @@ export default function OrtografiaMatchingGame(
       setInProgressMatchEnglish(word);
 
       if (!inProgressMatchSpanish) {
-        const bBox = e.currentTarget.getBoundingClientRect();
         if (gameRef.current) {
           const gameBBox = gameRef.current.getBoundingClientRect();
           startCable(
-            bBox.left - 1,
-            bBox.top + bBox.height / 2,
+            e.currentTarget,
+            "left",
             gameBBox.left + gameBBox.width / 2,
             gameBBox.bottom - 8,
           );
@@ -237,8 +234,7 @@ export default function OrtografiaMatchingGame(
     if (inProgressMatchSpanish) {
       // add to array
       addPairToArray(inProgressMatchSpanish, word);
-      const bBox = e.currentTarget.getBoundingClientRect();
-      endCable(bBox.left - 1, bBox.top + bBox.height / 2);
+      endCable(e.currentTarget, "left");
     }
   };
 
