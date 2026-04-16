@@ -15,6 +15,7 @@
     margin: 0.5rem;
     display: block;
     text-transform: capitalize;
+    border: 3px inset transparent;
 
     &.paired {
       border: 3px inset #ccc;
